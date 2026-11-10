@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTEUP CSE — Information Security Practical Lab Manual</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --surface:#ffffff; --text:#1b2330; --muted:#5b6474;
+    --accent:#1d5fae; --accent-2:#0d7a5f; --border:#dde3ec;
+    --official:#1d5fae; --extra:#c76b00; --code-bg:#0f172a; --code-text:#e2e8f0;
+    --warn-bg:#fff4e5; --warn-border:#e8a33d; --danger-bg:#fdeaea; --danger-border:#d9534f;
+  }
+  [data-theme="dark"]{
+    --bg:#10141c; --surface:#1a202c; --text:#e7ecf3; --muted:#9aa5b4;
+    --accent:#5b9bf0; --accent-2:#39c29a; --border:#2b3344;
+    --official:#5b9bf0; --extra:#f0a94e; --code-bg:#05070b; --code-text:#d8e2f0;
+    --warn-bg:#2a2410; --warn-border:#a9792f; --danger-bg:#2a1414; --danger-border:#a94b4b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  header.cover{padding:48px 20px 32px;text-align:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;}
+  header.cover h1{margin:0 0 6px;font-size:1.7rem;}
+  header.cover p{margin:4px 0;opacity:.95;}
+  .toolbar{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);
+    padding:10px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .toolbar input[type=text]{flex:1;min-width:140px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;
+    background:var(--bg);color:var(--text);}
+  button{cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);
+    padding:8px 12px;border-radius:6px;font-size:.9rem;}
+  button:hover{border-color:var(--accent);}
+  main{max-width:960px;margin:0 auto;padding:16px;}
+  nav.toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;}
+  nav.toc h2{margin-top:0;font-size:1.1rem;}
+  nav.toc ol{padding-left:20px;}
+  nav.toc a{color:var(--accent);text-decoration:none;}
+  section.practical{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:18px;margin:20px 0;scroll-margin-top:70px;}
+  section.practical > h2{margin-top:0;font-size:1.25rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .badge{font-size:.7rem;padding:3px 8px;border-radius:12px;font-weight:600;color:#fff;}
+  .badge.official{background:var(--official);}
+  .badge.extra{background:var(--extra);}
+  .check{transform:scale(1.3);margin-right:8px;cursor:pointer;}
+  details.level{border:1px solid var(--border);border-radius:8px;margin:10px 0;padding:0;background:var(--bg);}
+  details.level > summary{cursor:pointer;padding:10px 14px;font-weight:600;list-style:none;}
+  details.level > summary::-webkit-details-marker{display:none;}
+  details.level > summary::before{content:"▶ ";color:var(--accent);}
+  details.level[open] > summary::before{content:"▼ ";}
+  .level-body{padding:4px 16px 14px;}
+  .trio{border-left:3px solid var(--accent);padding:8px 12px;margin:10px 0;background:var(--surface);border-radius:0 6px 6px 0;}
+  .trio h4{margin:6px 0 2px;font-size:.85rem;color:var(--accent);}
+  .hinglish{border-left-color:var(--accent-2);}
+  .hinglish h4{color:var(--accent-2);}
+  .example h4{color:var(--muted);}
+  pre{background:var(--code-bg);color:var(--code-text);padding:12px;border-radius:8px;overflow-x:auto;position:relative;font-size:.85rem;}
+  code{font-family:Consolas,monospace;}
+  .code-wrap{position:relative;}
+  .copy-btn{position:absolute;top:6px;right:6px;font-size:.7rem;padding:4px 8px;}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem;}
+  th,td{border:1px solid var(--border);padding:6px 8px;text-align:left;}
+  th{background:var(--bg);}
+  .note{background:var(--warn-bg);border:1px solid var(--warn-border);padding:10px 12px;border-radius:8px;margin:10px 0;}
+  .danger{background:var(--danger-bg);border:1px solid var(--danger-border);padding:10px 12px;border-radius:8px;margin:10px 0;}
+  .viva{border:1px dashed var(--border);border-radius:8px;padding:8px 12px;margin:6px 0;}
+  .viva summary{cursor:pointer;font-weight:600;}
+  ol li, ul li{margin:4px 0;}
+  footer{text-align:center;padding:30px 10px;color:var(--muted);font-size:.85rem;}
+  #backtop{position:fixed;bottom:20px;right:20px;border-radius:50%;width:44px;height:44px;display:none;z-index:60;}
+  .hidden{display:none !important;}
+  @media print{
+    .toolbar,#backtop{display:none !important;}
+    [data-theme="dark"]{--bg:#fff;--surface:#fff;--text:#000;--code-bg:#f1f1f1;--code-text:#000;--border:#999;}
+    section.practical{break-inside:avoid-page;}
+    details.level{display:block !important;}
+    details.level > summary::before{content:"";}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <h1>Information Security — Complete Practical Lab Manual</h1>
+  <p>BTEUP Diploma — Computer Science &amp; Engineering (CSE)</p>
+  <p>Practical Record &amp; Viva Preparation Guide — Windows 10/11 Edition</p>
+  <p style="font-size:.85rem;">Simple English + Hinglish • Beginner → Advanced • Offline, single-file HTML</p>
+</header>
+
+<div class="toolbar">
+  <input type="text" id="searchBox" placeholder="🔍 Search topics, terms, commands...">
+  <button id="themeBtn">🌓 Theme</button>
+  <button id="printBtn">🖨️ Print / Save PDF</button>
+  <span id="progressLabel" style="font-size:.8rem;color:var(--muted);">0 / 8 done</span>
+</div>
+
+<main>
+
+<nav class="toc">
+  <h2>📑 Table of Contents</h2>
+  <ol>
+    <li><a href="#p1">Practical 1 — Windows Operating System Security</a></li>
+    <li><a href="#p2">Practical 2 — Windows Password Recovery (Authorized Lab Only)</a></li>
+    <li><a href="#p3">Practical 3 — Tracing Email Origin</a></li>
+    <li><a href="#p4">Practical 4 — Keylogger &amp; Anti-Keylogger Concepts</a></li>
+    <li><a href="#p5">Practical 5 — Transposition / Permutation Cipher</a></li>
+    <li><a href="#p6">Practical 6 — Caesar Cipher &amp; 3×3 Hill Cipher</a></li>
+    <li><a href="#p7">Practical 7 — Digital Signature using a Cryptographic Tool</a></li>
+    <li><a href="#p8">Practical 8 — Steganography using Steghide</a></li>
+    <li><a href="#troubleshoot">Troubleshooting Guide (All Practicals)</a></li>
+    <li><a href="#advanced">🟠 Advanced / Extra Knowledge Section</a></li>
+  </ol>
+  <p class="note">⚠️ This manual never shows how to bypass real logins, steal passwords, build working keyloggers, or spy on anyone. Every risky topic is taught with <b>safe, fictional, lab-only</b> demonstrations. Real security tools must only be used on your own PC or a PC your institute has clearly authorized.</p>
+</nav>
+
+<!-- ======================= PRACTICAL 1 ======================= -->
+<section class="practical" id="p1" data-title="Practical 1 Windows Operating System Security Microsoft Defender Firewall User Account Control">
+<h2><input type="checkbox" class="check" data-id="p1"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 1 — Knowledge of Security Provided by Windows Operating System</h2>
+
+<p><b>Aim:</b> To study and observe the built-in security features of the Windows operating system (Microsoft Defender, Firewall, Updates, User Accounts, File Permissions) on your own Windows 10/11 PC.</p>
+<p><b>Objectives:</b></p>
+<ul>
+  <li>Understand what "Operating System Security" means.</li>
+  <li>Identify the difference between a Standard user and an Administrator.</li>
+  <li>Open and explore the Windows Security app.</li>
+  <li>Observe file permissions on a sample file.</li>
+  <li>Record genuine, truthful observations from your own PC.</li>
+</ul>
+
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+
+<div class="trio">
+<h4>A. Simple English</h4>
+<p><b>Operating System Security</b> means the set of built-in tools an OS (like Windows) provides to protect your data, your identity, and your computer from unauthorized access, viruses, and misuse.</p>
+</div>
+<div class="trio hinglish">
+<h4>B. Hinglish</h4>
+<p>Operating System Security ka matlab hai — Windows apne andar kuch "suraksha ke tools" leke aata hai, jaise ek ghar mein taala, CCTV, aur guard hota hai. Yeh tools aapke data aur PC ko hackers, virus, aur galat logon se bachate hain.</p>
+</div>
+<div class="trio example">
+<h4>C. Real-life example</h4>
+<p>Jaise college computer lab mein har student ka alag login account hota hai (Standard user), aur sirf lab-incharge ke paas Administrator password hota hai jo software install kar sakta hai — yeh ek "access control" ka real example hai.</p>
+</div>
+
+<p><b>Important terms:</b></p>
+<table>
+<tr><th>Term</th><th>Simple meaning</th></tr>
+<tr><td>Administrator account</td><td>Full control account — can install software, change settings, manage other users.</td></tr>
+<tr><td>Standard user account</td><td>Limited account — can use apps but cannot change system-wide settings.</td></tr>
+<tr><td>Microsoft Defender Antivirus</td><td>Windows' built-in free antivirus and anti-malware engine.</td></tr>
+<tr><td>Firewall</td><td>A filter that controls which network traffic is allowed in/out of your PC.</td></tr>
+<tr><td>Windows Update</td><td>Mechanism that delivers security patches to fix known vulnerabilities.</td></tr>
+<tr><td>File permission</td><td>Rule that decides who can read/write/execute a specific file or folder.</td></tr>
+</table>
+
+<p><b>Requirements:</b> A Windows 10 or 11 PC with at least a Standard user login; no extra software needed (all tools are built-in).</p>
+
+<p><b>Simple exercise:</b> Press <code>Win</code> key → type "Windows Security" → press Enter. Just look at the home screen and note the green ✔ marks.</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2 — INTERMEDIATE (Step-by-step Procedure)</summary>
+<div class="level-body">
+
+<ol>
+<li><b>Open Windows Security:</b> Click Start → type <code>Windows Security</code> → Open. (On some PCs: Settings → Privacy &amp; Security → Windows Security).</li>
+<li><b>Check Virus &amp; threat protection:</b> Click this tile. Note "Last scan" time and whether real-time protection is ON.</li>
+<li><b>Check Firewall &amp; network protection:</b> Click this tile. Note which network profile (Domain/Private/Public) is active and whether the firewall is ON for it.</li>
+<li><b>Check for updates:</b> Settings → Windows Update → Check for updates. Note the Windows version/build number and pending updates.</li>
+<li><b>Identify account type:</b> Settings → Accounts → Your info (shows if you are Administrator), or Settings → Accounts → Family &amp; other users to see all accounts and their type.</li>
+<li><b>Inspect file permissions:</b> Create a test file (e.g. <code>test.txt</code>) on Desktop → Right-click → Properties → Security tab → note listed users/groups and their permissions (Read, Write, Full control).</li>
+<li><b>Review sign-in options:</b> Settings → Accounts → Sign-in options. Note which methods are available (PIN, Password, Windows Hello, Picture password) — availability depends on your hardware.</li>
+<li><b>Record observations</b> in the practical record table below.</li>
+</ol>
+
+<div class="note">Windows 11's Settings layout differs slightly from Windows 10 (e.g., "Windows Update" placement). If a menu item isn't where described, use the Settings search box at the top and type the feature name — this works the same on both versions.</div>
+
+<p><b>Sample Practical-Record Observation (illustrative example — your actual PC may differ):</b></p>
+<table>
+<tr><th>Feature</th><th>Status observed</th></tr>
+<tr><td>Real-time protection</td><td>On</td></tr>
+<tr><td>Firewall (current network)</td><td>On</td></tr>
+<tr><td>Account type</td><td>Standard user</td></tr>
+<tr><td>Windows Update</td><td>Up to date</td></tr>
+<tr><td>test.txt permissions</td><td>Current user: Full control; Administrators: Full control</td></tr>
+</table>
+<p style="font-size:.8rem;color:var(--muted);">⚠ This table is an <b>illustrative example only</b>. Write your own PC's actual observed values in your real practical file.</p>
+
+<p><b>Result:</b> The security features offered by the Windows operating system on the test PC were successfully identified, opened, and recorded.</p>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+  <li><b>"Some settings are managed by your organization"</b> — This appears on college/office PCs because of Group Policy. It is normal; do not try to disable it. Just note it in observations.</li>
+  <li><b>Security tab missing in file Properties</b> — Only appears on NTFS-formatted drives, not FAT32/exFAT. Check drive format via "This PC" → right-click drive → Properties.</li>
+  <li><b>Can't see Administrator option</b> — You may be logged in as a Standard user; this itself is a valid observation about least-privilege design.</li>
+</ul>
+</div>
+</details>
+
+<details class="level">
+<summary>🔴 LEVEL 3 — ADVANCED</summary>
+<div class="level-body">
+<p>🟠 <b>Advanced / Extra Knowledge:</b></p>
+<ul>
+  <li><b>Principle of Least Privilege:</b> Users should only be given the minimum access needed to do their job — this is why most real-world accounts (including student lab accounts) are Standard, not Administrator.</li>
+  <li><b>Device encryption / BitLocker:</b> Available on Windows 11 Pro/Enterprise and many modern devices; encrypts the entire drive so data is unreadable without the recovery key. Availability depends on edition and hardware (TPM chip).</li>
+  <li><b>Secure Boot:</b> A firmware-level (UEFI) feature that only allows digitally signed, trusted boot software to run, blocking boot-level malware (rootkits).</li>
+  <li><b>Endpoint security:</b> In organizations, Windows Defender is often combined with centrally managed tools (Endpoint Detection and Response / EDR) that monitor many PCs at once — this is beyond a single laptop's built-in settings.</li>
+  <li><b>Backup &amp; recovery:</b> File History and "Reset this PC" are Windows' built-in recovery options; in companies, full disk imaging and offsite backups add further protection.</li>
+</ul>
+
+<p><b>Viva Questions &amp; Answers:</b></p>
+<details class="viva"><summary>1. What is the difference between a Standard user and an Administrator account?</summary><p>A Standard user can run applications and change personal settings but cannot install software system-wide or change security settings. An Administrator has full control, including installing software and managing other accounts.</p></details>
+<details class="viva"><summary>2. What is Microsoft Defender?</summary><p>It is Windows' built-in, free antivirus and anti-malware protection that scans files and monitors the system in real time.</p></details>
+<details class="viva"><summary>3. What is a firewall and why is it needed?</summary><p>A firewall filters incoming and outgoing network traffic based on rules, blocking unauthorized connections while allowing legitimate traffic — this is needed to stop network-based attacks.</p></details>
+<details class="viva"><summary>4. Why are security updates important?</summary><p>Updates patch known vulnerabilities that attackers could otherwise exploit; an unpatched system is an easy target.</p></details>
+<details class="viva"><summary>5. What is the Principle of Least Privilege?</summary><p>It states that every user/program should have only the minimum access rights needed to perform its task, reducing the damage possible from mistakes or attacks.</p></details>
+</div>
+</details>
+
+<p><b>Precautions:</b> Do not disable Defender, Firewall, or Updates to "complete" this practical — simply observe and record their current status.</p>
+</section>
+
+<!-- ======================= PRACTICAL 2 ======================= -->
+<section class="practical" id="p2" data-title="Practical 2 Windows Password Recovery John the Ripper hashing authorized lab">
+<h2><input type="checkbox" class="check" data-id="p2"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 2 — Recovery of Windows Machine Passwords Using an Authorized Recovery Utility</h2>
+
+<div class="danger">
+<b>🔒 Security Boundary (read first):</b> This practical only covers (a) Windows' own official account-recovery/reset features on <u>your own device</u>, and (b) the <u>concept</u> of password hashing demonstrated with a self-made fictional sample, in an isolated educational way. It does <b>not</b> explain bypassing a Windows login screen, extracting another person's password hash, or accessing any account you do not own or are not explicitly authorized to administer.
+</div>
+
+<p><b>Aim:</b> To understand password hashing, authentication, and authorized password-recovery/reset procedures, and to study the legitimate purpose of password-auditing tools like John the Ripper.</p>
+
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p><b>Password hashing</b> means converting a password into a scrambled fixed-length code (a "hash") using a one-way mathematical function, so the original password is never stored directly.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Jab aap Windows mein password banate ho, Windows us password ko seedha store nahi karta. Woh password ko ek "hashing function" se guzaar kar ek scrambled code (hash) banata hai aur sirf woh hash store karta hai. Isiliye real password "dikhta" kabhi nahi hai, sirf uska scrambled version store hota hai.</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>Jaise aapke college ID card ka barcode — barcode dekhkar koi seedha aapka naam nahi padh sakta, usko scan karke hi decode hota hai. Password hash bhi kuch aisa hi hai — seedha "ulta" nahi kiya ja sakta.</p></div>
+
+<p><b>Important terms:</b></p>
+<table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Authentication</td><td>Proving you are who you claim to be (e.g., entering correct password).</td></tr>
+<tr><td>Password reset</td><td>Setting a brand-new password when the old one is forgotten (old one is discarded).</td></tr>
+<tr><td>Password recovery</td><td>Regaining access via an officially supported identity-verification process (e.g., email/phone verification for Microsoft accounts).</td></tr>
+<tr><td>Password hash</td><td>The scrambled, fixed-length representation of a password stored instead of the plain password.</td></tr>
+<tr><td>Password-recovery/auditing utility</td><td>A tool (e.g., John the Ripper) that security professionals use, with authorization, to test how strong stored password hashes are.</td></tr>
+</table>
+
+<p><b>Requirements:</b> Your own Windows PC (for reset/recovery demo) OR an isolated lab VM with instructor permission (for the hashing demo). No real credentials of any other person are used anywhere in this practical.</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2 — INTERMEDIATE (Procedure)</summary>
+<div class="level-body">
+
+<p><b>Part A — Reset a local account you own (built-in Windows feature):</b></p>
+<ol>
+<li>On the Windows sign-in screen, click "I forgot my password" (if a password reset disk/key was set up earlier), <i>or</i></li>
+<li>If you are an Administrator on the PC: Settings → Accounts → Family &amp; other users → select the Standard account → Change account type / Reset password (via Local Users and Groups, <code>lusrmgr.msc</code>, Administrator-only).</li>
+<li>Set a new, strong password and sign in to confirm it works.</li>
+</ol>
+
+<p><b>Part B — Recover a Microsoft account (official online process):</b></p>
+<ol>
+<li>Go to Microsoft's official account-recovery page (search "Microsoft account recovery" and use the official account.live.com / account.microsoft.com domain).</li>
+<li>Follow identity-verification steps (alternate email/phone/security questions) exactly as Microsoft's own page instructs.</li>
+<li>Set a new password once verified.</li>
+</ol>
+
+<p><b>Part C — Demonstrating password hashing with a fictional sample (isolated lab/VM only):</b></p>
+<ol>
+<li>Open an isolated lab environment (a sandbox VM or a dedicated practice Linux/Windows lab machine set up by your instructor — never your main PC's real account database).</li>
+<li>Create a fictional sample text file, e.g. <code>demo.txt</code> containing a made-up username and a self-chosen test password such as <code>student123</code> (never a real person's password).</li>
+<li>Use a hashing demonstration (for example, computing a SHA-256 hash of the test password using the free <code>certutil</code> command already built into Windows: <code>certutil -hashfile demo.txt SHA256</code>) to show how the same input always produces the same fixed-length scrambled output.</li>
+<li><b>John the Ripper (overview only):</b> It is a well-known open-source password-auditing tool used by security professionals to test the strength of password hashes they are authorized to test (e.g., checking if a company's stored hashes would resist common dictionary attacks). In this practical we only study its purpose and interface conceptually using self-created fictional sample hashes in an isolated lab — we do not run it against any real Windows account database.</li>
+<li>Record that a hash of the same fictional password always looks the same, but two different fictional passwords give very different hashes (hash "avalanche effect").</li>
+</ol>
+
+<p><b>Sample observation (illustrative, fictional data only):</b></p>
+<table>
+<tr><th>Input (fictional)</th><th>SHA-256 hash (example, illustrative)</th></tr>
+<tr><td>student123</td><td>7b4a...e91f (long fixed-length hex string)</td></tr>
+<tr><td>student124</td><td>completely different hex string — tiny change, huge hash difference</td></tr>
+</table>
+
+<p><b>Result:</b> Password reset/recovery on an owned account was successfully demonstrated, and the concept of one-way password hashing was observed using fictional sample data.</p>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+<li><b>"Reset password" option greyed out</b> — You need Administrator rights; ask the authorized lab administrator.</li>
+<li><b>Microsoft recovery says "we couldn't verify your identity"</b> — This is Microsoft's own anti-abuse protection; follow the alternate verification steps it offers (this exists precisely to stop unauthorized account takeover).</li>
+<li><b>certutil command not recognized</b> — Make sure you are using Command Prompt (not PowerShell with restricted execution), run as the same user, and check spelling exactly.</li>
+</ul>
+</div>
+</details>
+
+<details class="level">
+<summary>🔴 LEVEL 3 — ADVANCED</summary>
+<div class="level-body">
+<p>🟠 <b>Advanced / Extra Knowledge — Salting, hashing, and password storage:</b></p>
+<ul>
+<li><b>Salting:</b> A random value added to each password before hashing so that even identical passwords produce different stored hashes, defeating precomputed "rainbow table" attacks.</li>
+<li><b>Why a hash is not the password:</b> Hashing is a one-way function — there's no mathematical "undo" step. Tools like John the Ripper work by hashing many <i>guesses</i> (dictionary words, common passwords) and comparing the results to the stored hash, not by reversing the hash.</li>
+<li><b>Password strength:</b> Length and unpredictability matter more than complexity rules alone; a long passphrase is often stronger and easier to remember than a short complex password.</li>
+<li><b>Recovery vs Reset comparison:</b></li>
+</ul>
+<table>
+<tr><th>Aspect</th><th>Password Reset</th><th>Password Recovery</th></tr>
+<tr><td>What happens</td><td>Old password discarded, new one set</td><td>Identity verified via alternate channel, access restored</td></tr>
+<tr><td>Who can do it</td><td>Account owner or authorized Administrator</td><td>Account owner via official provider process</td></tr>
+<tr><td>Typical use</td><td>Forgot local PC password, Admin resets it</td><td>Forgot Microsoft/Google account credentials entirely</td></tr>
+</table>
+
+<p><b>Viva Questions &amp; Answers:</b></p>
+<details class="viva"><summary>1. What is the difference between password reset and password recovery?</summary><p>Reset discards the old password and sets a new one (usually via an Administrator); recovery restores access to an existing account through identity verification without necessarily knowing the old password.</p></details>
+<details class="viva"><summary>2. Why is a password never stored in plain text?</summary><p>If the storage is ever breached, plain-text passwords would be immediately usable by an attacker; hashing ensures only a one-way scrambled form is exposed.</p></details>
+<details class="viva"><summary>3. What is salting and why is it used?</summary><p>Salting adds random data to each password before hashing so identical passwords produce different hashes, preventing precomputed rainbow-table attacks.</p></details>
+<details class="viva"><summary>4. What is John the Ripper generally used for?</summary><p>It is a password-auditing tool security professionals use, with authorization, to test whether stored password hashes are weak enough to be guessed by dictionary or brute-force methods.</p></details>
+<details class="viva"><summary>5. Why can't a hash be "decrypted" back to the original password?</summary><p>Hashing is a one-way mathematical function with no inverse; cracking tools work by hashing guesses and comparing results, not by reversing the hash.</p></details>
+</div>
+</details>
+
+<p><b>Precautions:</b> Only perform Part A/B on accounts you own. Only perform Part C in an isolated lab/VM with fictional data and instructor permission — never against real credential stores.</p>
+</section>
+
+<!-- ======================= PRACTICAL 3 ======================= -->
+<section class="practical" id="p3" data-title="Practical 3 Email Header Tracing SPF DKIM DMARC Received headers spoofing">
+<h2><input type="checkbox" class="check" data-id="p3"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 3 — Tracing Email Origin Using an Email Trace Utility</h2>
+
+<p><b>Aim:</b> To study email headers and understand what information they can (and cannot) reveal about an email's origin, using a harmless test email.</p>
+
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p>An <b>email header</b> is hidden technical information attached to every email — like a courier's tracking slip — showing which mail servers handled the message and when.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Har email ke peeche ek "invisible" tracking information hoti hai jise header kehte hain. Jaise courier parcel pe tracking sticker hota hai jisme route dikhta hai, waise hi email header mein dikhta hai ki email kis server se hoke aayi.</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>Agar aapko ek suspicious "prize winner" email aaye, header check karke aap dekh sakte ho ki woh really us company ke server se aayi thi ya kisi aur jagah se bheji gayi (spoofed) thi.</p></div>
+
+<p><b>Key terms:</b></p>
+<table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Message-ID</td><td>A unique identifier generated for each email by the sending server.</td></tr>
+<tr><td>Received headers</td><td>A stack of entries, one per server the email passed through, newest on top.</td></tr>
+<tr><td>SPF</td><td>Sender Policy Framework — lets a domain publish which mail servers are allowed to send on its behalf.</td></tr>
+<tr><td>DKIM</td><td>DomainKeys Identified Mail — a cryptographic signature proving the message content wasn't altered in transit.</td></tr>
+<tr><td>DMARC</td><td>A policy that tells receiving servers what to do if SPF/DKIM checks fail (e.g., reject, quarantine).</td></tr>
+<tr><td>Email spoofing</td><td>Forging the "From" address to make an email look like it's from someone else.</td></tr>
+</table>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2 — INTERMEDIATE (Procedure)</summary>
+<div class="level-body">
+<p><b>Requirements:</b> Any email account (e.g., Gmail), and one test/harmless email (send yourself a test mail).</p>
+<ol>
+<li>Open Gmail in a browser → open the test email.</li>
+<li>Click the three-dot menu (⋮) at the top-right of the opened email → select "Show original" (menu label may change between Gmail versions).</li>
+<li>A new tab opens showing the full raw header text and a "Download Original" option.</li>
+<li>Locate the <code>Received:</code> lines (read bottom-to-top for the path from sender to you), the <code>Message-ID:</code>, <code>Date:</code>, and the SPF/DKIM/DMARC result line Gmail adds near the top.</li>
+<li>Note any IP addresses shown in the <code>Received:</code> lines.</li>
+</ol>
+
+<p><b>Sample fictional header excerpt (illustrative example only):</b></p>
+<div class="code-wrap"><pre><code>Delivered-To: student.test@example.com
+Received: from mail-server-42.examplemail.com (203.0.113.5)
+        by mx.google.com; Mon, 09 Nov 2026 10:15:02 -0800
+Message-ID: &lt;CA+fictional123@mail.examplemail.com&gt;
+Date: Mon, 09 Nov 2026 10:14:55 +0530
+From: "Demo Sender" &lt;demo.sender@example.com&gt;
+SPF: PASS with IP 203.0.113.5
+DKIM: PASS
+DMARC: PASS
+</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Line-by-line explanation:</b></p>
+<ul>
+<li><code>Received</code> — shows which server (and its IP, 203.0.113.5 here) handed the email to Google's servers.</li>
+<li><code>Message-ID</code> — a unique tag created by the sending server; helps trace the specific message in logs.</li>
+<li><code>SPF/DKIM/DMARC: PASS</code> — the receiving server confirms this server was authorized to send for that domain and the content wasn't tampered with.</li>
+</ul>
+
+<p><b>Result:</b> The origin-related fields of a test email header were successfully identified and interpreted.</p>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+<li><b>"Show original" missing</b> — Menu wording differs by email provider/version; look for "View message source" or similar.</li>
+<li><b>SPF/DKIM shows FAIL/NEUTRAL on a real email</b> — This is a legitimate warning sign of possible spoofing; treat such emails cautiously, don't click links.</li>
+<li><b>Too many Received lines, confusing order</b> — Always read Received headers bottom-to-top; the bottommost is closest to the original sender.</li>
+</ul>
+</div>
+</details>
+
+<details class="level">
+<summary>🔴 LEVEL 3 — ADVANCED</summary>
+<div class="level-body">
+<p>🟠 <b>Advanced / Extra Knowledge:</b></p>
+<ul>
+<li><b>What can be inferred:</b> Which mail server relayed the message, approximate sending time, and whether the sending server was authorized (SPF/DKIM/DMARC pass/fail).</li>
+<li><b>What cannot be reliably inferred:</b> The sender's exact personal identity or precise physical device — an IP address usually identifies a <i>mail server</i> (often shared by thousands of users, e.g., a webmail provider), not the individual's computer.</li>
+<li><b>Why apparent "From" address isn't proof:</b> The "From" field is just a text field the sender's software fills in — without SPF/DKIM/DMARC checks passing, it can be freely forged (spoofing).</li>
+<li><b>Handling suspicious emails safely:</b> Do not click links or download attachments; report/mark as phishing; verify through an independent channel (e.g., call the organization using a known number, not one from the email).</li>
+</ul>
+
+<p><b>Viva Questions &amp; Answers:</b></p>
+<details class="viva"><summary>1. What is a Message-ID in an email header?</summary><p>A unique identifier assigned by the sending mail server to that specific message, useful for tracking in server logs.</p></details>
+<details class="viva"><summary>2. What do SPF, DKIM, and DMARC each check?</summary><p>SPF checks if the sending server is authorized for that domain; DKIM verifies the message wasn't altered using a cryptographic signature; DMARC defines what to do if SPF/DKIM fail.</p></details>
+<details class="viva"><summary>3. Why might an IP address in a header not identify the actual sender's device?</summary><p>The IP often belongs to a shared mail server (e.g., a webmail provider's infrastructure) used by many people, not the sender's personal computer.</p></details>
+<details class="viva"><summary>4. What is email spoofing?</summary><p>Forging the "From" address or header fields to make an email appear to come from a different, often trusted, sender.</p></details>
+<details class="viva"><summary>5. In what order should "Received" headers be read?</summary><p>Bottom to top — the bottommost entry is closest to the original sending server, and the topmost is the last server before delivery to you.</p></details>
+</div>
+</details>
+
+<p><b>Precautions:</b> Use only your own test emails. Never use this knowledge to track, identify, or harass a private individual.</p>
+</section>
+
+<!-- ======================= PRACTICAL 4 ======================= -->
+<section class="practical" id="p4" data-title="Practical 4 Keylogger Anti-keylogger Endpoint Protection EICAR test file startup programs">
+<h2><input type="checkbox" class="check" data-id="p4"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 4 — Use of Keylogger and Anti-Keylogger to Secure Your System</h2>
+
+<div class="danger"><b>🔒 Safety note:</b> This manual does not provide or describe a functioning keylogger (no covert keystroke capture, stealth, or credential-collection instructions). Instead, this practical teaches the same defensive concepts through safe, legitimate inspection techniques.</div>
+
+<p><b>Aim:</b> To understand keylogger threats conceptually and to practice safe defensive techniques (Windows Security scanning, startup-program inspection) that protect against such threats.</p>
+
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p>A <b>keylogger</b> is software or hardware that records every key you press, which attackers can misuse to steal passwords. An <b>anti-keylogger</b>/antivirus detects and blocks such tools.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Keylogger ek aisa program/device hai jo aapki har keyboard key-press ko chup-chaap record kar leta hai — jaise koi invisible CCTV camera aapke keyboard par laga ho. Agar koi aisa malicious tool aapke PC mein chal raha ho, toh woh aapke passwords bhi chura sakta hai. Anti-keylogger/antivirus is tarah ke suspicious tools ko dhoondh kar block karta hai.</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>College cyber-cafe ke shared computer par agar koi unknown ".exe" startup mein chal raha ho, woh keylogger ho sakta hai — isliye apna net-banking kabhi shared/public PC par mat kholo.</p></div>
+
+<p><b>Terms:</b> Hardware keylogger (physical USB device between keyboard and PC) vs Software keylogger (a program running in the background); legitimate monitoring (parental control software disclosed to the user) vs unauthorized surveillance (installed secretly — illegal in most jurisdictions without consent).</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2 — INTERMEDIATE (Safe Defensive Procedure)</summary>
+<div class="level-body">
+<ol>
+<li>Open Windows Security → Virus &amp; threat protection → "Quick scan". Note duration and result.</li>
+<li>Create a designated safe sample folder, e.g. <code>C:\Users\&lt;you&gt;\Documents\LabTest</code>, and place only plain harmless text files inside it (no executables). Run a "Custom scan" targeted at this folder to practice scanning a specific location.</li>
+<li>Inspect installed applications: Settings → Apps → Installed apps. Scan the list for anything you don't recognize installing.</li>
+<li>Inspect startup programs: Task Manager (<code>Ctrl+Shift+Esc</code>) → Startup apps tab. Note every entry and its publisher; anything with no publisher name or an unfamiliar name deserves a closer (not execution-based) look — right-click → search the exact file name online via the publisher's official site before deciding.</li>
+<li><b>Do not open or run</b> any unfamiliar file you find — simply note its name/location/publisher for investigation.</li>
+<li>If unauthorized monitoring is ever suspected on a shared/lab PC, report it immediately to the lab in-charge/IT admin rather than attempting to remove it yourself.</li>
+</ol>
+
+<p><b>EICAR test file (optional, instructor-supervised only):</b> EICAR is a globally recognized, completely harmless text string that all antivirus products are designed to flag as a "virus" purely for testing detection — it contains no real malicious code. If your instructor wants to demonstrate antivirus detection, search for the official EICAR test file page (eicar.org) and follow its own instructions; this manual does not embed or auto-download the file.</p>
+
+<p><b>Sample observation (illustrative):</b></p>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Quick scan</td><td>No threats found</td></tr>
+<tr><td>Startup apps</td><td>All recognized, from verified publishers</td></tr>
+<tr><td>Unknown installed apps</td><td>None found</td></tr>
+</table>
+
+<p><b>Result:</b> Defensive inspection of the system for suspicious monitoring software was successfully carried out using only safe, built-in Windows tools.</p>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+<li><b>Custom scan option greyed out</b> — Ensure Microsoft Defender is the active antivirus (not disabled by a third-party AV); check Windows Security → Virus &amp; threat protection settings.</li>
+<li><b>Unknown startup entry found</b> — Do not run it; note its exact file path and ask your instructor/IT admin to verify it, or research the exact filename on the publisher's official website.</li>
+<li><b>Downloaded "anti-keylogger" tool asks for odd permissions</b> — Only install endpoint-security tools from verified, well-known vendors; unknown "security" tools are sometimes malware themselves.</li>
+</ul>
+</div>
+</details>
+
+<details class="level">
+<summary>🔴 LEVEL 3 — ADVANCED</summary>
+<div class="level-body">
+<p>🟠 <b>Advanced / Extra Knowledge — Endpoint detection &amp; behavioral monitoring:</b></p>
+<ul>
+<li>Modern endpoint protection doesn't just match known virus "signatures" — it also watches <i>behavior</i> (e.g., a process hooking into keyboard input APIs) to catch new/unknown threats (heuristic/behavioral detection).</li>
+<li>On-screen keyboards and keystroke-scrambling input methods are sometimes used on high-security terminals (e.g., some banking kiosks) specifically to defeat hardware keyloggers.</li>
+<li>Incident response basics: isolate the device from the network, don't delete evidence, change passwords from a known-clean device, and report to IT/security team.</li>
+</ul>
+
+<p><b>Viva Questions &amp; Answers:</b></p>
+<details class="viva"><summary>1. What is the difference between a hardware and a software keylogger?</summary><p>A hardware keylogger is a physical device placed between the keyboard and the computer; a software keylogger is a program running on the operating system that intercepts keystrokes.</p></details>
+<details class="viva"><summary>2. Why is unauthorized keystroke monitoring dangerous?</summary><p>It can silently capture passwords, personal messages, and financial details without the victim's knowledge or consent.</p></details>
+<details class="viva"><summary>3. What is the EICAR test file used for?</summary><p>It's a standardized, harmless text string used to verify that antivirus software correctly detects and flags test "threats" without using real malware.</p></details>
+<details class="viva"><summary>4. How can checking Task Manager's Startup tab help detect suspicious software?</summary><p>Malware often configures itself to auto-start; reviewing unfamiliar startup entries and their publishers can reveal unauthorized software.</p></details>
+<details class="viva"><summary>5. What should you do if you suspect unauthorized monitoring software on a shared PC?</summary><p>Report it immediately to the IT administrator/lab in-charge rather than attempting to remove or investigate it yourself.</p></details>
+</div>
+</details>
+
+<p><b>Precautions:</b> Never download, write, or run an actual keylogger "to test it." Only download security tools from official, well-known vendor sites.</p>
+</section>
+
+<!-- ======================= PRACTICAL 5 ======================= -->
+<section class="practical" id="p5" data-title="Practical 5 Columnar Transposition Permutation Cipher C program key">
+<h2><input type="checkbox" class="check" data-id="p5"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 5 — Encrypting and Decrypting a Message Using a Simple Transposition Cipher</h2>
+
+<p><b>Aim:</b> To encrypt and decrypt a message using a columnar transposition (permutation) cipher, and verify that decryption recovers the original plaintext.</p>
+
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p>A <b>transposition cipher</b> encrypts a message by rearranging (permuting) the positions of its letters according to a key, <i>without changing the letters themselves</i> — unlike a substitution cipher, which replaces letters with different ones.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Transposition cipher mein letters change nahi hote, sirf unki <b>jagah (position)</b> badal di jaati hai — jaise ek jumbled word puzzle. Substitution cipher mein letters replace hote hain (jaise A ko D se), lekin transposition mein sab letters wahi rehte hain, bas order alag ho jaata hai.</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>Jaise exam seating arrangement mein roll numbers same rehte hain par unki table-row assignment shuffle ho jaati hai — data wahi hai, sirf arrangement badla hai.</p></div>
+
+<p><b>Terms:</b> Plaintext (original message), Ciphertext (scrambled output), Key (defines the column reading order), Encryption/Decryption.</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2/3 — ALGORITHM, WORKED EXAMPLE &amp; C PROGRAM</summary>
+<div class="level-body">
+
+<p><b>Algorithm (Columnar Transposition):</b></p>
+<ol>
+<li>Remove spaces from plaintext (for simplicity in this beginner version).</li>
+<li>Choose a key = a sequence of distinct digits, e.g. <code>3142</code> (length = number of columns).</li>
+<li>Write the plaintext row-by-row into a grid with that many columns; pad the last row with <code>X</code> if incomplete.</li>
+<li><b>Encrypt:</b> Read the grid column-by-column in the order: find the column under digit '1', write it out, then digit '2', then '3', etc.</li>
+<li><b>Decrypt:</b> Rebuild the grid column-by-column in the same digit order (you know how many rows/columns from the key and ciphertext length), then read row-by-row to recover the plaintext.</li>
+</ol>
+
+<p><b>Worked Example:</b></p>
+<p>Plaintext: <code>ATTACKATDAWN</code> (12 letters, already fits evenly) &nbsp; Key: <code>3142</code> (4 columns, 3 rows)</p>
+<table>
+<tr><th>Col 0</th><th>Col 1</th><th>Col 2</th><th>Col 3</th></tr>
+<tr><td>A</td><td>T</td><td>T</td><td>A</td></tr>
+<tr><td>C</td><td>K</td><td>A</td><td>T</td></tr>
+<tr><td>D</td><td>A</td><td>W</td><td>N</td></tr>
+</table>
+<p>Key digits by column: Col0='3', Col1='1', Col2='4', Col3='2'. Reading order (digit 1→2→3→4): Col1, Col3, Col0, Col2.</p>
+<ul>
+<li>Col1 (digit 1) = T,K,A → "TKA"</li>
+<li>Col3 (digit 2) = A,T,N → "ATN"</li>
+<li>Col0 (digit 3) = A,C,D → "ACD"</li>
+<li>Col2 (digit 4) = T,A,W → "TAW"</li>
+</ul>
+<p><b>Ciphertext = TKAATNACDTAW</b></p>
+<p><b>Decryption</b> rebuilds the same grid column-by-column in order Col1,Col3,Col0,Col2 from the ciphertext, then reads row-wise to get back <code>ATTACKATDAWN</code>. ✔ Reversible.</p>
+
+<p><b>Edge case:</b> If plaintext length isn't a multiple of the number of columns, pad with <code>X</code> at the end before encrypting; after decrypting, trailing <code>X</code> padding can be trimmed by the student if it's clearly not part of the original message.</p>
+
+<p><b>Complete C Program (columnar transposition, encryption + decryption):</b></p>
+<div class="code-wrap"><pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+
+#define MAXLEN 200
+
+/* Removes spaces from input string */
+void removeSpaces(char *str) {
+    int i, j = 0;
+    char temp[MAXLEN];
+    for (i = 0; str[i]; i++) {
+        if (!isspace((unsigned char)str[i])) temp[j++] = toupper(str[i]);
+    }
+    temp[j] = '\0';
+    strcpy(str, temp);
+}
+
+int main() {
+    char plain[MAXLEN], key[20], cipher[MAXLEN], decrypted[MAXLEN];
+    int i, j, r, c, rows, cols, len;
+
+    printf("Enter plaintext (no need to remove spaces manually): ");
+    fgets(plain, MAXLEN, stdin);
+    plain[strcspn(plain, "\n")] = '\0';
+    removeSpaces(plain);
+
+    printf("Enter numeric key (distinct digits, e.g. 3142): ");
+    scanf("%s", key);
+    cols = strlen(key);
+    len = strlen(plain);
+    rows = (len + cols - 1) / cols;      /* ceil division */
+
+    /* Pad with X if needed */
+    for (i = len; i < rows * cols; i++) plain[i] = 'X';
+    plain[rows * cols] = '\0';
+    len = rows * cols;
+
+    char grid[20][20];
+    int pos = 0;
+    for (r = 0; r < rows; r++)
+        for (c = 0; c < cols; c++)
+            grid[r][c] = plain[pos++];
+
+    /* ---- ENCRYPTION: read columns in key-digit order 1..cols ---- */
+    int cipherPos = 0;
+    for (int digit = '1'; digit < '1' + cols; digit++) {
+        for (c = 0; c < cols; c++) {
+            if (key[c] == digit) {
+                for (r = 0; r < rows; r++)
+                    cipher[cipherPos++] = grid[r][c];
+            }
+        }
+    }
+    cipher[cipherPos] = '\0';
+    printf("\nCiphertext: %s\n", cipher);
+
+    /* ---- DECRYPTION: rebuild grid column by column, same order ---- */
+    char grid2[20][20];
+    pos = 0;
+    for (int digit = '1'; digit < '1' + cols; digit++) {
+        for (c = 0; c < cols; c++) {
+            if (key[c] == digit) {
+                for (r = 0; r < rows; r++)
+                    grid2[r][c] = cipher[pos++];
+            }
+        }
+    }
+    pos = 0;
+    for (r = 0; r < rows; r++)
+        for (c = 0; c < cols; c++)
+            decrypted[pos++] = grid2[r][c];
+    decrypted[pos] = '\0';
+
+    printf("Decrypted : %s\n", decrypted);
+    return 0;
+}
+</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Windows compilation (GCC/MinGW):</b></p>
+<div class="code-wrap"><pre><code>gcc transposition.c -o transposition.exe
+transposition.exe</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Sample run:</b></p>
+<div class="code-wrap"><pre><code>Enter plaintext: ATTACK AT DAWN
+Enter numeric key: 3142
+
+Ciphertext: TKAATNACDTAW
+Decrypted : ATTACKATDAWN</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Result:</b> The message was successfully encrypted and decrypted using a columnar transposition cipher; the recovered plaintext matched the original.</p>
+<div class="note">⚠ This cipher is purely <b>educational</b> and must never be used to protect real confidential information — it can be broken quickly by analyzing letter frequency and trying column arrangements.</div>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+<li><b>'gcc' is not recognized</b> — Install MinGW/TDM-GCC, and add its <code>bin</code> folder to the Windows PATH environment variable, then restart Command Prompt.</li>
+<li><b>Decrypted text ends with extra X's</b> — Normal padding artifact; these are not part of the original message if the original length wasn't a multiple of the key length.</li>
+<li><b>Wrong key format</b> — The key must use distinct digits from 1 up to the column count (e.g., for 4 columns: digits 1,2,3,4 in some order).</li>
+</ul>
+</div>
+</details>
+
+<p><b>Viva Questions &amp; Answers:</b></p>
+<details class="viva"><summary>1. How does a transposition cipher differ from a substitution cipher?</summary><p>Transposition rearranges the positions of the original letters; substitution replaces letters with different ones. Transposition keeps letter identity, changes order; substitution keeps order, changes identity.</p></details>
+<details class="viva"><summary>2. What is the role of the key in a columnar transposition cipher?</summary><p>It defines the number of columns and the order in which those columns are read out during encryption (and rebuilt during decryption).</p></details>
+<details class="viva"><summary>3. Why is padding sometimes needed?</summary><p>If the plaintext length isn't an exact multiple of the key length, extra filler characters (like X) are added to complete the final row of the grid.</p></details>
+<details class="viva"><summary>4. Is the columnar transposition cipher secure for real use?</summary><p>No — it is easily broken using frequency analysis and trial column arrangements; it is for educational understanding only.</p></details>
+<details class="viva"><summary>5. What information is needed to decrypt a transposition ciphertext?</summary><p>The exact key (column order) and knowledge of the number of columns/rows used during encryption.</p></details>
+</section>
+
+<!-- ======================= PRACTICAL 6 ======================= -->
+<section class="practical" id="p6" data-title="Practical 6 Caesar Cipher variable key Hill Cipher 3x3 matrix modular inverse determinant">
+<h2><input type="checkbox" class="check" data-id="p6"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 6 — Caesar Cipher (Variable Key) and 3×3 Hill Cipher</h2>
+
+<h3>Part A — Caesar Cipher with Variable Key</h3>
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p>The <b>Caesar cipher</b> shifts every letter of the plaintext forward by a fixed number of positions (the key, <code>k</code>) in the alphabet, wrapping around after Z.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Caesar cipher mein har letter ko alphabet mein k positions aage shift kar diya jaata hai. Jaise k=3 ho toh A→D, B→E... aur Z ke baad wapas A se shuru (wrap-around).</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>Bachpan ke "secret code" games jaha A=1, B=2 jaise shift karke dost ko message bhejte the — Caesar cipher bilkul wahi concept hai, bas thoda formal.</p></div>
+
+<p><b>Formulas</b> (letter index x: A=0...Z=25, key k):</p>
+<table><tr><th>Operation</th><th>Formula</th></tr>
+<tr><td>Encryption</td><td>E(x) = (x + k) mod 26</td></tr>
+<tr><td>Decryption</td><td>D(x) = (x − k + 26) mod 26</td></tr></table>
+<p>Uppercase and lowercase are handled separately (preserve case); non-letters (spaces, punctuation) are left unchanged.</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2/3 — Worked Example, Table, C Program</summary>
+<div class="level-body">
+
+<p><b>Worked example:</b> Plaintext = "HELLO", key k = 3</p>
+<table><tr><th>Letter</th><th>x</th><th>(x+3) mod 26</th><th>Cipher letter</th></tr>
+<tr><td>H</td><td>7</td><td>10</td><td>K</td></tr>
+<tr><td>E</td><td>4</td><td>7</td><td>H</td></tr>
+<tr><td>L</td><td>11</td><td>14</td><td>O</td></tr>
+<tr><td>L</td><td>11</td><td>14</td><td>O</td></tr>
+<tr><td>O</td><td>14</td><td>17</td><td>R</td></tr>
+</table>
+<p>Ciphertext = <b>KHOOR</b>. Decryption with k=3: K(10)→H(7), H(7)→E(4), O(14)→L(11), O(14)→L(11), R(17)→O(14) = <b>HELLO</b> ✔ recovered.</p>
+
+<p><b>Complete C Program (handles variable key, negative/large keys, upper+lower case, non-letters unchanged):</b></p>
+<div class="code-wrap"><pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+
+int main() {
+    char text[200];
+    int k;
+
+    printf("Enter plaintext: ");
+    fgets(text, sizeof(text), stdin);
+    text[strcspn(text, "\n")] = '\0';
+
+    printf("Enter key (any integer, + or -): ");
+    scanf("%d", &k);
+
+    k = ((k % 26) + 26) % 26;   /* normalize key to 0-25, handles negative/large keys */
+
+    char cipher[200];
+    for (int i = 0; text[i]; i++) {
+        char ch = text[i];
+        if (isupper((unsigned char)ch))
+            cipher[i] = (char)(((ch - 'A' + k) % 26) + 'A');
+        else if (islower((unsigned char)ch))
+            cipher[i] = (char)(((ch - 'a' + k) % 26) + 'a');
+        else
+            cipher[i] = ch;   /* spaces, punctuation unchanged */
+    }
+    cipher[strlen(text)] = '\0';
+    printf("Encrypted: %s\n", cipher);
+
+    /* Decryption: shift back by k */
+    char decrypted[200];
+    for (int i = 0; cipher[i]; i++) {
+        char ch = cipher[i];
+        if (isupper((unsigned char)ch))
+            decrypted[i] = (char)(((ch - 'A' - k + 26) % 26) + 'A');
+        else if (islower((unsigned char)ch))
+            decrypted[i] = (char)(((ch - 'a' - k + 26) % 26) + 'a');
+        else
+            decrypted[i] = ch;
+    }
+    decrypted[strlen(cipher)] = '\0';
+    printf("Decrypted: %s\n", decrypted);
+    return 0;
+}
+</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Windows compilation:</b> <code>gcc caesar.c -o caesar.exe</code> then run <code>caesar.exe</code></p>
+<p><b>Sample run:</b></p>
+<div class="code-wrap"><pre><code>Enter plaintext: Hello World
+Enter key: 3
+Encrypted: Khoor Zruog
+Decrypted: Hello World</code></pre><button class="copy-btn">Copy</button></div>
+
+<div class="note">🟠 <b>Advanced:</b> Caesar cipher has only 25 possible keys — a computer (or even a human) can brute-force try all of them in seconds, so it provides no real security today; it is studied purely to understand the basic idea of shift-based encryption.</div>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+<li><b>Output shows symbols/garbage for punctuation</b> — Ensure the else branch (non-letters unchanged) is present; don't apply the shift formula to spaces/punctuation.</li>
+<li><b>Negative key gives wrong result</b> — Always normalize with <code>((k % 26) + 26) % 26</code> before using it.</li>
+</ul>
+</div>
+</details>
+
+<h3>Part B — 3×3 Hill Cipher</h3>
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p>The <b>Hill cipher</b> encrypts blocks of letters together using matrix multiplication, instead of one letter at a time.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Hill cipher mein letters ko group (block) mein encrypt kiya jaata hai using matrix maths — ek letter nahi, balki 3-3 letters ka block ek saath transform hota hai key-matrix ke through.</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>Jaise ek group photo mein sabhi logon ki position ek formula se rearrange ho jaaye, ek-ek karke nahi — Hill cipher bhi letters ke poore block ko ek matrix-formula se process karta hai.</p></div>
+
+<p><b>Convention used in this manual:</b> A=0, B=1, ..., Z=25. Plaintext is split into blocks of 3 letters (a column vector P). Encryption: <b>C = K × P mod 26</b>. Decryption: <b>P = K⁻¹ × C mod 26</b>.</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2/3 — Key Matrix, Determinant, Inverse, Worked Example, C Program</summary>
+<div class="level-body">
+
+<p><b>Key matrix used (a standard, well-known teaching example with a valid inverse mod 26):</b></p>
+<table><tr><td>6</td><td>24</td><td>1</td></tr><tr><td>13</td><td>16</td><td>10</td></tr><tr><td>20</td><td>17</td><td>15</td></tr></table>
+
+<p><b>Step 1 — Determinant:</b></p>
+<p>det(K) = 6(16×15 − 10×17) − 24(13×15 − 10×20) + 1(13×17 − 16×20)<br>
+= 6(240−170) − 24(195−200) + 1(221−320)<br>
+= 6(70) − 24(−5) + (−99) = 420 + 120 − 99 = 441</p>
+<p>441 mod 26 = 441 − 416 = <b>25</b>. Check gcd(25, 26) = 1 ✔ — the matrix is invertible mod 26 (this is required; a key matrix must always satisfy this before use).</p>
+
+<p><b>Step 2 — Modular inverse of determinant:</b> We need x such that 25x ≡ 1 (mod 26). Since 25 ≡ −1 (mod 26), 25 × 25 = 625 = 24×26 + 1 ≡ 1 (mod 26). So det⁻¹ mod 26 = <b>25</b>.</p>
+
+<p><b>Step 3 — Inverse key matrix</b> (computed via adjugate method × det⁻¹ mod 26 — standard, verified teaching result):</p>
+<table><tr><td>8</td><td>5</td><td>10</td></tr><tr><td>21</td><td>8</td><td>21</td></tr><tr><td>21</td><td>12</td><td>8</td></tr></table>
+<p>(Verification check: K × K⁻¹ mod 26 should give the Identity matrix — students should verify at least one row by hand multiplication as a self-check exercise.)</p>
+
+<p><b>Worked example:</b> Plaintext block "ACT" → A=0, C=2, T=19. Column vector P = [0, 2, 19]ᵀ</p>
+<p>C = K×P mod 26:</p>
+<ul>
+<li>Row1: 6×0 + 24×2 + 1×19 = 0+48+19 = 67 → 67 mod 26 = 15 → "P"</li>
+<li>Row2: 13×0 + 16×2 + 10×19 = 0+32+190 = 222 → 222 mod 26 = 14 → "O"</li>
+<li>Row3: 20×0 + 17×2 + 15×19 = 0+34+285 = 319 → 319 mod 26 = 7 → "H"</li>
+</ul>
+<p>Ciphertext block = <b>"POH"</b>. Decrypting POH with K⁻¹ recovers "ACT" exactly (standard verified result for this classic key matrix).</p>
+
+<p><b>Padding rule:</b> If the plaintext length is not a multiple of 3, pad with 'X' at the end to complete the final block.</p>
+
+<p><b>Complete C implementation (3×3 Hill cipher, fixed key matrix and its inverse hard-coded for this lab):</b></p>
+<div class="code-wrap"><pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+
+int K[3][3]  = {{6,24,1},{13,16,10},{20,17,15}};      /* Key matrix */
+int Ki[3][3] = {{8,5,10},{21,8,21},{21,12,8}};        /* Verified inverse mod 26 */
+
+void multiply(int M[3][3], int vec[3], int out[3]) {
+    for (int i = 0; i < 3; i++) {
+        int sum = 0;
+        for (int j = 0; j < 3; j++) sum += M[i][j] * vec[j];
+        out[i] = ((sum % 26) + 26) % 26;
+    }
+}
+
+int main() {
+    char text[200];
+    printf("Enter plaintext (letters only, will be padded to multiple of 3): ");
+    fgets(text, sizeof(text), stdin);
+    text[strcspn(text, "\n")] = '\0';
+
+    /* Keep only letters, uppercase */
+    char clean[200]; int j = 0;
+    for (int i = 0; text[i]; i++)
+        if (isalpha((unsigned char)text[i])) clean[j++] = toupper(text[i]);
+    while (j % 3 != 0) clean[j++] = 'X';   /* padding */
+    clean[j] = '\0';
+
+    int n = strlen(clean);
+    char cipher[200];
+    for (int b = 0; b < n; b += 3) {
+        int vec[3] = { clean[b]-'A', clean[b+1]-'A', clean[b+2]-'A' };
+        int out[3];
+        multiply(K, vec, out);
+        cipher[b]=out[0]+'A'; cipher[b+1]=out[1]+'A'; cipher[b+2]=out[2]+'A';
+    }
+    cipher[n] = '\0';
+    printf("Encrypted: %s\n", cipher);
+
+    char decrypted[200];
+    for (int b = 0; b < n; b += 3) {
+        int vec[3] = { cipher[b]-'A', cipher[b+1]-'A', cipher[b+2]-'A' };
+        int out[3];
+        multiply(Ki, vec, out);
+        decrypted[b]=out[0]+'A'; decrypted[b+1]=out[1]+'A'; decrypted[b+2]=out[2]+'A';
+    }
+    decrypted[n] = '\0';
+    printf("Decrypted: %s\n", decrypted);
+    return 0;
+}
+</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Windows compilation:</b> <code>gcc hill.c -o hill.exe</code> then run <code>hill.exe</code></p>
+<p><b>Sample run:</b></p>
+<div class="code-wrap"><pre><code>Enter plaintext: ACT
+Encrypted: POH
+Decrypted: ACT</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Result:</b> A 3×3 Hill cipher block was successfully encrypted and decrypted using matrix multiplication modulo 26, with the recovered plaintext matching the original.</p>
+
+<p><b>Common errors:</b></p>
+<ul>
+<li><b>Using a key matrix with det having a common factor with 26</b> — it will not be invertible; always check gcd(det mod 26, 26)=1 first.</li>
+<li><b>Mismatched row/column convention</b> — be consistent about treating plaintext as a column vector throughout.</li>
+<li><b>Forgetting to pad</b> — a block must always contain exactly 3 letters.</li>
+</ul>
+
+<div class="note">🟠 <b>Advanced — Known-plaintext weakness:</b> If an attacker obtains enough matching plaintext/ciphertext block pairs, linear algebra can be used to solve for the key matrix itself — this makes Hill cipher unsuitable for real confidential communication today; it remains valuable only for teaching matrix-based cryptography concepts.</div>
+</div>
+</details>
+
+<p><b>Viva Questions &amp; Answers (Practical 6 — both parts):</b></p>
+<details class="viva"><summary>1. Why is Caesar cipher considered insecure today?</summary><p>It has only 25 possible keys, making it trivially breakable by brute force in seconds.</p></details>
+<details class="viva"><summary>2. What does "mod 26" mean in these ciphers and why 26?</summary><p>It means taking the remainder after dividing by 26, which wraps the result back into the English alphabet's 26 letters (A–Z).</p></details>
+<details class="viva"><summary>3. Why must the Hill cipher key matrix's determinant be coprime with 26?</summary><p>Only then does the determinant have a modular inverse mod 26, which is required to compute the matrix inverse needed for decryption.</p></details>
+<details class="viva"><summary>4. What is the known-plaintext weakness of the Hill cipher?</summary><p>If enough plaintext-ciphertext block pairs are known, the key matrix can be algebraically solved for using linear algebra, breaking the cipher.</p></details>
+<details class="viva"><summary>5. How is a letter represented numerically in the Hill cipher convention used here?</summary><p>A=0, B=1, ..., Z=25, with plaintext blocks represented as column vectors of these numbers.</p></details>
+</section>
+
+<!-- ======================= PRACTICAL 7 ======================= -->
+<section class="practical" id="p7" data-title="Practical 7 Digital Signature OpenSSL RSA SHA256 public private key PKI">
+<h2><input type="checkbox" class="check" data-id="p7"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 7 — Creating a Digital Signature Document Using a Cryptographic Tool</h2>
+
+<p><b>Aim:</b> To generate a key pair, digitally sign a test document, verify the signature, and observe verification failure when the document is modified — using OpenSSL.</p>
+
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p>A <b>digital signature</b> is a cryptographic proof, created with a private key, that a specific document came from a specific signer and was not altered — anyone with the matching public key can verify it.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Digital signature ek cryptographic "seal" hai jo private key se banta hai. Isse teen cheezein prove hoti hain: (1) document genuinely usi sender se aaya, (2) document mein koi tampering nahi hui, (3) sender baad mein "maine sign nahi kiya" nahi keh sakta (non-repudiation).</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>Jaise aap ek important assignment PDF college ko bhejte ho aur usko digitally sign karte ho — agar koi beech mein file change kar de, verification fail ho jaayega, bilkul jaise ek torn/tampered stamp paper pakda jaata hai.</p></div>
+
+<p><b>Terms:</b></p>
+<table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Hash function</td><td>Converts a document into a short fixed-length fingerprint; any change to the document changes the hash completely.</td></tr>
+<tr><td>Private key</td><td>Secret key, known only to the signer, used to create the signature.</td></tr>
+<tr><td>Public key</td><td>Shareable key, used by anyone to verify a signature made with the matching private key.</td></tr>
+<tr><td>Integrity</td><td>Assurance that content was not altered.</td></tr>
+<tr><td>Authenticity</td><td>Assurance of who really created/sent the content.</td></tr>
+<tr><td>Non-repudiation</td><td>Signer cannot later deny having signed the document.</td></tr>
+</table>
+<p><b>Digital signature vs electronic signature:</b> An electronic signature can be as simple as a typed name or scanned image of a signature (weak proof); a digital signature is cryptographically generated and mathematically verifiable (strong proof).</p>
+<p><b>Digital signature vs encryption:</b> Signing proves authenticity/integrity (uses signer's private key, verified with signer's public key); encryption provides confidentiality (uses recipient's public key to encrypt, recipient's private key to decrypt) — they solve different problems and are often combined.</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2 — INTERMEDIATE (Procedure with OpenSSL)</summary>
+<div class="level-body">
+<p><b>Requirements:</b> OpenSSL (official project: openssl.org). On Windows, check if it's already installed by opening Command Prompt and typing <code>openssl version</code>. If not found, install a trusted Windows distribution of OpenSSL (search "OpenSSL for Windows" and use a well-known, actively maintained distribution's official download page — e.g., the one linked from the official OpenSSL wiki) — <i>exact download link not embedded here since official links can change; always get it from the project's own site.</i></p>
+
+<ol>
+<li>Create a lab folder: <code>mkdir C:\SignLab</code> then <code>cd C:\SignLab</code>.</li>
+<li>Create a test document: open Notepad, type a short message, save as <code>document.txt</code> inside <code>C:\SignLab</code>.</li>
+<li><b>Generate a private key</b> (RSA, 2048-bit, demonstration only):
+<div class="code-wrap"><pre><code>openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048</code></pre><button class="copy-btn">Copy</button></div></li>
+<li><b>Extract the public key:</b>
+<div class="code-wrap"><pre><code>openssl pkey -in private_key.pem -pubout -out public_key.pem</code></pre><button class="copy-btn">Copy</button></div></li>
+<li><b>Sign the document</b> (RSA with SHA-256):
+<div class="code-wrap"><pre><code>openssl dgst -sha256 -sign private_key.pem -out signature.bin document.txt</code></pre><button class="copy-btn">Copy</button></div></li>
+<li><b>Verify the signature:</b>
+<div class="code-wrap"><pre><code>openssl dgst -sha256 -verify public_key.pem -signature signature.bin document.txt</code></pre><button class="copy-btn">Copy</button></div>
+Expected output: <code>Verified OK</code></li>
+<li><b>Tamper test:</b> Copy <code>document.txt</code> to <code>document_modified.txt</code>, change one word, then run:
+<div class="code-wrap"><pre><code>openssl dgst -sha256 -verify public_key.pem -signature signature.bin document_modified.txt</code></pre><button class="copy-btn">Copy</button></div>
+Expected output: <code>Verification Failure</code> — proving the signature detects even a one-word change.</li>
+</ol>
+
+<p><b>Result:</b> A digital signature was generated and verified successfully on an unmodified document, and verification correctly failed on a modified copy, confirming the integrity-checking property.</p>
+
+<div class="danger">⚠ Never share or upload <code>private_key.pem</code> anywhere. In this lab it is only a demonstration key for learning, with no real-world trust value.</div>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+<li><b>'openssl' not recognized</b> — OpenSSL's folder isn't in the Windows PATH; reinstall allowing PATH update, or add it manually via Environment Variables settings.</li>
+<li><b>"Verification Failure" on the unmodified file too</b> — Check you used the exact same <code>document.txt</code> (not re-saved with different line endings) and the matching <code>public_key.pem</code>/<code>signature.bin</code> pair.</li>
+<li><b>Permission denied writing files</b> — Run Command Prompt from a folder you have write access to (avoid system-protected folders).</li>
+</ul>
+</div>
+</details>
+
+<details class="level">
+<summary>🔴 LEVEL 3 — ADVANCED</summary>
+<div class="level-body">
+<p>🟠 <b>Advanced / Extra Knowledge — Trust, Certificates &amp; PKI:</b></p>
+<ul>
+<li>A self-generated key pair (as in this lab) proves the document wasn't altered <i>since signing</i>, but by itself does <b>not</b> prove the signer's real-world identity — anyone can generate a key pair claiming to be anyone.</li>
+<li><b>Public Key Infrastructure (PKI)</b> solves this by having a trusted Certificate Authority (CA) issue a digital certificate binding a public key to a verified real-world identity.</li>
+<li>Modern alternatives to RSA+SHA-256 include Ed25519 (faster, smaller keys, same security goals) where the chosen tool supports it.</li>
+<li>Legal validity of digital signatures (e.g., under IT Act provisions) typically requires certificates from licensed Certifying Authorities — a classroom demo key pair has no such legal standing.</li>
+</ul>
+
+<p><b>Viva Questions &amp; Answers:</b></p>
+<details class="viva"><summary>1. What three security properties does a digital signature provide?</summary><p>Authenticity (proves who signed), integrity (proves content wasn't altered), and non-repudiation (signer can't deny signing).</p></details>
+<details class="viva"><summary>2. Which key is used to sign, and which to verify?</summary><p>The private key (kept secret by the signer) is used to sign; the corresponding public key (shared openly) is used by anyone to verify.</p></details>
+<details class="viva"><summary>3. What happens to the signature verification if the document is changed by even one character?</summary><p>Verification fails, because the hash of the modified document no longer matches the hash that was originally signed.</p></details>
+<details class="viva"><summary>4. How is a digital signature different from simple encryption?</summary><p>Signing proves authenticity and integrity using the signer's private key; encryption provides confidentiality using the recipient's public key — they serve different purposes.</p></details>
+<details class="viva"><summary>5. Why doesn't a self-generated key pair alone prove real-world identity?</summary><p>Anyone can generate a key pair and label it with any name; real-world identity binding requires a trusted Certificate Authority issuing a certificate as part of a PKI.</p></details>
+</div>
+</details>
+
+<p><b>Precautions:</b> Use only test/demo documents and demonstration keys; never your real identity documents or production credentials.</p>
+</section>
+
+<!-- ======================= PRACTICAL 8 ======================= -->
+<section class="practical" id="p8" data-title="Practical 8 Steganography Steghide embedding extraction passphrase cover file WSL">
+<h2><input type="checkbox" class="check" data-id="p8"><span class="badge official">OFFICIAL PRACTICAL</span>Practical 8 — Sending and Receiving Secret Messages Using Steganography (Steghide)</h2>
+
+<p><b>Aim:</b> To hide a secret text message inside a sample image file (embedding) and successfully retrieve it (extraction) using Steghide, and to understand steganography's purpose and limitations.</p>
+
+<details class="level" open>
+<summary>🟢 LEVEL 1 — BASIC</summary>
+<div class="level-body">
+<div class="trio"><h4>A. Simple English</h4><p><b>Steganography</b> means hiding the very <i>existence</i> of a secret message inside another ordinary-looking file (the cover file), rather than scrambling the message like cryptography does.</p></div>
+<div class="trio hinglish"><h4>B. Hinglish</h4><p>Cryptography message ko "scramble" karti hai (dikhta hai ki kuch secret hai, par padh nahi sakte). Steganography isse ek level aage le jaati hai — message ko kisi normal photo/audio ke andar chupa diya jaata hai, taaki kisi ko shak hi na ho ki usme koi secret message hai.</p></div>
+<div class="trio example"><h4>C. Real-life example</h4><p>Jaise ek normal dikhne wali holiday photo WhatsApp par bheji jaaye, par uske andar ek chhota text message chhupa ho jo sirf sahi passphrase se nikala ja sake — dekhne mein woh sirf ek photo lagti hai.</p></div>
+
+<p><b>Terms:</b> Cover file (the ordinary file used to hide data, e.g. a JPEG), Hidden payload (the secret message), Embedding (hiding process), Extraction (retrieval process), Passphrase (password protecting the hidden data).</p>
+</div>
+</details>
+
+<details class="level">
+<summary>🟡 LEVEL 2 — INTERMEDIATE (Procedure)</summary>
+<div class="level-body">
+
+<p><b>Requirements &amp; Windows note:</b> Steghide is an open-source tool; check its official project page (e.g., its SourceForge project page is the commonly cited official distribution point — always verify you're on the genuine project page before downloading). Native up-to-date Windows builds are not always reliably maintained; a well-supported alternative is installing Steghide inside <b>WSL (Windows Subsystem for Linux)</b>, where it's available via the Linux package manager. This manual recommends WSL as a verified-working alternative rather than guessing a Windows installer link.</p>
+
+<ol>
+<li><b>Set up environment:</b> Either install Steghide natively if a trustworthy current Windows build is available from the official source, or enable WSL (Settings → Apps → Optional features → More Windows features → "Windows Subsystem for Linux", restart, then install a Linux distribution from Microsoft Store) and inside it run <code>sudo apt install steghide</code>.</li>
+<li>Prepare a sample image you own (e.g. <code>cover.jpg</code>) and a fictional secret text file <code>secret.txt</code> containing a harmless test message like "Lab test message, not confidential."</li>
+<li>Place both files in one working folder, e.g. <code>~/steglab/</code> (WSL) or <code>C:\SteghideLab\</code>.</li>
+<li><b>Embed the message:</b>
+<div class="code-wrap"><pre><code>steghide embed -cf cover.jpg -ef secret.txt -sf cover_with_secret.jpg</code></pre><button class="copy-btn">Copy</button></div>
+It will prompt for a passphrase — choose a test passphrase and remember it.</li>
+<li><b>Extract the message:</b>
+<div class="code-wrap"><pre><code>steghide extract -sf cover_with_secret.jpg</code></pre><button class="copy-btn">Copy</button></div>
+Enter the same passphrase; it writes out <code>secret.txt</code> again.</li>
+<li><b>Verify:</b> Open the extracted <code>secret.txt</code> and confirm its content matches the original message exactly.</li>
+</ol>
+
+<p><b>Sample expected output (illustrative):</b></p>
+<div class="code-wrap"><pre><code>$ steghide embed -cf cover.jpg -ef secret.txt -sf cover_with_secret.jpg
+Enter passphrase: 
+Re-Enter passphrase: 
+embedding "secret.txt" in "cover.jpg"... done
+wrote stego file to "cover_with_secret.jpg".
+
+$ steghide extract -sf cover_with_secret.jpg
+Enter passphrase: 
+wrote extracted data to "secret.txt".</code></pre><button class="copy-btn">Copy</button></div>
+
+<p><b>Result:</b> A fictional text message was successfully embedded into an image cover file and later extracted intact using the correct passphrase, demonstrating steganographic data hiding.</p>
+
+<p><b>Troubleshooting:</b></p>
+<ul>
+<li><b>"steghide: command not found"</b> — Tool isn't installed in the current environment; re-check installation step or confirm you're inside WSL, not plain Windows Command Prompt.</li>
+<li><b>"could not extract any data"</b> — Wrong passphrase, or the file was recompressed/edited after embedding (e.g., resent via an app that recompresses images), which destroys the hidden data.</li>
+<li><b>Unsupported cover file format</b> — Steghide supports specific formats (e.g., certain JPEG, BMP, WAV, AU files); check the tool's own documentation for the current supported list.</li>
+</ul>
+</div>
+</details>
+
+<details class="level">
+<summary>🔴 LEVEL 3 — ADVANCED</summary>
+<div class="level-body">
+<p>🟠 <b>Advanced / Extra Knowledge:</b></p>
+<ul>
+<li><b>Embedding ≠ Encryption:</b> By default, hiding a message only conceals it; Steghide additionally encrypts the payload using the passphrase, but the core technique's purpose is concealment, and some other steganography tools don't encrypt at all — always check per-tool.</li>
+<li><b>Fragility:</b> Re-saving, recompressing, resizing, or converting the cover file after embedding usually destroys the hidden data, since the hiding relies on exact file structure/least-significant-bit patterns.</li>
+<li><b>Steganalysis (EXTRA KNOWLEDGE):</b> The study of detecting hidden data's presence, e.g., via statistical anomalies in an image's pixel data — an active cat-and-mouse research area, not expected to be performed at this lab level.</li>
+</ul>
+
+<p><b>Viva Questions &amp; Answers:</b></p>
+<details class="viva"><summary>1. What is the key difference between cryptography and steganography?</summary><p>Cryptography scrambles a message so its content is unreadable, while steganography hides the very existence of the message inside an innocent-looking cover file.</p></details>
+<details class="viva"><summary>2. What is a "cover file" in steganography?</summary><p>The ordinary file (e.g., an image or audio file) used to conceal the hidden payload.</p></details>
+<details class="viva"><summary>3. Why might hidden data be lost after sharing an image on social media?</summary><p>Many platforms recompress or resize uploaded images, which alters the file structure and destroys the precisely-placed hidden bits.</p></details>
+<details class="viva"><summary>4. Does embedding a message with Steghide always encrypt it too?</summary><p>Steghide applies passphrase-based encryption to the payload by default, but this is tool-specific; some steganography tools hide data without any encryption at all.</p></details>
+<details class="viva"><summary>5. What is steganalysis?</summary><p>The study and practice of detecting whether a file contains hidden steganographic data, often using statistical analysis.</p></details>
+</div>
+</details>
+
+<p><b>Precautions:</b> Use only your own sample files and fictional, non-confidential text messages. Never use steganography to hide genuinely illegal or harmful content.</p>
+</section>
+
+<!-- ======================= TROUBLESHOOTING ======================= -->
+<section class="practical" id="troubleshoot" data-title="Troubleshooting guide compiler errors verification failure permissions">
+<h2>🧰 Common Troubleshooting Guide (All Practicals)</h2>
+<table>
+<tr><th>Issue</th><th>Likely cause</th><th>Safe diagnostic step</th><th>Solution</th><th>Prevention</th></tr>
+<tr><td>Windows Security settings unavailable</td><td>Managed by organization policy (college PC)</td><td>Check for "managed by your organization" banner</td><td>Note as observation; don't attempt to override</td><td>Use your own PC for full exploration</td></tr>
+<tr><td>Insufficient permissions</td><td>Logged in as Standard user</td><td>Settings → Accounts → check account type</td><td>Ask Administrator to assist or grant temporary rights</td><td>Know your account type before starting</td></tr>
+<tr><td>GCC/compiler not found</td><td>MinGW not installed or not in PATH</td><td>Run <code>gcc --version</code></td><td>Install MinGW/TDM-GCC; add bin folder to PATH</td><td>Verify compiler once at semester start</td></tr>
+<tr><td>C program compile errors</td><td>Missing semicolon/brace, wrong header</td><td>Read the exact compiler error line number</td><td>Fix the specific reported line; recompile</td><td>Compile frequently while typing, not only at the end</td></tr>
+<tr><td>Invalid Caesar key behaviour</td><td>Key not normalized (negative/large)</td><td>Print the normalized key value</td><td>Apply <code>((k%26)+26)%26</code> before use</td><td>Always normalize keys first in code</td></tr>
+<tr><td>Invalid Hill key matrix</td><td>det(K) shares a factor with 26</td><td>Compute det(K) mod 26, check gcd with 26</td><td>Choose/verify a matrix with gcd(det,26)=1</td><td>Always verify invertibility before using a new key</td></tr>
+<tr><td>Hill decryption mismatch</td><td>Wrong inverse matrix or convention mismatch</td><td>Recompute K×K⁻¹ mod 26, should equal Identity</td><td>Recompute inverse carefully; keep row/column convention consistent</td><td>Verify inverse once, reuse verified matrix</td></tr>
+<tr><td>Incorrect transposition key</td><td>Repeated/non-sequential digits used</td><td>Check key has distinct digits 1..n</td><td>Re-enter a valid key matching column count</td><td>Validate key input in code</td></tr>
+<tr><td>OpenSSL command not recognized</td><td>Not installed / not in PATH</td><td>Run <code>openssl version</code></td><td>Install from official source; fix PATH</td><td>Verify installation before lab day</td></tr>
+<tr><td>Digital signature verification failure</td><td>Document modified, or wrong key/signature pairing</td><td>Confirm exact files used match the signing step</td><td>Re-sign if document is genuinely meant to change; else confirm correct files</td><td>Keep signed file read-only until verified</td></tr>
+<tr><td>Missing/incompatible Steghide executable</td><td>No reliable native Windows build available</td><td>Check official project page for current status</td><td>Use WSL with Linux package manager instead</td><td>Set up WSL early in the semester</td></tr>
+<tr><td>Unsupported cover-file format</td><td>File type not supported by Steghide</td><td>Check tool's documentation for supported formats</td><td>Convert to a supported format (e.g., standard JPEG/BMP/WAV)</td><td>Test with a known-supported sample first</td></tr>
+<tr><td>Failed message extraction</td><td>Wrong passphrase or file was recompressed after embedding</td><td>Re-check passphrase; check if file was re-saved by another app</td><td>Re-embed into a freshly copied, unedited cover file</td><td>Keep a backup of the original stego file; don't re-save via chat apps</td></tr>
+<tr><td>Email header fields missing/unclear</td><td>Email client hides headers by default</td><td>Look for "Show original"/"View source" option</td><td>Use the provider's full-header view feature</td><td>Learn your email client's header-view option in advance</td></tr>
+</table>
+<p class="note">General rule: never bypass organizational security restrictions to "fix" an issue — report access problems to your lab in-charge/IT administrator instead.</p>
+</section>
+
+<!-- ======================= ADVANCED SECTION ======================= -->
+<section class="practical" id="advanced" data-title="Advanced extra knowledge authentication hashing phishing endpoint PKI classical ciphers">
+<h2>🟠 Advanced / Extra Knowledge — How These Practicals Connect</h2>
+<ul>
+<li><b>Authentication &amp; OS security:</b> Practical 1's account/permission model is the foundation every other security layer (antivirus, firewall, encryption) builds upon.</li>
+<li><b>Password hashing &amp; secure storage:</b> Practical 2's hashing/salting concepts explain why real breaches expose "hashes," not plain passwords, and why strong, unique passwords still matter.</li>
+<li><b>Email authentication &amp; phishing defence:</b> Practical 3's SPF/DKIM/DMARC knowledge is directly useful for spotting phishing attempts in daily life.</li>
+<li><b>Endpoint protection:</b> Practical 4's defensive mindset (scan, inspect startup, verify sources) scales up to enterprise Endpoint Detection and Response (EDR) systems.</li>
+<li><b>Classical cipher limitations:</b> Practicals 5 &amp; 6 teach the mathematical building blocks (permutation, modular arithmetic, matrices) that modern ciphers (AES, RSA) extend with far greater complexity and key sizes.</li>
+<li><b>Digital signatures &amp; PKI:</b> Practical 7 connects to real-world HTTPS certificates, code-signing, and e-governance digital signature laws.</li>
+<li><b>Steganography &amp; limitations:</b> Practical 8 shows that "hidden" isn't the same as "secure" — combining steganography with real encryption gives stronger protection than either alone.</li>
+<li><b>Security auditing &amp; responsible lab practice:</b> Every practical reinforces working only on authorized systems with fictional/sample data — the same ethical boundary real-world security professionals must respect.</li>
+</ul>
+<p class="note">This advanced section is for deeper understanding, exams, and interview preparation. Not every point here is necessarily part of the official BTEUP marking scheme — always follow your own institute's official practical record format and your instructor's specific marking guidance.</p>
+</section>
+
+</main>
+
+<button id="backtop" title="Back to top">⬆</button>
+
+<footer>
+  Prepared as a self-contained offline study resource • BTEUP CSE Information Security Lab • Works fully offline in Chrome<br>
+  All cipher examples are educational only and must never be used to protect real confidential data.
+</footer>
+
+<script>
+(function(){
+  // Theme toggle
+  var root = document.documentElement;
+  var saved = localStorage.getItem('is_lab_theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', cur);
+    localStorage.setItem('is_lab_theme', cur);
+  });
+
+  // Print
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+  // Search filter across practical sections
+  var searchBox = document.getElementById('searchBox');
+  var sections = document.querySelectorAll('section.practical');
+  searchBox.addEventListener('input', function(){
+    var q = searchBox.value.trim().toLowerCase();
+    sections.forEach(function(sec){
+      var hay = (sec.getAttribute('data-title') || '') + ' ' + sec.textContent;
+      hay = hay.toLowerCase();
+      if (q === '' || hay.indexOf(q) !== -1) {
+        sec.classList.remove('hidden');
+        if (q !== '') {
+          sec.querySelectorAll('details.level').forEach(function(d){ d.open = true; });
+        }
+      } else {
+        sec.classList.add('hidden');
+      }
+    });
+  });
+
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var code = btn.previousElementSibling.innerText;
+      try {
+        navigator.clipboard.writeText(code).then(function(){
+          var old = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(function(){ btn.textContent = old; }, 1500);
+        });
+      } catch(e) {
+        var ta = document.createElement('textarea');
+        ta.value = code; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        btn.textContent = 'Copied!';
+        setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
+      }
+    });
+  });
+
+  // Progress checklist (stored locally, non-sensitive)
+  var checks = document.querySelectorAll('.check');
+  var label = document.getElementById('progressLabel');
+  function loadProgress(){
+    var saved = JSON.parse(localStorage.getItem('is_lab_progress') || '{}');
+    var done = 0;
+    checks.forEach(function(c){
+      var id = c.getAttribute('data-id');
+      c.checked = !!saved[id];
+      if (c.checked) done++;
+    });
+    label.textContent = done + ' / ' + checks.length + ' done';
+  }
+  checks.forEach(function(c){
+    c.addEventListener('change', function(){
+      var saved = JSON.parse(localStorage.getItem('is_lab_progress') || '{}');
+      saved[c.getAttribute('data-id')] = c.checked;
+      localStorage.setItem('is_lab_progress', JSON.stringify(saved));
+      loadProgress();
+    });
+  });
+  loadProgress();
+
+  // Back to top button
+  var backtop = document.getElementById('backtop');
+  window.addEventListener('scroll', function(){
+    backtop.style.display = window.scrollY > 300 ? 'block' : 'none';
+  });
+  backtop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+</script>
+
+</body>
+</html>
