@@ -448,6 +448,7 @@
         <select id="subFilter" class="filter-select" onchange="applyFilters()">
           <option value="all">All Subjects</option>
           <option value="Core Subjects" selected>Core Subjects</option>
+          <option value="Information Security">Information Security</option>
           <option value="Programming">Programming / Lab</option>
           <option value="General">General / Electives</option>
         </select>
@@ -626,13 +627,91 @@
     const ADMIN_PASS_HASH = "cc91356c406719b8c7ad1411e419ed65b44abd1eb0d8568b7cae963b3b403a1d";
 
     const DEFAULT_DATA = [
-      { id: 1, branch: "CSE", sem: "5th Sem", sub: "Core Subjects", tag: "Unit 01", title: "Unit 1 Notes", file: "unit1.html", desc: "Complete theoretical concepts, definitions, and core fundamentals.", type: "theory", visible: true },
-      { id: 2, branch: "CSE", sem: "5th Sem", sub: "Core Subjects", tag: "Unit 02", title: "Unit 2 Notes", file: "unit2.html", desc: "Detailed explanations, architecture diagrams, and essential exam topics.", type: "theory", visible: true },
-      { id: 3, branch: "CSE", sem: "5th Sem", sub: "Core Subjects", tag: "Unit 03", title: "Unit 3 Notes", file: "unit3.html", desc: "Core models, operations, step-by-step methodologies, and examples.", type: "theory", visible: true },
-      { id: 4, branch: "CSE", sem: "5th Sem", sub: "Core Subjects", tag: "Unit 04", title: "Unit 4 Notes", file: "unit4.html", desc: "Advanced modules, practical implications, and previous year questions.", type: "theory", visible: true },
-      { id: 5, branch: "CSE", sem: "5th Sem", sub: "Core Subjects", tag: "Unit 05", title: "Unit 5 Notes", file: "unit5.html", desc: "Final unit topics, security aspects, modern trends, and revision points.", type: "theory", visible: true },
-      { id: 6, branch: "CSE", sem: "5th Sem", sub: "Programming", tag: "Lab File", title: "Lab Practical File", file: "practical.html", desc: "Step-by-step experiment outputs, code scripts, and viva questions.", type: "practical", visible: true }
-    ];
+  {
+    "id": 1,
+    "branch": "CSE",
+    "sem": "5th Sem",
+    "sub": "Informatiom Security",
+    "tag": "Unit 01",
+    "title": "Unit 1 Notes",
+    "file": "unit1.html",
+    "desc": "Complete theoretical concepts, definitions, and core fundamentals.",
+    "type": "theory",
+    "visible": true
+  },
+  {
+    "id": 2,
+    "branch": "CSE",
+    "sem": "5th Sem",
+    "sub": "Information Security",
+    "tag": "Unit 02",
+    "title": "Unit 2 Notes",
+    "file": "unit2.html",
+    "desc": "Detailed explanations, architecture diagrams, and essential exam topics.",
+    "type": "theory",
+    "visible": true
+  },
+  {
+    "id": 3,
+    "branch": "CSE",
+    "sem": "5th Sem",
+    "sub": "Information Security",
+    "tag": "Unit 03",
+    "title": "Unit 3 Notes",
+    "file": "unit3.html",
+    "desc": "Core models, operations, step-by-step methodologies, and examples.",
+    "type": "theory",
+    "visible": true
+  },
+  {
+    "id": 4,
+    "branch": "CSE",
+    "sem": "5th Sem",
+    "sub": "Information Security",
+    "tag": "Unit 04",
+    "title": "Unit 4 Notes",
+    "file": "unit4.html",
+    "desc": "Advanced modules, practical implications, and previous year questions.",
+    "type": "theory",
+    "visible": true
+  },
+  {
+    "id": 5,
+    "branch": "CSE",
+    "sem": "5th Sem",
+    "sub": "Information Security",
+    "tag": "Unit 05",
+    "title": "Unit 5 Notes",
+    "file": "unit5.html",
+    "desc": "Final unit topics, security aspects, modern trends, and revision points.",
+    "type": "theory",
+    "visible": true
+  },
+  {
+    "id": 6,
+    "branch": "CSE",
+    "sem": "5th Sem",
+    "sub": "Programming",
+    "tag": "Lab File",
+    "title": "Lab Practical File",
+    "file": "practical.html",
+    "desc": "Step-by-step experiment outputs, code scripts, and viva questions.",
+    "type": "practical",
+    "visible": true
+  },
+  {
+    "id": 1794317532739,
+    "branch": "CSE",
+    "sem": "5th Sem",
+    "sub": "Information Security",
+    "tag": "PDF",
+    "title": "Unit 1 PDF Notes",
+    "file": "unit1English.pdf",
+    "desc": "Complete theoretical concepts, definitions, and core fundamentals.",
+    "type": "theory",
+    "visible": true
+  }
+];
 
     let portalData = JSON.parse(localStorage.getItem('portal_notes_data_v4')) || DEFAULT_DATA;
 
