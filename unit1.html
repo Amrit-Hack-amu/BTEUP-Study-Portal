@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTEUP CSE – Information Security – Unit 1 Study Material</title>
+<style>
+:root{--bg:#f4f7fc;--card:#ffffff;--text:#1b2433;--muted:#566176;--border:#d5dded;
+--blue:#1d4ed8;--blueBg:#e8efff;--orange:#b45309;--orangeBg:#fff3e3;--green:#15803d;--greenBg:#e7f8ee;
+--purple:#6d28d9;--purpleBg:#f1eaff;--red:#b91c1c;--redBg:#fdecec;--code:#eef2f9;--shadow:0 2px 8px rgba(20,40,90,.08)}
+[data-theme="dark"]{--bg:#0e1420;--card:#161e2f;--text:#e8edf7;--muted:#a3b0c6;--border:#2c3852;
+--blue:#8db0ff;--blueBg:#16264d;--orange:#ffb069;--orangeBg:#3a2610;--green:#66dd93;--greenBg:#12311f;
+--purple:#c0a2ff;--purpleBg:#2b1e4f;--red:#ff8b8b;--redBg:#401a1a;--code:#1d2740;--shadow:0 2px 8px rgba(0,0,0,.4)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65;font-size:16px}
+a{color:var(--blue)}
+.wrap{max-width:980px;margin:0 auto;padding:0 14px 60px}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+.topbar .row{max-width:980px;margin:0 auto;padding:8px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.topbar input[type=search]{flex:1 1 160px;min-width:130px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:15px}
+.btn{cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text);padding:8px 12px;border-radius:8px;font-size:14px;font-weight:600}
+.btn:hover{border-color:var(--blue)}
+.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+[data-theme="dark"] .btn.primary{color:#0b1220}
+.progress{height:6px;background:var(--border)}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .3s}
+.plabel{font-size:12px;color:var(--muted);padding:0 14px 4px;max-width:980px;margin:0 auto}
+/* hero */
+.hero{background:linear-gradient(135deg,#1e3a8a,#4338ca 60%,#6d28d9);color:#fff;border-radius:16px;padding:26px 20px;margin:16px 0;box-shadow:var(--shadow)}
+.hero h1{margin:0 0 6px;font-size:1.7rem;line-height:1.25}
+.hero p{margin:4px 0;opacity:.95}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{background:rgba(255,255,255,.18);padding:3px 10px;border-radius:99px;font-size:13px}
+/* badges */
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;vertical-align:middle;margin:2px 4px 2px 0;line-height:1.4}
+.badge.official{background:var(--blueBg);color:var(--blue);border:1px solid var(--blue)}
+.badge.extra{background:var(--orangeBg);color:var(--orange);border:1px solid var(--orange)}
+.badge.exam{background:var(--purpleBg);color:var(--purple);border:1px solid var(--purple)}
+.badge.prac{background:var(--greenBg);color:var(--green);border:1px solid var(--green)}
+/* cards / boxes */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.box{border-left:5px solid;border-radius:10px;padding:10px 14px;margin:12px 0}
+.box>:first-child{margin-top:0}.box>:last-child{margin-bottom:0}
+.box.info{background:var(--blueBg);border-color:var(--blue)}
+.box.extra{background:var(--orangeBg);border-color:var(--orange)}
+.box.ex{background:var(--greenBg);border-color:var(--green)}
+.box.exam{background:var(--purpleBg);border-color:var(--purple)}
+.box.warn{background:var(--redBg);border-color:var(--red)}
+.box h4{margin:0 0 6px}
+.box.info h4{color:var(--blue)}.box.extra h4{color:var(--orange)}.box.ex h4{color:var(--green)}.box.exam h4{color:var(--purple)}.box.warn h4{color:var(--red)}
+/* topics */
+.topic{margin:18px 0}
+.topic>details,.sec>details{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.topic.extra-sec>details{border-color:var(--orange)}
+.topic>details>summary,.sec>details>summary{cursor:pointer;padding:14px 16px;font-size:1.15rem;font-weight:800;list-style:none;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.topic>details>summary::-webkit-details-marker{display:none}
+.topic>details>summary::before{content:"▸";color:var(--blue);margin-right:4px;transition:transform .2s}
+.topic>details[open]>summary::before{transform:rotate(90deg)}
+.num{background:var(--blue);color:#fff;border-radius:8px;padding:0 9px;font-size:1rem}
+[data-theme="dark"] .num{color:#0b1220}
+.inner{padding:4px 16px 18px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 12px;position:sticky;top:62px;background:var(--card);padding:6px 0;z-index:5}
+.tab{cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text);padding:8px 12px;border-radius:8px;font-weight:700;font-size:14px}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+[data-theme="dark"] .tab.active{color:#0b1220}
+.pane{display:none}.pane.active{display:block}
+h2{font-size:1.35rem}h3{font-size:1.1rem;margin:18px 0 6px;color:var(--blue)}h4{font-size:1rem;margin:12px 0 4px}
+.done{display:block;margin-top:16px;padding:10px;border:1px dashed var(--green);border-radius:10px;color:var(--green);font-weight:700;cursor:pointer}
+/* trio */
+.trio{display:grid;gap:8px;margin:10px 0}
+.trio>div{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg)}
+.trio .en{border-left:5px solid var(--blue)}.trio .hi{border-left:5px solid var(--purple)}.trio .ex{border-left:5px solid var(--green)}
+.trio b.l{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+/* tables */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;border:1px solid var(--border);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+th{background:var(--blueBg);color:var(--blue);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+code,pre{font-family:Consolas,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px;font-size:.92em}
+pre{padding:10px;overflow-x:auto;font-size:13.5px;margin:8px 0}
+ul,ol{padding-left:22px;margin:6px 0}li{margin:3px 0}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.kw span{background:var(--code);border:1px solid var(--border);border-radius:6px;padding:2px 8px;font-size:13px;font-weight:600}
+/* flow diagrams */
+.diagram{border:1px solid var(--border);border-radius:12px;padding:12px;margin:14px 0;background:var(--card)}
+.diagram .dt{font-weight:800;margin-bottom:8px;color:var(--blue)}
+.diagram .cap{font-size:14px;color:var(--muted);margin-top:8px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;justify-content:center}
+.flow.v{flex-direction:column;align-items:center}
+.node{border:2px solid var(--blue);background:var(--blueBg);border-radius:10px;padding:7px 10px;font-size:14px;text-align:center;min-width:110px;max-width:100%}
+.node.g{border-color:var(--green);background:var(--greenBg)}.node.o{border-color:var(--orange);background:var(--orangeBg)}
+.node.r{border-color:var(--red);background:var(--redBg)}.node.p{border-color:var(--purple);background:var(--purpleBg)}
+.node small{display:block;color:var(--muted);font-size:12px}
+.arr{align-self:center;font-weight:800;color:var(--muted);font-size:1.1rem}
+.flow.v .arr::after{content:"↓"}.flow:not(.v) .arr::after{content:"→"}
+@media(max-width:620px){.flow:not(.v){flex-direction:column;align-items:center}.flow:not(.v) .arr::after{content:"↓"}}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.gcell{border-radius:10px;padding:10px;border:2px solid var(--blue);background:var(--blueBg)}
+.gcell b{font-size:1.05rem}
+.center{text-align:center;font-weight:800;padding:10px;border-radius:10px;background:var(--blue);color:#fff;margin:6px 0}
+[data-theme="dark"] .center{color:#0b1220}
+/* RAID disks */
+.raidrow{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:8px 0}
+.disk{width:70px;border:2px solid var(--text);border-radius:10px;padding:4px;background:var(--bg);text-align:center;font-size:12px}
+.disk .d{font-weight:700;margin-bottom:3px}
+.blk{margin:3px 0;padding:3px 0;border-radius:4px;font-weight:700;font-size:12px;border:1px solid var(--border)}
+.a{background:#bcd3ff;color:#0b1b44}.b{background:#c6f1d4;color:#0b3a1d}.c{background:#ffe0b8;color:#4a2a00}.d{background:#e6d3ff;color:#2a1250}.p{background:#ffc4c4;color:#4a0a0a}
+.disk.fail{opacity:.35;border-style:dashed}
+.sbtn{margin:4px 4px 4px 0}
+/* QA */
+details.ans{border:1px solid var(--purple);border-radius:10px;margin:8px 0;background:var(--card)}
+details.ans>summary{cursor:pointer;padding:8px 12px;font-weight:700;color:var(--purple)}
+details.ans>.abody{padding:4px 14px 12px}
+.q{border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:12px 0;background:var(--card);break-inside:avoid;page-break-inside:avoid}
+.q .qt{font-weight:700}
+.opts{list-style:upper-alpha;margin:6px 0 6px 6px;padding-left:26px}
+.pq{border:2px solid var(--purple);border-radius:14px;padding:12px 16px;margin:16px 0;background:var(--card)}
+.pq h3{color:var(--purple);margin-top:4px}
+.checklist label{display:block;padding:6px 8px;border-bottom:1px solid var(--border);cursor:pointer}
+.toc{columns:2 260px;gap:18px;padding-left:20px}
+.toc a{text-decoration:none;font-weight:600}
+.hide{display:none!important}
+#top{position:fixed;right:14px;bottom:16px;z-index:60;display:none;border-radius:50%;width:46px;height:46px;font-size:20px}
+.small{font-size:13.5px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:30px}
+/* print */
+@media print{
+@page{size:A4;margin:14mm}
+:root,[data-theme="dark"]{--bg:#fff;--card:#fff;--text:#000;--muted:#333;--border:#999;--blue:#0b2a8a;--blueBg:#eef2ff;--orange:#8a3d00;--orangeBg:#fff4e8;--green:#0b5d2a;--greenBg:#ecfaf1;--purple:#4c1d95;--purpleBg:#f5efff;--red:#8a1111;--redBg:#fdeeee;--code:#f0f0f0;--shadow:none}
+body{font-size:11pt;background:#fff;color:#000}
+.topbar,#top,.tabs,.noprint,.done,.sbtn,.toc-search{display:none!important}
+.hero{background:#fff!important;color:#000!important;border:2px solid #000;box-shadow:none}.chip{background:#eee;color:#000}
+.pane{display:block!important}
+.pane::before{content:attr(data-name);display:block;font-weight:800;margin:10px 0 4px;color:#000;border-bottom:1px solid #000}
+details>*{display:block}
+.topic{page-break-before:auto}
+.topic>details>summary{page-break-after:avoid}
+.box,.diagram,.q,.pq,.tw,table,tr,details.ans{break-inside:avoid;page-break-inside:avoid}
+.tw{overflow:visible;border:1px solid #666}table{min-width:0;font-size:10pt}
+h2,h3,h4{break-after:avoid;page-break-after:avoid}
+.num{background:#fff;color:#000;border:1px solid #000}
+.hide{display:block!important}
+a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="topbar noprint">
+  <div class="row">
+    <input type="search" id="search" placeholder="🔍 Search topics (e.g. RAID, logs, PAIN)..." aria-label="Search topics">
+    <button class="btn" id="expand">Expand all</button>
+    <button class="btn" id="collapse">Collapse all</button>
+    <button class="btn" id="theme" aria-label="Toggle dark or light mode">🌙 Dark</button>
+    <button class="btn primary" id="print">🖨 Print / Save as PDF</button>
+  </div>
+  <div class="plabel" id="plabel">Progress: 0%</div>
+  <div class="progress"><div id="pbar"></div></div>
+</div>
+
+<div class="wrap">
+<header class="hero">
+  <h1>Information Security — Unit 1</h1>
+  <p><b>Introduction to Information Security and Security Features of Operating Systems</b></p>
+  <p>BTEUP · B.Tech/Diploma CSE · Program Elective 3 · Complete Study Notes (Basic → Intermediate → Advanced)</p>
+  <div class="chips"><span class="chip">Simple English</span><span class="chip">Hinglish</span><span class="chip">Real-life examples</span><span class="chip">Diagrams</span><span class="chip">Exam practice</span><span class="chip">Works offline</span></div>
+</header>
+
+<div class="card">
+  <h2>👋 Welcome, student!</h2>
+  <p>Ye notes aapko <b>bilkul beginner level se</b> Information Security samjhane ke liye bane hain. Har important concept <b>teen parts</b> mein hai: <b>A. Simple English</b>, <b>B. Hinglish</b>, <b>C. Real-life example</b>. Har official topic ke <b>3 levels</b> hain — Basic, Intermediate, Advanced. Pehle Basic padho, phir Intermediate, phir Advanced.</p>
+  <h3>Colour guide (kaun sa box kya batata hai)</h3>
+  <div class="box info"><span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span> Blue = topic jo supplied Unit 1 syllabus mein explicitly likha hai. Exam ke liye primary priority.</div>
+  <div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span> Orange = supporting knowledge jo samajhne mein help karta hai. Ye syllabus mein alag se likha nahi hai, isliye separate exam question hona zaroori nahi.</div>
+  <div class="box ex"><b>Green</b> = examples aur practical activities.</div>
+  <div class="box exam"><b>Purple</b> = exam questions aur answers.</div>
+  <div class="box warn"><b>Red</b> = warnings aur common mistakes.</div>
+  <div class="box info"><b>Syllabus scope used in these notes:</b> (1) Introduction to Information Security, (2) Various aspects of Information Security (PAIN), (3) Security Features of Operating Systems: Authentication, Logs, Audit Features, File System Protection, User Privileges, RAID Options, Anti-Virus Software, <i>etc.</i> The word “etc.” is covered under <b>“Other relevant security features”</b> (Topic 10), which are supporting explanations and not separately named in the syllabus.</div>
+  <p class="small">Note: Suggested exam questions and answer lengths in these notes are <b>preparation guidance only</b>. They are not actual BTEUP papers, previous-year questions, or official marking rules.</p>
+</div>
+
+<nav class="card" id="toc" aria-label="Table of contents">
+  <h2>📚 Table of Contents</h2>
+  <ol class="toc">
+    <li><a href="#t1">Introduction to Information Security</a></li>
+    <li><a href="#t2">PAIN — Aspects of Information Security</a></li>
+    <li><a href="#t3">Authentication</a></li>
+    <li><a href="#t4">Logs</a></li>
+    <li><a href="#t5">Audit Features</a></li>
+    <li><a href="#t6">File System Protection</a></li>
+    <li><a href="#t7">User Privileges</a></li>
+    <li><a href="#t8">RAID Options</a></li>
+    <li><a href="#t9">Anti-Virus Software</a></li>
+    <li><a href="#t10">Other OS Security Features (“etc.”)</a></li>
+    <li><a href="#extra">🟠 Extra Knowledge Section</a></li>
+    <li><a href="#practical">🟢 Practical Learning Activities</a></li>
+    <li><a href="#priority">🟣 Five Priority Exam Questions</a></li>
+    <li><a href="#practice">🟣 MCQs, Short, True/False, Scenarios</a></li>
+    <li><a href="#revision">Revision Sheet, Definitions, Differences</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+    <li><a href="#checklist">Completion Checklist</a></li>
+  </ol>
+</nav>
+
+<main id="main">
+<!-- ================= TOPIC 1 ================= -->
+<section class="topic" id="t1" data-title="introduction to information security threat vulnerability risk controls cybersecurity data security">
+<details open><summary><span class="num">1</span> Introduction to Information Security <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What is Information Security?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b><b>Information Security (InfoSec)</b> means protecting information from people or events that can misuse, change, steal, damage or destroy it. Information can be digital (files, database), printed (paper) or even spoken.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Information Security ka matlab hai apni important <b>information ko bachana</b> — galat logon se, galat use se, unwanted changes se aur loss se. Information computer mein ho, kagaz par ho ya cloud mein, sabko protect karna InfoSec hai.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>College ka student database: marks, attendance, fees, Aadhaar-type details. Sirf authorised staff isse dekh/edit kar sake, koi student apne marks na badal sake, aur server kharab ho jaye to bhi data wapas mil sake — ye sab Information Security hai.</div>
+</div>
+
+<h3>2. What is “information” and what are “information assets”?</h3>
+<ul>
+<li><b>Data</b> = raw facts (e.g., 78, "Rahul", 12-05-2005).</li>
+<li><b>Information</b> = data with meaning (e.g., "Rahul scored 78 marks in DBMS").</li>
+<li><b>Information asset</b> = any information or thing that stores/processes/transmits information and has <u>value</u> to the organisation: databases, files, servers, laptops, software, network devices, printed records, and even people's knowledge.</li>
+</ul>
+<p><span class="small">Hinglish:</span> Jo cheez organisation ke liye valuable ho aur information se judi ho (server, student database, exam papers, laptop), use <b>information asset</b> kehte hain.</p>
+
+<h3>3. Why is Information Security needed?</h3>
+<ul>
+<li>To protect <b>private data</b> of students, customers, employees.</li>
+<li>To keep <b>business running</b> (a bank cannot work if its data is lost).</li>
+<li>To follow <b>laws and rules</b> about data protection.</li>
+<li>To maintain <b>trust</b> — people stop using services that leak data.</li>
+<li>To avoid <b>financial loss</b> and legal trouble.</li>
+</ul>
+
+<div class="box ex"><h4>🟢 Example: College Database</h4>
+<p>A college stores: student name, roll number, marks, attendance, fee status.</p>
+<ul><li>Teacher can <b>view and update attendance</b> only for own subject.</li><li>Student can <b>view only own</b> marks.</li><li>Admin keeps a <b>daily backup</b>.</li><li>Every change to marks is <b>recorded</b> (who, when).</li></ul>
+<p>Hinglish: Yahan har person ko sirf utna access diya gaya hai jitna zaroori hai — ye information security ka basic idea hai.</p></div>
+
+<div class="diagram"><div class="dt">Diagram 1: Information Security Overview</div>
+<div class="flow">
+<div class="node r">⚠ Threat<small>hacker, malware, human mistake, fire</small></div><span class="arr"></span>
+<div class="node o">🕳 Vulnerability<small>weak password, no update</small></div><span class="arr"></span>
+<div class="node r">📉 Risk<small>data leak / loss</small></div>
+</div>
+<div class="flow" style="margin-top:8px">
+<div class="node">🛡 Security Controls<small>People · Process · Technology</small></div><span class="arr"></span>
+<div class="node g">🗄 Information Assets<small>student database, servers, laptops</small></div>
+</div>
+<div class="cap">A threat can exploit a vulnerability and create risk to an asset. Security controls (policies, training, passwords, firewalls, backups, locks) reduce that risk and protect the assets.</div></div>
+
+<div class="box ex"><h4>🟢 Basic security scenario</h4><p>A lab computer has an old, un-updated operating system (vulnerability). A student plugs in an infected pen drive (threat). Malware may steal or delete files (risk). The college installs updates, antivirus and disables auto-run (controls).</p></div>
+
+<h3>4. Important keywords</h3>
+<div class="kw"><span>Information</span><span>Asset</span><span>Threat</span><span>Vulnerability</span><span>Risk</span><span>Control</span><span>Policy</span><span>Backup</span></div>
+
+<div class="box info"><h4>📌 Short recap</h4><p>Information Security = protecting valuable information (in any form) from misuse, unauthorised change, loss and destruction using people, process and technology controls.</p></div>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span><p>The <b>CIA Triad</b> (Confidentiality, Integrity, Availability) is a very popular model that helps explain InfoSec goals. It is explained later in the Extra Knowledge section. Syllabus ke liye main focus <b>PAIN</b> hai.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>1. How Information Security works (step by step)</h3>
+<ol><li><b>Identify assets</b> — list what is valuable (databases, servers, laptops).</li><li><b>Identify threats and vulnerabilities</b> — what can go wrong and where we are weak.</li><li><b>Assess risk</b> — how likely and how damaging?</li><li><b>Choose controls</b> — policies, technical tools, physical protection.</li><li><b>Implement and train people.</b></li><li><b>Monitor, review and improve</b> regularly.</li></ol>
+
+<h3>2. Threat vs Vulnerability vs Risk</h3>
+<div class="tw"><table><tr><th>Term</th><th>Meaning</th><th>Hinglish</th><th>College example</th></tr>
+<tr><td><b>Threat</b></td><td>Anything that can cause harm to an asset</td><td>Khatra / nuksan pahunchane wali cheez</td><td>Malware on a pen drive</td></tr>
+<tr><td><b>Vulnerability</b></td><td>A weakness that a threat can use</td><td>Kamzori / loophole</td><td>No antivirus, weak password</td></tr>
+<tr><td><b>Risk</b></td><td>Possible loss when a threat meets a vulnerability (considering likelihood and impact)</td><td>Nuksan hone ka chance aur uska asar</td><td>Marks database may be deleted</td></tr></table></div>
+<div class="box info"><p><b>Easy memory trick:</b> Open window = vulnerability, thief = threat, theft of laptop = risk, lock/grill = control.</p></div>
+
+<h3>3. Types of security controls</h3>
+<div class="tw"><table><tr><th>Type</th><th>Meaning</th><th>Examples</th></tr>
+<tr><td>Administrative</td><td>Rules, policies, training</td><td>Password policy, staff awareness</td></tr>
+<tr><td>Technical (logical)</td><td>Software/hardware protections</td><td>Antivirus, firewall, encryption, RAID</td></tr>
+<tr><td>Physical</td><td>Protecting buildings and devices</td><td>Server-room lock, CCTV, ID cards</td></tr></table></div>
+<p><b>By function:</b> <b>Preventive</b> (stop attack: login, firewall), <b>Detective</b> (find attack: logs, alarms), <b>Corrective</b> (fix after: restore backup, patch).</p>
+
+<h3>4. Information Security vs Cybersecurity vs Data Security</h3>
+<div class="tw"><table><tr><th>Term</th><th>Focus</th><th>Scope</th><th>Example</th></tr>
+<tr><td>Data security</td><td>Protecting data itself (at rest, in use, in transit)</td><td>Narrowest: data-focused (encryption, backup, access control)</td><td>Encrypting a student database</td></tr>
+<tr><td>Information security</td><td>Protecting information in <b>all forms</b> (digital, paper, spoken)</td><td>Broad: includes policies, people, physical security</td><td>Locking exam-paper cupboard AND securing server</td></tr>
+<tr><td>Cybersecurity</td><td>Protecting systems, networks and digital information from digital attacks</td><td>Focus on cyberspace/internet-connected systems</td><td>Defending college portal from hackers</td></tr></table></div>
+<div class="box warn"><h4>⚠ Misconception</h4><p>These three terms are <b>related and overlap</b>, but they are <b>not exactly identical</b>. People often use them loosely in daily talk; in exams, mention the scope difference.</p></div>
+
+<h3>5. Importance in different organisations</h3>
+<ul><li><b>Colleges:</b> student records, exam results, fee data.</li><li><b>Businesses:</b> customer data, trade secrets, accounts.</li><li><b>Banks:</b> money, account details, transaction trust.</li><li><b>Government:</b> citizen records, public services, national data.</li></ul>
+
+<h3>6. Relevant security principles</h3>
+<ul><li><b>Least privilege</b> — give only the access needed.</li><li><b>Need-to-know</b> — share only necessary information.</li><li><b>Defence in depth</b> — many layers of protection, not just one.</li><li><b>Separation of duties</b> — one person should not control everything (e.g., one prepares marks, another approves).</li></ul>
+
+<h3>7. Advantages, limitations, mistakes</h3>
+<ul><li><b>Advantages:</b> protects data, builds trust, reduces loss.</li><li><b>Limitations:</b> no system is 100% secure; security costs time and money; too strict rules reduce convenience.</li></ul>
+<div class="box warn"><h4>⚠ Common mistakes</h4><ul><li>Thinking "my data is not important, nobody will attack me".</li><li>Relying only on antivirus.</li><li>Ignoring human mistakes (people are a major cause of incidents).</li></ul></div>
+<div class="box ex"><h4>🟢 Practical application</h4><p>Your college ERP: login (authentication), role-based access (privileges), logs (record), backup/RAID (availability), antivirus on lab PCs.</p></div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical view: Risk analysis</h3>
+<p>A common simple model: <code>Risk = Likelihood × Impact</code>. Likelihood = chance that a threat exploits a vulnerability; Impact = damage caused. Organisations rank risks (low/medium/high) to decide where to spend effort first.</p>
+<h3>2. Risk treatment options</h3>
+<div class="tw"><table><tr><th>Option</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>Mitigate</td><td>Reduce risk using controls</td><td>Install updates, enable MFA</td></tr>
+<tr><td>Transfer</td><td>Share risk with another party</td><td>Cyber insurance, cloud provider SLA</td></tr>
+<tr><td>Avoid</td><td>Stop the risky activity</td><td>Do not store card details at all</td></tr>
+<tr><td>Accept</td><td>Knowingly live with low risk</td><td>Very low-value test PC without backup</td></tr></table></div>
+<h3>3. Practical implementation concepts</h3>
+<ul><li><b>Security policy</b> (high-level rules) → <b>standards</b> (specific requirements) → <b>procedures</b> (step-by-step tasks).</li><li><b>Defence in depth:</b> physical + network + system + application + data + people layers.</li><li><b>Attack surface:</b> total points where an attacker could try to enter; reduce by disabling unused services and accounts.</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>A college website admin account uses a weak password and no logging. An attacker guesses it, edits results and nobody notices for days. Missing controls: strong authentication, least privilege, audit logs, monitoring, backups. Lesson: <b>one missing layer can break the whole chain</b>.</p>
+<h3>5. Common failure cases</h3>
+<ul><li>Security added after the system is built instead of during design.</li><li>Policies exist on paper but are not followed.</li><li>No backups tested; nobody reviews logs.</li><li>Ex-employees' accounts remain active.</li></ul>
+<h3>6. Technical terminology</h3>
+<div class="kw"><span>Attack surface</span><span>Exploit</span><span>Residual risk</span><span>Countermeasure</span><span>Security posture</span><span>Defence in depth</span><span>Policy / Standard / Procedure</span></div>
+<p><b>Residual risk</b> = risk that still remains after controls are applied.</p>
+<h3>7. Interview-level conceptual questions</h3>
+<details class="ans"><summary>Q1. Can a system have a vulnerability but no risk?</summary><div class="abody">If no realistic threat can reach or exploit it, or the asset has no value, risk can be very low — but risk is rarely exactly zero, and threats can change over time.</div></details>
+<details class="ans"><summary>Q2. Why is “defence in depth” better than one strong control?</summary><div class="abody">Any single control can fail. Multiple independent layers mean an attacker must defeat several, and failures are more likely to be detected.</div></details>
+<details class="ans"><summary>Q3. Is information security only a technical problem?</summary><div class="abody">No. It also involves people (awareness), processes (policies, procedures) and physical protection, along with technology.</div></details>
+
+<div class="box info"><h4>📝 Revision summary — Topic 1</h4><ul><li>InfoSec protects information in all forms.</li><li>Threat + Vulnerability → Risk; controls reduce risk.</li><li>Controls: administrative, technical, physical; preventive, detective, corrective.</li><li>Data security ⊂ Information security (broad); Cybersecurity focuses on digital/cyber space — related but not identical.</li></ul></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t1"> ✅ I completed Topic 1</label>
+</div></details></section>
+
+<!-- ================= TOPIC 2 ================= -->
+<section class="topic" id="t2" data-title="pain privacy authentication integrity non-repudiation digital signature cia triad">
+<details><summary><span class="num">2</span> PAIN — Various Aspects of Information Security <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="box info"><p><b>PAIN (as used in this syllabus):</b> <b>P</b>rivacy · <b>A</b>uthentication · <b>I</b>ntegrity · <b>N</b>on-repudiation.</p></div>
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<div class="diagram"><div class="dt">Diagram 2: PAIN Framework</div>
+<div class="center">Information Security — PAIN</div>
+<div class="grid4">
+<div class="gcell"><b>P — Privacy</b><br>Personal info is protected; access/use is controlled.</div>
+<div class="gcell"><b>A — Authentication</b><br>Verify “who are you?”</div>
+<div class="gcell"><b>I — Integrity</b><br>Information stays accurate and complete.</div>
+<div class="gcell"><b>N — Non-repudiation</b><br>Evidence so actions are hard to deny.</div></div>
+<div class="cap">The four aspects work together: only verified users (A) can access private data (P), changes are controlled (I), and actions leave evidence (N).</div></div>
+
+<h3>P — Privacy</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>Privacy means protecting <b>personal information</b> and keeping proper control over how it is collected, who can access it, and how it is used.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Privacy ka matlab hai kisi ki <b>personal information</b> ko safe rakhna aur ye control karna ki use kaun dekh sakta hai, kaun collect kar sakta hai aur kis kaam mein use ho sakti hai.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>Student portal mein aap sirf <b>apna</b> result dekh sakte ho; doosre student ka phone number ya marks nahi.</div></div>
+<p><b>Purpose:</b> protect people's personal details from misuse. <b>Importance:</b> prevents identity misuse, embarrassment, fraud, and keeps legal/ethical trust.</p>
+
+<h3>A — Authentication</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>Authentication is <b>verifying identity</b> — checking that a user is really who they claim to be.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Authentication ka matlab hai verify karna ki user sach mein wahi person hai jo hone ka claim kar raha hai.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>ATM mein card (identity claim) + PIN (proof). Mobile unlock: PIN ya fingerprint.</div></div>
+<p><b>Purpose:</b> make sure only genuine users enter the system. <b>Importance:</b> first gate of security; if it fails, everything behind it is at risk.</p>
+
+<h3>I — Integrity</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>Integrity means information stays <b>accurate, complete and unchanged by unauthorised people</b> (or by accident).</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Integrity ka matlab hai data <b>sahi aur poora</b> rahe — koi bina permission ke use badle nahi, aur galti se bhi corrupt na ho.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>Bank balance ₹5,000 hai to wahi dikhna chahiye; koi bina permission 50,000 na kar sake. Marks 78 hain to 87 na ban jaye.</div></div>
+<p><b>Purpose:</b> keep data trustworthy. <b>Importance:</b> wrong data leads to wrong decisions, money loss and unfair results.</p>
+
+<h3>N — Non-repudiation</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>Non-repudiation means providing <b>evidence</b> that a person performed an action or sent a message, so that <b>denying it later becomes difficult</b> (in suitable technical and legal contexts).</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Non-repudiation ka matlab hai aisa <b>saboot/evidence</b> rakhna ki koi apne kiye hue kaam se aasani se mukar na sake ("maine ye nahi kiya").</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>Online banking transfer ke baad transaction record + bank ke digital logs; ya digitally signed email/document jisme signer ki identity linked hoti hai.</div></div>
+<div class="box warn"><h4>⚠ Important accuracy note</h4><p>A <b>plain password alone does not guarantee</b> non-repudiation (passwords can be shared or stolen). Digital signatures and well-protected audit records can <b>support</b> non-repudiation.</p></div>
+
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span>
+<h4>CIA Triad (brief)</h4><p><b>C</b>onfidentiality (only authorised people can read), <b>I</b>ntegrity (data stays correct), <b>A</b>vailability (data/service accessible when needed). It is a different, very common framework. PAIN and CIA overlap (e.g., Privacy ≈ related to Confidentiality; Integrity appears in both) but they are <b>not identical</b>.</p></div>
+
+<div class="kw"><span>Privacy</span><span>Authentication</span><span>Integrity</span><span>Non-repudiation</span><span>Digital signature</span><span>Audit record</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>PAIN = Privacy (protect personal info), Authentication (verify identity), Integrity (data correct), Non-repudiation (evidence, accountability).</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>Detailed study of each element</h3>
+
+<h4>1) Privacy</h4>
+<ul><li><b>Working principle:</b> collect minimum data, restrict access, use only for stated purpose, protect storage and transfer.</li>
+<li><b>Examples (3):</b> (1) Student portal shows only own marks; (2) Hospital record visible only to treating doctor; (3) Mobile app asks permission before using camera/contacts.</li>
+<li><b>Threats/failures:</b> data leak, over-collection, shared screens/passwords, careless sharing on social media.</li>
+<li><b>Protection:</b> access control, encryption, privacy settings, data minimisation, staff training.</li></ul>
+<div class="box exam"><b>Short exam answer:</b> Privacy is the protection of personal information and control over its collection, access and use. It is achieved by access control, encryption and data-minimisation policies.</div>
+
+<h4>2) Authentication</h4>
+<ul><li><b>Working principle:</b> user claims identity → provides proof (password, OTP, biometric, token) → system verifies → grants/denies.</li>
+<li><b>Examples (3):</b> (1) Student ID + password at portal; (2) ATM card + PIN; (3) Phone fingerprint unlock; (4) OTP for online payment.</li>
+<li><b>Failures:</b> weak/reused passwords, phishing, shared accounts, stolen devices, no lockout.</li>
+<li><b>Protection:</b> strong passwords, MFA, account lockout, secure password storage, user awareness.</li></ul>
+<div class="box exam"><b>Short exam answer:</b> Authentication verifies a user's claimed identity using something known, possessed or inherent (e.g., password, token, fingerprint) before access is granted.</div>
+
+<h4>3) Integrity</h4>
+<ul><li><b>Working principle:</b> allow changes only by authorised users, detect unauthorised/accidental changes (checksums/hashes, version control, audit logs), and keep backups.</li>
+<li><b>Examples (3):</b> (1) Marks cannot be edited by students; (2) File checksum matches after download; (3) Bank transactions cannot be altered silently; (4) Database transaction rules prevent half-saved records.</li>
+<li><b>Failures:</b> malware modifying files, insider tampering, disk errors, software bugs, man-in-the-middle changes.</li>
+<li><b>Protection:</b> permissions, hashing/checksums, digital signatures, logs, backups, validation rules.</li></ul>
+<div class="box exam"><b>Short exam answer:</b> Integrity ensures information remains accurate and complete and is modified only in authorised ways; it is supported by access control, hashing, digital signatures and backups.</div>
+
+<h4>4) Non-repudiation</h4>
+<ul><li><b>Working principle:</b> bind an action to an identity with evidence — e.g., a digital signature created with a person's private key, plus trustworthy timestamps and audit records.</li>
+<li><b>Examples (3):</b> (1) Digitally signed PDF; (2) Bank transaction logs with user ID and time; (3) Email server delivery/sent records; (4) Signed software updates.</li>
+<li><b>Failures:</b> shared accounts (cannot prove who acted), stolen private keys, editable logs, no timestamps.</li>
+<li><b>Protection:</b> unique user IDs, digital signatures, protected audit logs, time synchronisation, key protection.</li></ul>
+<div class="box exam"><b>Short exam answer:</b> Non-repudiation provides evidence that makes it difficult for a person to deny performing an action or sending a message; digital signatures and protected audit records support it.</div>
+
+<h3>Comparison table: PAIN aspects</h3>
+<div class="tw"><table><tr><th>Aspect</th><th>Meaning</th><th>Main Purpose</th><th>Example</th><th>Security Measure</th></tr>
+<tr><td><b>Privacy</b></td><td>Protecting personal information and controlling its access/use</td><td>Protect individuals' data</td><td>Student sees only own marks</td><td>Access control, encryption, privacy policy</td></tr>
+<tr><td><b>Authentication</b></td><td>Verifying identity</td><td>Allow only genuine users</td><td>Portal login with password + OTP</td><td>Passwords, OTP, biometrics, MFA</td></tr>
+<tr><td><b>Integrity</b></td><td>Accuracy and completeness of information</td><td>Prevent unauthorised/accidental change</td><td>Marks cannot be altered by students</td><td>Permissions, hashing, backups, audit logs</td></tr>
+<tr><td><b>Non-repudiation</b></td><td>Evidence supporting accountability for actions</td><td>Make denial difficult</td><td>Digitally signed document</td><td>Digital signatures, protected audit records</td></tr></table></div>
+
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span>
+<h4>PAIN vs CIA Triad</h4>
+<div class="tw"><table><tr><th>PAIN</th><th>CIA</th><th>Note</th></tr>
+<tr><td>Privacy</td><td>Confidentiality</td><td>Related; privacy concerns personal data and its proper use, confidentiality concerns restricting reading.</td></tr>
+<tr><td>Authentication</td><td>(supporting control)</td><td>CIA doesn't list it as a goal; it is a mechanism.</td></tr>
+<tr><td>Integrity</td><td>Integrity</td><td>Same idea.</td></tr>
+<tr><td>Non-repudiation</td><td>(accountability)</td><td>Not a CIA goal.</td></tr>
+<tr><td>—</td><td>Availability</td><td>PAIN does not list it.</td></tr></table></div></div>
+<div class="box warn"><h4>⚠ Misconceptions</h4><ul><li>“Authentication = Authorization” ✗ (different; see Topic 3).</li><li>“Password login proves non-repudiation” ✗.</li><li>“Privacy and security are identical” ✗ — privacy is about <i>personal data rights/use</i>; security is the protection mechanism.</li></ul></div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>Technical working</h3>
+<ul>
+<li><b>Privacy:</b> principles like data minimisation, purpose limitation, consent, retention limits; techniques: encryption, access control, masking/anonymisation.</li>
+<li><b>Authentication:</b> verification of credentials; passwords should be stored as salted hashes, not plain text.</li>
+<li><b>Integrity:</b> a <b>hash function</b> (e.g., SHA-256) creates a fixed-size fingerprint of data; even a small change gives a very different hash. A <b>MAC/HMAC</b> or <b>digital signature</b> adds authenticity.</li>
+<li><b>Non-repudiation:</b> digital signature = hash of message encrypted/signed with the signer's <b>private key</b>; anyone can verify with the <b>public key</b>. Only the key owner can create the signature, so (if the key was protected) the signer cannot easily deny it.</li></ul>
+<pre>Signing:     message → hash → sign with PRIVATE key → signature
+Verification: message → hash → check signature with PUBLIC key → valid / invalid</pre>
+<h3>Security considerations</h3>
+<ul><li>Non-repudiation depends on <b>key protection</b>, correct timestamps, and legal recognition (in India, e.g., IT Act provisions for electronic signatures — verify current rules before quoting in exams).</li><li>Shared/generic accounts break accountability.</li><li>Integrity checks must themselves be protected (attacker could change both data and checksum if checksum is unprotected).</li></ul>
+<h3>Real-world scenario</h3>
+<p>A clerk changes fee records. Because every clerk has a unique login and the audit log is stored on a separate protected server, the college can identify who changed what and when. If all clerks used one shared account, the evidence would be weak.</p>
+<h3>Common failure cases</h3>
+<ul><li>Private key stolen → signatures can be disputed.</li><li>Logs editable by the same admin they monitor.</li><li>Hash published on the same compromised website as the file.</li></ul>
+<h3>Terminology</h3>
+<div class="kw"><span>Hash</span><span>Checksum</span><span>HMAC</span><span>Digital signature</span><span>Public/private key</span><span>Timestamp</span><span>Accountability</span><span>Data minimisation</span></div>
+<h3>Interview-level questions</h3>
+<details class="ans"><summary>Q1. Difference between integrity and authenticity?</summary><div class="abody">Integrity = data not altered. Authenticity = data really comes from the claimed source. A digital signature can provide both.</div></details>
+<details class="ans"><summary>Q2. Can encryption alone provide non-repudiation?</summary><div class="abody">Not by itself. Ordinary encryption protects confidentiality. Non-repudiation needs mechanisms like digital signatures plus identity binding and protected evidence.</div></details>
+<details class="ans"><summary>Q3. Why do shared accounts harm accountability?</summary><div class="abody">Because actions cannot be linked to one individual, so denial becomes easy.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 2</h4><p>PAIN = Privacy, Authentication, Integrity, Non-repudiation. Learn definition + example + protection method for each. Do not confuse PAIN with CIA.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t2"> ✅ I completed Topic 2</label>
+</div></details></section>
+
+<!-- ================= TOPIC 3 ================= -->
+<section class="topic" id="t3" data-title="authentication password otp biometric token mfa identification authorization login">
+<details><summary><span class="num">3</span> Authentication (OS Security Feature) <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What is authentication?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>Authentication is the process of <b>verifying a user's identity</b> before letting them use a computer, account or service. In an operating system, it is usually the login screen.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Authentication ka matlab hai verify karna ki user sach mein wahi person hai jo hone ka claim kar raha hai. Windows login screen iska best example hai.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>College computer lab mein aap username aur password daalte ho. System check karta hai ki credentials sahi hain ya nahi, tabhi desktop khulta hai.</div></div>
+<h3>2. Why needed?</h3>
+<ul><li>Stops strangers from using your account.</li><li>Makes each action traceable to a user.</li><li>Base for access control and logs.</li></ul>
+<h3>3. Identification vs Authentication (basic idea)</h3>
+<p><b>Identification</b> = “I am Amit” (claim, e.g., typing username). <b>Authentication</b> = “Prove it” (password/OTP/fingerprint).</p>
+<div class="box ex"><h4>🟢 Student portal login example</h4><p>Username <code>student123</code> = identification. Password = authentication proof. After success, the portal shows only that student's data.</p></div>
+<div class="kw"><span>Identification</span><span>Credential</span><span>Password</span><span>OTP</span><span>Biometric</span><span>Token</span><span>Login</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>Authentication = proving identity. Without it, anyone could pretend to be anyone.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>1. Three kinds of proof (authentication factors)</h3>
+<div class="tw"><table><tr><th>Factor</th><th>Meaning</th><th>Examples</th></tr>
+<tr><td>Something you <b>know</b></td><td>Secret in your memory</td><td>Password, PIN</td></tr>
+<tr><td>Something you <b>have</b></td><td>Object/device you possess</td><td>OTP on phone, smart card, hardware token</td></tr>
+<tr><td>Something you <b>are</b></td><td>Body characteristic</td><td>Fingerprint, face</td></tr></table></div>
+
+<h3>2. Common methods</h3>
+<ul>
+<li><b>Password-based:</b> simple and common; weak if guessable or reused.</li>
+<li><b>OTP-based:</b> One-Time Password valid for a short time/one use (sent by SMS or generated by an app).</li>
+<li><b>Token-based:</b> a device or software token proves possession (e.g., hardware key, authenticator). In web systems, a “session token” is also issued after login.</li>
+</ul>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span>
+<h4>Biometric authentication and Multi-Factor Authentication (MFA)</h4>
+<p><b>Biometric:</b> uses body traits (fingerprint, face, iris). Convenient, but cannot be “changed” like a password if the template is compromised, and can have false accepts/false rejects. <b>MFA:</b> uses <b>two or more different factors</b> (e.g., password + OTP). Password + PIN is <b>not</b> MFA because both are “something you know”.</p></div>
+
+<h3>2b. Identification vs Authentication vs Authorization</h3>
+<div class="tw"><table><tr><th>Point</th><th>Authentication</th><th>Authorization</th></tr>
+<tr><td>Question</td><td>Who are you? (verify)</td><td>What are you allowed to do?</td></tr>
+<tr><td>Happens</td><td>First</td><td>After authentication</td></tr>
+<tr><td>Example</td><td>Student logs in with password</td><td>Student can view marks but cannot edit them</td></tr>
+<tr><td>Hinglish</td><td>Pehchan verify karna</td><td>Kya karne ki permission hai</td></tr>
+<tr><td>Depends on</td><td>Credentials</td><td>Permissions/roles/policies</td></tr></table></div>
+
+<div class="diagram"><div class="dt">Diagram 3: Authentication Process (Student Portal Login Flow)</div>
+<div class="flow v">
+<div class="node">1. User enters Username <small>(Identification)</small></div><span class="arr"></span>
+<div class="node">2. User enters Password <small>(Proof/Credential)</small></div><span class="arr"></span>
+<div class="node">3. System checks credentials<small>(compare with stored password hash)</small></div><span class="arr"></span>
+<div class="node o">4. Optional: OTP / extra factor <small>(🟠 MFA — extra knowledge)</small></div><span class="arr"></span>
+<div class="flow"><div class="node g">✔ Valid → Session created → Authorization check → Show own data</div><div class="node r">✘ Invalid → Error, failed attempt logged, lockout after limit</div></div>
+</div>
+<div class="cap">The portal does not need to store your real password; it stores a hash. After success, authorization decides what you can access.</div></div>
+
+<h3>3. Secure login process (best practice)</h3>
+<ol><li>Enter username and password over a secure (HTTPS) connection.</li><li>System compares with stored <b>hashed</b> credential.</li><li>Failed attempts are counted and logged; temporary lockout after limit.</li><li>Extra factor if required.</li><li>Session created with timeout; user logs out when finished.</li></ol>
+
+<h3>4. Password security fundamentals</h3>
+<ul><li>Use long passwords/passphrases (e.g., 12+ characters), not personal info.</li><li>Use a <b>different password</b> for each important account.</li><li>Do not share passwords; do not write them near the computer.</li><li>Change if you suspect compromise. Consider a reputable password manager.</li></ul>
+
+<h3>5. Authentication failures</h3>
+<ul><li>Wrong password, expired password, locked account.</li><li>Stolen/guessed passwords, phishing pages.</li><li>OTP intercepted or user tricked into sharing OTP.</li><li>Biometric false reject/accept.</li></ul>
+
+<div class="box warn"><h4>⚠ Three common security mistakes</h4><ol><li>Using the same simple password everywhere (e.g., name + birth year).</li><li>Sharing OTP or password with others, even "friends" or callers claiming to be from the bank/college.</li><li>Leaving a logged-in computer unlocked in the lab.</li></ol></div>
+
+<div class="box ex"><h4>🟢 Practical Windows account security example</h4><p>On your laptop: set a strong password or PIN, enable Windows Hello (if supported), set screen lock after a few minutes (Settings → Accounts → Sign-in options), and never use the same password as your email.</p></div>
+<div class="box info"><b>Note:</b> No single authentication method is secure in every situation. Strength depends on how it is implemented, protected and used.</div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical working</h3>
+<ul><li><b>Password storage:</b> systems should store <b>salted hashes</b> (slow hashing algorithms like bcrypt/Argon2/PBKDF2 are used for passwords). “Salt” is random data added to each password before hashing so same passwords give different hashes.</li>
+<li><b>OTP:</b> <b>HOTP</b> (counter-based) and <b>TOTP</b> (time-based, e.g., changes every 30 seconds) generate codes from a shared secret.</li>
+<li><b>Session tokens:</b> after login a random session ID/token identifies the user for the session; it must be protected and expire.</li>
+<li><b>Windows (concept):</b> credentials are checked locally or against a domain controller (e.g., Active Directory); Linux commonly uses PAM (Pluggable Authentication Modules). <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li></ul>
+<h3>2. Security considerations</h3>
+<ul><li><b>Brute-force / guessing:</b> defended by lockout, rate limiting, strong passwords, MFA.</li><li><b>Phishing:</b> fake login pages steal credentials; user awareness and phishing-resistant methods help.</li><li><b>SMS OTP limits:</b> can be affected by SIM-swap or social engineering; app-based or hardware tokens are generally stronger, but each has its own weaknesses.</li><li><b>Credential stuffing:</b> attackers try leaked passwords on other sites — reason to never reuse passwords.</li></ul>
+<h3>3. Practical implementation concepts</h3>
+<ul><li>Account lockout policy, password policy, MFA for admins, secure recovery process (account reset must be verified carefully).</li><li>Disable/remove unused and default accounts.</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>A student reuses the same password on a small gaming site and the college portal. The gaming site is breached; the password is tried on the portal. If the portal enforces MFA and lockout, the attempt is much less likely to succeed.</p>
+<h3>5. Common failure cases</h3>
+<ul><li>Passwords stored in plain text or with fast, unsalted hashes.</li><li>No lockout/rate limit; weak recovery questions; shared lab accounts.</li></ul>
+<h3>6. Terminology</h3>
+<div class="kw"><span>Salt</span><span>Hash</span><span>TOTP</span><span>HOTP</span><span>Session token</span><span>Brute force</span><span>Credential stuffing</span><span>Phishing</span><span>PAM</span><span>False accept/reject</span></div>
+<h3>7. Interview-level questions</h3>
+<details class="ans"><summary>Q1. Why should passwords be hashed instead of encrypted?</summary><div class="abody">Hashing is one-way: the system only needs to compare hashes and never needs the original password. If encrypted, a stolen key could reveal all passwords.</div></details>
+<details class="ans"><summary>Q2. Is password + security question MFA?</summary><div class="abody">No, both are “something you know”, so they are the same factor type.</div></details>
+<details class="ans"><summary>Q3. What does the salt protect against?</summary><div class="abody">It prevents precomputed (rainbow table) attacks and stops identical passwords from showing identical hashes.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 3</h4><p>Authentication verifies identity; authorization decides permissions. Factors: know / have / are. MFA needs different factor types (🟠 extra). Use strong, unique passwords; hashed storage; lockouts; logs.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t3"> ✅ I completed Topic 3</label>
+</div></details></section>
+<!-- ================= TOPIC 4 ================= -->
+<section class="topic" id="t4" data-title="logs system security application log event viewer timestamp retention syslog">
+<details><summary><span class="num">4</span> Logs <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What are logs?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>A <b>log</b> is a record of events that happen in a computer system — such as who logged in, when, what failed, and what changed. Each entry usually has a <b>timestamp</b> (date and time).</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Log ek <b>diary/record book</b> jaisa hota hai jisme computer likhta rehta hai ki kab kya hua — kaun login hua, kaun fail hua, kaunsa program band hua.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>College gate ka visitor register: kaun aaya, kis time aaya, kisse milne aaya. Waise hi OS login/logout ka register rakhta hai.</div></div>
+<h3>2. Why do operating systems keep logs?</h3>
+<ul><li>To find the reason when something <b>fails</b> (troubleshooting).</li><li>To detect <b>suspicious activity</b> (many failed logins).</li><li>To provide <b>evidence</b> after an incident.</li><li>To monitor system health.</li></ul>
+<h3>3. Basic types</h3>
+<ul><li><b>System logs</b> — OS events (startup, shutdown, driver errors).</li><li><b>Security logs</b> — login success/failure, permission use, policy changes.</li><li><b>Application logs</b> — events from programs (browser, database, web server).</li></ul>
+<div class="box ex"><h4>🟢 Fictional login event</h4><p><code>2026-03-10 09:15:42 | User: student_demo | Event: Login FAILED | Source: Lab-PC-07</code><br>Meaning: someone tried to log in as <i>student_demo</i> on Lab-PC-07 at 9:15:42 AM and the password was wrong.</p></div>
+<div class="kw"><span>Log</span><span>Event</span><span>Timestamp</span><span>Security log</span><span>System log</span><span>Application log</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>Logs are timestamped records of system events used for troubleshooting, security monitoring and investigation.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>1. How logging works</h3>
+<ol><li>An event happens (login, file change, error).</li><li>The OS or application creates a log entry (time, user, source, event type, result).</li><li>Entry is saved in a log file/database.</li><li>Administrator reviews or software monitors them.</li><li>Old logs are archived or deleted according to retention policy.</li></ol>
+<h3>2. Typical log entry components</h3>
+<div class="tw"><table><tr><th>Field</th><th>Meaning</th><th>Example</th></tr><tr><td>Timestamp</td><td>When</td><td>2026-03-10 09:15:42</td></tr><tr><td>User/Account</td><td>Who</td><td>student_demo</td></tr><tr><td>Source</td><td>Where from (device/IP)</td><td>Lab-PC-07</td></tr><tr><td>Event type/ID</td><td>What happened</td><td>Login failed</td></tr><tr><td>Result</td><td>Success/failure</td><td>Failure</td></tr></table></div>
+<h3>3. Sample log table (fictional, no real personal data)</h3>
+<div class="tw"><table><tr><th>Time</th><th>User</th><th>Machine</th><th>Event</th><th>Result</th></tr>
+<tr><td>09:15:42</td><td>student_demo</td><td>Lab-PC-07</td><td>Login</td><td>Failed</td></tr>
+<tr><td>09:15:55</td><td>student_demo</td><td>Lab-PC-07</td><td>Login</td><td>Failed</td></tr>
+<tr><td>09:16:10</td><td>student_demo</td><td>Lab-PC-07</td><td>Login</td><td>Success</td></tr>
+<tr><td>09:40:02</td><td>teacher_demo</td><td>Staff-PC-01</td><td>File opened: Marks.xlsx</td><td>Success</td></tr>
+<tr><td>10:05:30</td><td>admin_demo</td><td>Server-01</td><td>User created</td><td>Success</td></tr></table></div>
+<h3>4. Log monitoring and retention</h3>
+<ul><li><b>Monitoring:</b> reviewing logs regularly or using alerts (e.g., 5 failed logins in 1 minute).</li><li><b>Retention:</b> how long logs are kept. Too short → no evidence; too long → storage and privacy issues. The period is decided by organisation policy/rules.</li></ul>
+<h3>5. Protecting logs from unauthorised modification</h3>
+<ul><li>Restrict log access to administrators/auditors.</li><li>Send copies to a separate log server.</li><li>Use file permissions, write-once storage or integrity checks (hash).</li><li>Back up logs; synchronise time (NTP) so timestamps are reliable.</li></ul>
+<div class="diagram"><div class="dt">Diagram 4: Log Collection and Auditing Workflow</div>
+<div class="flow">
+<div class="node">User / System Activity<small>login, file access, errors</small></div><span class="arr"></span>
+<div class="node">OS / App creates log entry<small>time + user + event</small></div><span class="arr"></span>
+<div class="node">Secure storage<small>protected, backed up, time-synced</small></div></div>
+<div class="flow" style="margin-top:8px">
+<div class="node o">Monitoring<small>alerts on suspicious events</small></div><span class="arr"></span>
+<div class="node p">Audit review<small>check against policy</small></div><span class="arr"></span>
+<div class="node g">Action<small>investigate, fix, improve policy</small></div></div>
+<div class="cap">Logs are the raw records. Monitoring watches them (often continuously), and auditing reviews them against rules to verify compliance and accountability.</div></div>
+<h3>6. How an administrator uses logs (step-by-step)</h3>
+<ol><li>Notice a problem or alert (e.g., user cannot log in / many failures).</li><li>Open the right log (security log for login problems).</li><li>Filter by time, user or event type.</li><li>Read entries and find the pattern (e.g., 20 failures from one PC).</li><li>Decide action: reset password, lock account, check the PC, report incident.</li><li>Record findings.</li></ol>
+<div class="box ex"><h4>🟢 Windows Event Viewer example</h4><p>Press Start → type <b>Event Viewer</b> → open <b>Windows Logs</b> → <b>Security</b> (needs administrator rights) / <b>System</b> / <b>Application</b>. Windows security events commonly include: <b>4624</b> successful logon and <b>4625</b> failed logon.</p></div>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span><h4>Linux system logs</h4><p>Linux stores logs mainly under <code>/var/log</code> (e.g., <code>auth.log</code> on Debian/Ubuntu, <code>secure</code> on RHEL-type systems, <code>syslog</code>) and modern systems can use <code>journalctl</code> to read the system journal. File names differ between distributions.</p></div>
+<h3>7. Limitations of logs</h3>
+<ul><li>Logs show <b>what was recorded</b>, not everything that happened.</li><li>Too many logs → hard to find important events.</li><li>Wrong system time → misleading timestamps.</li><li>Attackers with admin rights may try to delete or edit logs.</li><li>Logging disabled or full disk → missing data.</li></ul>
+<div class="box warn"><h4>⚠ Common mistakes</h4><ul><li>Never reading logs ("collect and forget").</li><li>Giving every user access to security logs.</li><li>Not backing up logs.</li></ul></div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical working</h3>
+<ul><li>Logging is controlled by OS services and policies (what to record, severity level, size, retention).</li><li>Windows uses <b>event logs</b> with <b>Event IDs</b>, levels (Information, Warning, Error) and sources. Linux uses logging daemons (e.g., rsyslog/journald).</li><li><b>Centralised logging:</b> logs from many machines are sent to one protected server for analysis, preventing a compromised machine from erasing the only copy.</li></ul>
+<h3>2. Security considerations</h3>
+<ul><li><b>Log integrity:</b> hashing/signing, restricted write access, append-only storage.</li><li><b>Time synchronisation</b> (NTP) is critical for correlating events across machines.</li><li><b>Privacy:</b> logs may contain usernames, IP addresses or file names — access only for legitimate purposes.</li><li><b>Log injection:</b> untrusted input written into logs can confuse analysts; applications should sanitise it.</li></ul>
+<h3>3. Practical implementation</h3>
+<ul><li>Enable auditing of logon events and important file access.</li><li>Set adequate log size/retention; alert on repeated failures.</li><li>Keep a procedure for periodic review.</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>Result data was changed at 2:10 AM. Application log shows an update by user <i>clerk_demo</i>; security log shows login from an unusual machine at 2:05 AM. Together they build the timeline for the investigation.</p>
+<h3>5. Failure cases</h3>
+<ul><li>Logs overwritten because size too small.</li><li>Logs stored only on the compromised machine.</li><li>Clocks differ by hours between machines.</li></ul>
+<h3>6. Terminology</h3>
+<div class="kw"><span>Event ID</span><span>Severity</span><span>Syslog</span><span>Centralised logging</span><span>SIEM <i>(🟠 extra)</i></span><span>Log rotation</span><span>Retention</span><span>NTP</span><span>Correlation</span></div>
+<h3>7. Interview-level questions</h3>
+<details class="ans"><summary>Q1. Why send logs to a separate server?</summary><div class="abody">If one machine is compromised, the attacker may erase local logs; a protected remote copy preserves evidence.</div></details>
+<details class="ans"><summary>Q2. What is log rotation?</summary><div class="abody">Automatically archiving/replacing old log files when they reach a size/age limit so disks do not fill.</div></details>
+<details class="ans"><summary>Q3. Why are timestamps important?</summary><div class="abody">They allow events to be ordered and correlated across systems to reconstruct what happened.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 4</h4><p>Logs = timestamped event records. Types: system, security, application. Used for troubleshooting and investigation. Protect, monitor, retain and back up logs. Windows: Event Viewer; Linux (🟠): /var/log, journalctl.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t4"> ✅ I completed Topic 4</label>
+</div></details></section>
+
+<!-- ================= TOPIC 5 ================= -->
+<section class="topic" id="t5" data-title="audit features security auditing audit trail accountability monitoring audit policy evidence">
+<details><summary><span class="num">5</span> Audit Features <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What is security auditing?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>Security auditing means <b>recording and reviewing</b> important user and system activities to check whether security rules are followed, and to make people <b>accountable</b> for their actions.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Auditing ka matlab hai important activities ka <b>record rakhna aur phir check karna</b> ki rules follow hue ya nahi, aur kaun zimmedar hai.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>College lab mein agar kisi computer par exam-file delete ho jati hai, audit records se pata chal sakta hai kaunse account ne, kab, kaunsi file access ya delete ki.</div></div>
+<h3>2. Why needed?</h3>
+<ul><li>Accountability (people know actions are recorded).</li><li>Detect misuse and policy violations.</li><li>Provide evidence for investigation.</li><li>Check compliance with rules.</li></ul>
+<h3>3. Basic audit features</h3>
+<ul><li><b>Audit trail:</b> chronological record showing who did what, when.</li><li><b>Access monitoring:</b> watching who accesses systems/data.</li><li><b>File access records:</b> who opened/changed/deleted a file.</li><li><b>User activity records:</b> logins, logouts, privilege use.</li></ul>
+<div class="kw"><span>Audit</span><span>Audit trail</span><span>Accountability</span><span>Audit policy</span><span>Evidence</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>Auditing = recording and reviewing activities to ensure accountability and rule-following.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>1. How auditing works</h3>
+<ol><li>Administrator defines an <b>audit policy</b> (what events to record: logon, file access, policy change).</li><li>OS records selected events as <b>audit records</b> (success and/or failure).</li><li>Records are stored securely.</li><li>Authorised auditor reviews records and compares with rules.</li><li>Findings → report → corrective action.</li></ol>
+<div class="diagram"><div class="dt">Audit Workflow (supporting diagram for Diagram 4)</div>
+<div class="flow">
+<div class="node">1. Define audit policy</div><span class="arr"></span>
+<div class="node">2. Enable auditing<small>logons, files, privileges</small></div><span class="arr"></span>
+<div class="node">3. Collect audit records</div><span class="arr"></span>
+<div class="node p">4. Protect records<small>integrity + restricted access</small></div><span class="arr"></span>
+<div class="node">5. Review / analyse</div><span class="arr"></span>
+<div class="node g">6. Report &amp; corrective action</div></div>
+<div class="cap">Auditing is a cycle: after corrective action, the audit policy may be improved.</div></div>
+<h3>2. Logs vs Monitoring vs Auditing</h3>
+<div class="tw"><table><tr><th>Point</th><th>Logs</th><th>Monitoring</th><th>Auditing</th></tr>
+<tr><td>Meaning</td><td>Raw event records</td><td>Watching activity/logs (often live) to detect issues</td><td>Systematic review of records against rules/policy</td></tr>
+<tr><td>Timing</td><td>Continuous recording</td><td>Real-time / near real-time</td><td>Periodic or after incident</td></tr>
+<tr><td>Main goal</td><td>Keep evidence/data</td><td>Detect problems quickly</td><td>Verify compliance and accountability</td></tr>
+<tr><td>Example</td><td>Login failed entry</td><td>Alert after 5 failed logins</td><td>Monthly review of who accessed result database</td></tr></table></div>
+<p><b>Hinglish:</b> Log = record, Monitoring = nigrani (abhi kya ho raha hai), Auditing = jaanch (rules follow hue ya nahi).</p>
+<h3>3. Audit evidence and integrity</h3>
+<p>Audit records are only useful if people trust them. So they must be <b>complete, correctly timestamped, and protected from change</b> (restricted access, separate storage, integrity checks).</p>
+<h3>4. College lab example</h3>
+<div class="box ex"><p>Policy: record <b>logon success/failure</b> and <b>access to the "Exam_Papers" folder</b> on the staff computer. If a file is deleted, the audit record shows user account, time and machine.</p></div>
+<div class="box ex"><h4>🟢 Scenario: unauthorized access</h4><ol><li>Monday morning, teacher finds <i>Internal_Marks.xlsx</i> changed.</li><li>Admin checks audit records for that file: at 11:42 PM Sunday, account <code>lab_user_demo</code> modified it from Lab-PC-12.</li><li>Logon records show that account logged in at 11:30 PM after 8 failed attempts.</li><li>Admin checks lab register/CCTV (physical evidence), resets the account, restores file from backup, and reports to the authority.</li><li>Improvements: unique accounts, stronger passwords, lockout policy, restricted file permissions.</li></ol><p>Note: Audit data supports investigation but must be interpreted carefully (account ≠ person if the password was stolen).</p></div>
+<h3>5. Advantages and limitations</h3>
+<ul><li><b>Advantages:</b> accountability, deterrence, evidence, compliance.</li><li><b>Limitations:</b> storage cost, performance impact if too much is audited, noise, needs people to review.</li></ul>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span><p>Windows has “Advanced Audit Policy Configuration” in Local Security Policy (available on suitable editions). Basic idea: choose categories like Logon/Logoff, Object Access (files), Policy Change.</p></div>
+<div class="box warn"><h4>⚠ Mistakes</h4><ul><li>Auditing everything (huge noise) or nothing.</li><li>Letting auditors/admin edit records unchecked.</li><li>Confusing audit with antivirus or backup.</li></ul></div>
+<h3>6. Privacy note</h3>
+<p>Audit records may reveal personal activity. Only authorised persons should access them, only for legitimate security/compliance purposes, and they should be kept no longer than policy requires.</p>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical working</h3>
+<ul><li>Auditing is implemented by the OS <b>reference monitor / security subsystem</b>: when an object (file) is accessed, access checks occur; if the object has an auditing rule (SACL on Windows), an audit event is generated. <span class="badge extra">🟠 EXTRA KNOWLEDGE (detail)</span></li><li>On Linux, the <b>auditd</b> framework can record system calls/file events based on rules. <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li></ul>
+<h3>2. Security considerations</h3>
+<ul><li><b>Separation of duties:</b> administrators being audited should not control audit logs alone.</li><li><b>Tamper evidence:</b> hashing/signing, forwarding to remote server.</li><li><b>Chain of custody:</b> in serious investigations, evidence handling must be documented.</li></ul>
+<h3>3. Practical implementation</h3>
+<ul><li>Select meaningful events (logon, privilege use, sensitive-file access, policy changes).</li><li>Set size/retention; review schedule; alert on critical events.</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>A privileged account creates a new admin user at midnight. Audit policy captured “user account created”. Because logs are forwarded to a protected server, the incident team verifies the sequence even if the local server is altered.</p>
+<h3>5. Failure cases</h3>
+<ul><li>Audit disabled “for performance” and never re-enabled.</li><li>Shared accounts destroy accountability.</li><li>Records not reviewed for months.</li></ul>
+<h3>6. Terminology</h3>
+<div class="kw"><span>Audit trail</span><span>Accountability</span><span>SACL</span><span>auditd</span><span>Tamper-evident</span><span>Chain of custody</span><span>Compliance</span><span>Separation of duties</span></div>
+<h3>7. Interview-level questions</h3>
+<details class="ans"><summary>Q1. Can auditing prevent an attack?</summary><div class="abody">Mostly it is a <b>detective</b> and deterrent control; it records and reveals activity. It does not by itself block attacks.</div></details>
+<details class="ans"><summary>Q2. Why is an audit trail linked to non-repudiation?</summary><div class="abody">Reliable, protected audit records with unique user IDs provide evidence that supports accountability.</div></details>
+<details class="ans"><summary>Q3. What risk exists if admins can edit audit records?</summary><div class="abody">Evidence can be altered, so the audit loses credibility.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 5</h4><p>Audit = record + review for accountability. Features: audit trail, access monitoring, file/user activity records, audit policy. Logs ≠ Monitoring ≠ Auditing. Protect audit evidence; respect privacy.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t5"> ✅ I completed Topic 5</label>
+</div></details></section>
+
+<!-- ================= TOPIC 6 ================= -->
+<section class="topic" id="t6" data-title="file system protection permissions read write execute ownership encryption backup rwx chmod">
+<details><summary><span class="num">6</span> File System Protection <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What is file system protection?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>File system protection means controlling <b>who can access files and folders</b> and what they can do with them (read, change, run), so files are not stolen, changed or deleted by unauthorised users.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>File system protection ka matlab hai files aur folders par <b>permission control</b> — kaun dekh sakta hai, kaun edit kar sakta hai, kaun delete ya run kar sakta hai.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>Group project folder: team members edit kar sakte hain, teacher sirf read kar sakta hai, baaki students ko access nahi.</div></div>
+<h3>2. Why do files need protection?</h3>
+<ul><li>Private data (marks, documents) must not leak.</li><li>Prevent accidental or malicious deletion/changes.</li><li>Protect programs and system files.</li><li>Support accountability.</li></ul>
+<h3>3. Basic permissions</h3>
+<div class="tw"><table><tr><th>Permission</th><th>On a file</th><th>On a folder</th></tr><tr><td><b>Read</b></td><td>View contents</td><td>List items inside</td></tr><tr><td><b>Write</b></td><td>Modify contents</td><td>Create/delete/rename items inside</td></tr><tr><td><b>Execute</b></td><td>Run as a program/script</td><td>Enter/open (traverse) the folder</td></tr></table></div>
+<p><b>Ownership:</b> every file has an <b>owner</b> (usually the creator) who normally controls its permissions.</p>
+<div class="box ex"><h4>🟢 College project-file example</h4><p>Folder <i>FinalYearProject</i>: students A & B (team) → Read + Write; Guide teacher → Read; Other students → No access; Admin keeps backup.</p></div>
+<div class="kw"><span>Permission</span><span>Owner</span><span>Read / Write / Execute</span><span>Access control</span><span>Encryption</span><span>Backup</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>File system protection = permissions + ownership + (optionally) encryption, integrity checks and backups to protect files.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>1. How it works</h3>
+<ol><li>User logs in (authentication).</li><li>User tries to open/edit a file.</li><li>OS checks the file's <b>access control</b> information (owner, permissions/ACL).</li><li>If allowed → action happens; if not → “Access denied”.</li><li>Event may be audited/logged.</li></ol>
+<div class="diagram"><div class="dt">Diagram 5: File Permission Structure</div>
+<div class="flow">
+<div class="node">👤 User<small>(authenticated)</small></div><span class="arr"></span>
+<div class="node o">🛡 OS Access Check<small>owner? group? permissions / ACL</small></div><span class="arr"></span>
+<div class="node g">📄 File / Folder<small>Read · Write · Execute</small></div></div>
+<div class="tw" style="margin-top:10px"><table><tr><th>Who</th><th>Read</th><th>Write</th><th>Execute</th></tr>
+<tr><td>Owner (file creator)</td><td>✔</td><td>✔</td><td>✘</td></tr>
+<tr><td>Group (project team)</td><td>✔</td><td>✘</td><td>✘</td></tr>
+<tr><td>Others (everyone else)</td><td>✘</td><td>✘</td><td>✘</td></tr></table></div>
+<div class="cap">Example permission set for a document: owner can read and write, group can only read, others have no access. (This is the Unix-style owner/group/others model; Windows uses ACLs with users/groups.)</div></div>
+<h3>2. Windows vs Linux (basic)</h3>
+<div class="tw"><table><tr><th>Point</th><th>Windows (NTFS)</th><th>Linux</th></tr>
+<tr><td>Model</td><td>ACL: list of users/groups with allowed/denied rights</td><td>Owner / Group / Others with r, w, x (plus ACLs optionally)</td></tr>
+<tr><td>How to view</td><td>Right-click → Properties → Security</td><td><code>ls -l</code></td></tr>
+<tr><td>Common rights</td><td>Full control, Modify, Read &amp; execute, Read, Write</td><td>read, write, execute</td></tr></table></div>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span><h4>Beginner introduction to Linux rwx notation</h4>
+<pre>-rw-r----- 1 amit project 2048 Mar 10 report.txt
+ │└┬┘└┬┘└┬┘
+ │ │  │  └─ others: --- (no permission)
+ │ │  └──── group : r-- (read only)
+ │ └─────── owner : rw- (read + write)
+ └───────── '-' = regular file ('d' = directory)</pre>
+<p>Numeric form: r=4, w=2, x=1. So <code>rw-</code> = 6, <code>r--</code> = 4, <code>---</code> = 0 → <code>640</code>. Example: <code>chmod 640 report.txt</code> (practice only on your own files).</p></div>
+<h3>3. Other protection ideas</h3>
+<ul><li><b>File encryption:</b> converts data to unreadable form without the key (e.g., Windows EFS/BitLocker, Linux tools like LUKS/GPG).</li><li><b>File integrity:</b> detect unauthorised modification with checksums/hashes, signatures or file-integrity monitoring.</li><li><b>Backup:</b> copies for recovery after deletion, malware or hardware failure.</li><li><b>Access restrictions:</b> limit who can reach folders (network share permissions, locked cabinets for physical media).</li></ul>
+<h3>4. Comparisons</h3>
+<div class="tw"><table><tr><th>Point</th><th>File permissions</th><th>Encryption</th></tr>
+<tr><td>Idea</td><td>OS decides who may access</td><td>Data is unreadable without key</td></tr>
+<tr><td>Works when</td><td>OS is running and enforcing rules</td><td>Even if disk is stolen or OS is bypassed (if key is safe)</td></tr>
+<tr><td>Weakness</td><td>Can be bypassed by physical access/another OS or admin misuse</td><td>Lost key = lost data; key theft</td></tr></table></div>
+<div class="tw"><table><tr><th>Point</th><th>Backup</th><th>Access control</th></tr>
+<tr><td>Goal</td><td>Recover data after loss</td><td>Prevent unauthorised access/change</td></tr>
+<tr><td>Type</td><td>Corrective/recovery</td><td>Preventive</td></tr>
+<tr><td>Example</td><td>Restore deleted project</td><td>Others cannot open project</td></tr></table></div>
+<div class="box warn"><h4>⚠ Common file-protection mistakes</h4><ul><li>Giving “Everyone – Full control” to a folder.</li><li>Keeping the only copy of important files on one disk.</li><li>Storing passwords in plain text files.</li><li>Not removing access when a team member leaves.</li><li>Believing permissions protect against every attack — they do <b>not</b> (malware running as the same user, stolen disk, admin account compromise, etc.).</li></ul></div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical working</h3>
+<ul><li><b>Access Control List (ACL):</b> list of entries (user/group → allowed/denied rights) attached to an object. The OS evaluates them when access is requested.</li><li><b>Linux permission bits:</b> owner/group/others r-w-x, plus special bits (setuid, setgid, sticky) <span class="badge extra">🟠 EXTRA KNOWLEDGE</span>.</li><li><b>Inheritance (Windows):</b> new files in a folder usually inherit its permissions.</li><li><b>Encryption at rest:</b> file-level (EFS, GPG) or full-disk (BitLocker, LUKS).</li></ul>
+<h3>2. Security considerations</h3>
+<ul><li>Apply least privilege to files (give minimum needed rights).</li><li>Prefer group-based permissions over many individual users.</li><li>Keep encryption keys/recovery keys safely and separately.</li><li>Protect backups too (they contain the same sensitive data).</li><li>Beware of “deny” rules and inheritance conflicts which can accidentally block or expose data.</li></ul>
+<h3>3. Practical implementation</h3>
+<ul><li>Create a security group “ProjectTeam”, grant it Modify on the project folder, remove “Everyone”.</li><li>Follow <b>3-2-1 backup idea</b>: 3 copies, 2 different media, 1 off-site/offline.</li><li>Test restoring from backup regularly.</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>Ransomware encrypts files a user can write to. Permissions limited the damage to that user's folders, but without offline backups, recovery is difficult. Lesson: permissions reduce impact; backups enable recovery.</p>
+<h3>5. Failure cases</h3>
+<ul><li>Over-permissive inherited permissions.</li><li>Backup stored on the same machine.</li><li>Encryption key lost.</li></ul>
+<h3>6. Terminology</h3>
+<div class="kw"><span>ACL</span><span>Inheritance</span><span>Owner</span><span>Group</span><span>chmod</span><span>NTFS</span><span>EFS / BitLocker</span><span>Encryption at rest</span><span>Immutable backup</span></div>
+<h3>7. Interview-level questions</h3>
+<details class="ans"><summary>Q1. Are file permissions enough if someone steals the laptop?</summary><div class="abody">Not necessarily. An attacker with physical access may bypass OS permissions, so disk encryption is also needed.</div></details>
+<details class="ans"><summary>Q2. Why prefer group permissions?</summary><div class="abody">Easier to manage and review; add/remove a person from the group instead of changing many files.</div></details>
+<details class="ans"><summary>Q3. Does a backup stop unauthorised access?</summary><div class="abody">No. Backup supports recovery; access control and encryption protect confidentiality.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 6</h4><p>Protect files with ownership, permissions (r/w/x), ACLs, encryption, integrity checks and backups. Permissions ≠ encryption ≠ backup. Permissions alone do not stop every attack.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t6"> ✅ I completed Topic 6</label>
+</div></details></section>
+
+<!-- ================= TOPIC 7 ================= -->
+<section class="topic" id="t7" data-title="user privileges standard administrator root superuser least privilege privilege escalation account management">
+<details><summary><span class="num">7</span> User Privileges <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What are user privileges?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b>User privileges are the <b>rights and permissions</b> given to a user account — what the user is allowed to do on the system (install software, change settings, access files, manage other users).</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>User privileges ka matlab hai user account ko diye gaye <b>adhikaar/permissions</b> — wo kya kar sakta hai (software install, settings change, files access, doosre users manage).</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>College mein: student sirf apna login use kar sakta hai, lab-incharge settings manage kar sakta hai, principal ke paas sabse zyada access hota hai. Har kisi ko sab chabi nahi di jati.</div></div>
+<h3>2. Account types</h3>
+<ul><li><b>Standard user:</b> normal daily work; cannot make major system changes.</li><li><b>Administrator:</b> can install software, change security settings, manage accounts.</li><li><b>Root / superuser (Linux/Unix):</b> account with the highest privileges on the system.</li></ul>
+<h3>3. Principle of Least Privilege (basic idea)</h3>
+<p>Give a user <b>only the minimum access needed</b> for their job — nothing extra. (Hinglish: Jitna kaam utni permission.)</p>
+<div class="box ex"><h4>🟢 Windows laptop scenario</h4><p>You use your laptop daily with a <b>standard account</b> and keep a separate administrator account for installing software. If malware runs in your daily account, its power is limited.</p></div>
+<div class="kw"><span>Privilege</span><span>Standard user</span><span>Administrator</span><span>Root</span><span>Least privilege</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>Privileges define what a user can do. Give minimum necessary privileges; avoid using administrator accounts for everyday tasks.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>1. Administrator vs Standard user</h3>
+<div class="tw"><table><tr><th>Point</th><th>Standard User</th><th>Administrator</th></tr>
+<tr><td>Install software</td><td>Usually not (or only for own profile)</td><td>Yes</td></tr>
+<tr><td>Change security settings</td><td>No</td><td>Yes</td></tr>
+<tr><td>Manage other users</td><td>No</td><td>Yes</td></tr>
+<tr><td>Risk if account is compromised</td><td>Lower</td><td>Higher — whole system may be affected</td></tr>
+<tr><td>Use</td><td>Daily work</td><td>Maintenance only</td></tr></table></div>
+<h3>2. Permissions vs rights/privileges</h3>
+<ul><li><b>Permissions</b> relate to access to objects (files, folders).</li><li><b>User rights/privileges</b> relate to system actions (shut down system, change time, install drivers, back up files).</li></ul>
+<h3>3. Why unnecessary admin access is risky</h3>
+<ul><li>Malware running as admin can change system settings, disable protections.</li><li>Mistakes (deleting system files) have bigger effect.</li><li>Harder to track who did what if many people share admin access.</li></ul>
+<h3>4. Privilege escalation (security concept)</h3>
+<p>Privilege escalation means a user or program gains <b>higher access than intended</b> — e.g., a standard account ends up with administrator rights through misconfiguration or software flaw. Defence: apply updates, least privilege, review accounts, limit admin group membership. <i>(Concept only — no bypass methods are given.)</i></p>
+<h3>5. User account management</h3>
+<ul><li>Create accounts with unique names; remove/disable unused ones.</li><li>Use groups/roles (Students, Teachers, Admins).</li><li>Set password policy and lockout.</li><li>Review who is in the Administrators group regularly.</li><li>Disable accounts when a staff member leaves.</li></ul>
+<div class="box ex"><h4>🟢 College computer lab scenario</h4><p>Lab PCs: students log in with <b>standard accounts</b>; software installation is blocked; a lab technician has an admin account used only for maintenance; changes are logged. Result: even if a student downloads a harmful file, it cannot easily change system settings.</p></div>
+<h3>6. Privilege assignment table (example)</h3>
+<div class="tw"><table><tr><th>Role</th><th>Needs</th><th>Suggested privilege</th></tr>
+<tr><td>Student</td><td>Use lab software, save own files</td><td>Standard user; write to own folder only</td></tr>
+<tr><td>Teacher</td><td>Edit own subject marks/attendance</td><td>Standard user + write on own course data</td></tr>
+<tr><td>Lab technician</td><td>Install/update software, fix PCs</td><td>Administrator on lab PCs only (used when needed)</td></tr>
+<tr><td>Auditor</td><td>Read logs</td><td>Read-only access to logs</td></tr>
+<tr><td>Head administrator</td><td>Manage entire system</td><td>Highest privileges, strongly protected with MFA 🟠</td></tr></table></div>
+<div class="box warn"><h4>⚠ Common mistakes and protection</h4><ul><li>Everyone is administrator “for convenience” → use standard accounts.</li><li>Shared admin password → use individual named accounts.</li><li>Old accounts never removed → regular account review.</li><li>Using admin account for browsing/email → separate accounts.</li></ul></div>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span><p><b>Windows UAC</b> (User Account Control) asks for confirmation before actions needing admin rights. <b>Linux sudo</b> allows a permitted user to run specific commands with elevated rights and is usually logged. Both reduce the need to stay permanently as admin/root.</p></div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical working</h3>
+<ul><li>The OS attaches a <b>security context</b> (user ID, group memberships, privileges) to every process. When a process requests an action, the OS compares this context with the object's permissions or required rights.</li><li>Windows uses <b>access tokens</b> and SIDs; Linux uses UID/GID (root has UID 0). <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li><li>Programs run with the privileges of the user who starts them.</li></ul>
+<h3>2. Security considerations</h3>
+<ul><li>Separate admin and daily accounts.</li><li>Limit administrative groups; log use of privileged actions.</li><li>Just-in-time/temporary elevation is safer than permanent admin. <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li><li><b>Role-Based Access Control (RBAC):</b> permissions assigned to roles, users assigned to roles. <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li></ul>
+<h3>3. Practical implementation</h3>
+<ul><li>Create groups (Students, Teachers) and give group-level permissions.</li><li>Enable UAC; use <code>sudo</code> rules narrowly on Linux.</li><li>Quarterly privilege review (“who has admin, and why?”).</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>A teacher's account is stolen by phishing. Because it was a standard account with write access only to one subject's folder, damage is limited. If the same account were an administrator, the attacker could disable protections and access all data.</p>
+<h3>5. Failure cases</h3>
+<ul><li>Privilege creep (users collect extra rights over time and never lose them).</li><li>Misconfigured services running as admin/root.</li><li>Unpatched flaws that allow escalation.</li></ul>
+<h3>6. Terminology</h3>
+<div class="kw"><span>Privilege creep</span><span>RBAC</span><span>UAC</span><span>sudo</span><span>Access token</span><span>UID/GID</span><span>Elevation</span><span>Least privilege</span></div>
+<h3>7. Interview-level questions</h3>
+<details class="ans"><summary>Q1. What is privilege creep?</summary><div class="abody">Gradual accumulation of unnecessary access as roles change; solved by periodic reviews.</div></details>
+<details class="ans"><summary>Q2. Why shouldn't services run as administrator/root?</summary><div class="abody">If the service is compromised, the attacker inherits its high privileges.</div></details>
+<details class="ans"><summary>Q3. Difference between authorization and privilege?</summary><div class="abody">Authorization is the decision process; privileges/permissions are the rights it checks.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 7</h4><p>User privileges = what an account may do. Standard vs Admin vs Root. Apply least privilege; separate daily and admin accounts; manage and review accounts; privilege escalation is a risk to defend against.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t7"> ✅ I completed Topic 7</label>
+</div></details></section>
+<!-- ================= TOPIC 8 ================= -->
+<section class="topic" id="t8" data-title="raid options striping mirroring parity raid 0 raid 1 raid 5 raid 6 raid 10 backup">
+<details><summary><span class="num">8</span> RAID Options <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What is RAID?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b><b>RAID</b> (Redundant Array of Independent Disks) combines <b>two or more physical drives</b> into one logical unit to improve <b>speed</b>, <b>fault tolerance</b> (survive a drive failure), or both.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>RAID mein <b>kai hard disks</b> ko mila kar ek bade/safe storage ki tarah use karte hain, taaki speed badhe ya ek disk kharab hone par bhi data bacha rahe (configuration par depend karta hai).</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>College ka result server do disks ke <b>mirror</b> par chalta hai. Ek disk fail ho jaye to doosri disk se server chalta rehta hai.</div></div>
+<h3>2. Purpose</h3>
+<ul><li><b>Availability:</b> system keeps running after a drive failure (in redundant levels).</li><li><b>Performance:</b> reading/writing across several disks.</li><li><b>Capacity:</b> combine many drives into one bigger volume.</li></ul>
+<h3>3. Three building blocks</h3>
+<div class="tw"><table><tr><th>Term</th><th>Meaning</th><th>Hinglish</th></tr>
+<tr><td><b>Striping</b></td><td>Data split into blocks and spread across disks</td><td>Data ke tukde alag-alag disks par</td></tr>
+<tr><td><b>Mirroring</b></td><td>Exact copy of data on another disk</td><td>Same data ki copy doosri disk par</td></tr>
+<tr><td><b>Parity</b></td><td>Extra calculated information used to rebuild lost data</td><td>Ek calculated "recovery" information</td></tr></table></div>
+<div class="box warn"><h4>⚠ Very important</h4><p><b>RAID is NOT a substitute for backup.</b> RAID protects against certain drive failures. It does not protect against accidental deletion, malware/ransomware, file corruption copied to all disks, fire, theft or controller failure — all disks see the same mistake.</p></div>
+<div class="kw"><span>RAID</span><span>Striping</span><span>Mirroring</span><span>Parity</span><span>Fault tolerance</span><span>Array</span><span>Hot spare</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>RAID = multiple drives working together for speed and/or redundancy. Techniques: striping, mirroring, parity. RAID ≠ backup.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<div class="box info"><b>Assumption for all capacity calculations:</b> all drives are of equal size <b>S</b>, number of drives = <b>N</b>. (If sizes differ, the smallest drive usually limits each member.)</div>
+
+<div class="diagram"><div class="dt">Diagram 6: RAID Configuration Examples</div>
+<h4>RAID 0 — Striping (2 disks)</h4>
+<div class="raidrow"><div class="disk"><div class="d">Disk 1</div><div class="blk a">A1</div><div class="blk b">A3</div></div><div class="disk"><div class="d">Disk 2</div><div class="blk a">A2</div><div class="blk b">A4</div></div></div>
+<div class="cap">File data blocks A1…A4 alternate across disks. Fast, but if any one disk fails, the array's data is lost.</div>
+<h4>RAID 1 — Mirroring (2 disks)</h4>
+<div class="raidrow"><div class="disk"><div class="d">Disk 1</div><div class="blk a">A</div><div class="blk b">B</div></div><div class="disk"><div class="d">Disk 2<br>(copy)</div><div class="blk a">A</div><div class="blk b">B</div></div></div>
+<div class="cap">Both disks hold identical data. One failure is survivable.</div>
+<h4>RAID 5 — Striping with distributed parity (3 disks)</h4>
+<div class="raidrow"><div class="disk"><div class="d">Disk 1</div><div class="blk a">A1</div><div class="blk b">B1</div><div class="blk p">Pc</div></div><div class="disk"><div class="d">Disk 2</div><div class="blk a">A2</div><div class="blk p">Pb</div><div class="blk c">C1</div></div><div class="disk"><div class="d">Disk 3</div><div class="blk p">Pa</div><div class="blk b">B2</div><div class="blk c">C2</div></div></div>
+<div class="cap">Pa = parity of A1 and A2, etc. Parity is spread across all disks (red blocks). Any one disk can fail and be rebuilt from the others.</div>
+<h4>RAID 6 — Striping with double parity (4 disks)</h4>
+<div class="raidrow"><div class="disk"><div class="d">Disk 1</div><div class="blk a">A1</div><div class="blk p">Pb</div><div class="blk p">Qc</div></div><div class="disk"><div class="d">Disk 2</div><div class="blk a">A2</div><div class="blk p">Qb</div><div class="blk c">C1</div></div><div class="disk"><div class="d">Disk 3</div><div class="blk p">Pa</div><div class="blk b">B1</div><div class="blk c">C2</div></div><div class="disk"><div class="d">Disk 4</div><div class="blk p">Qa</div><div class="blk b">B2</div><div class="blk p">Pc</div></div></div>
+<div class="cap">Two different parity blocks (P and Q) per stripe, so any two disks may fail.</div>
+<h4>RAID 10 (1+0) — Mirrors, then striped (4 disks)</h4>
+<div class="raidrow"><div class="disk"><div class="d">Disk 1<br>Mirror 1</div><div class="blk a">A</div><div class="blk c">C</div></div><div class="disk"><div class="d">Disk 2<br>Mirror 1</div><div class="blk a">A</div><div class="blk c">C</div></div><div class="disk"><div class="d">Disk 3<br>Mirror 2</div><div class="blk b">B</div><div class="blk d">D</div></div><div class="disk"><div class="d">Disk 4<br>Mirror 2</div><div class="blk b">B</div><div class="blk d">D</div></div></div>
+<div class="cap">Disks 1–2 are one mirrored pair, disks 3–4 another; data is striped across the two pairs. (Simplified diagram; real layouts may differ slightly.)</div></div>
+
+<h3>RAID 0 — Striping</h3>
+<ul><li><b>Definition:</b> data striped across drives, no redundancy.</li><li><b>Min drives:</b> 2. <b>Usable capacity:</b> N × S (e.g., 2×1 TB = 2 TB).</li><li><b>Fault tolerance:</b> <b>none</b>. If any drive fails, the whole array's data is lost, because pieces of every file are on every drive.</li><li><b>Advantages:</b> highest speed, full capacity. <b>Disadvantages:</b> more drives → higher chance of failure; no protection.</li><li><b>Use:</b> temporary/scratch data, video editing cache, where data can be recreated.</li></ul>
+<h3>RAID 1 — Mirroring</h3>
+<ul><li><b>Definition:</b> same data written to two (or more) drives.</li><li><b>Why mirror?</b> So that a complete second copy exists when one drive fails.</li><li><b>Min drives:</b> 2. <b>Usable capacity:</b> S for a two-drive mirror (50% efficiency; e.g., 2×1 TB = 1 TB).</li><li><b>Fault tolerance:</b> 1 drive failure in a 2-drive mirror.</li><li><b>Advantages:</b> simple, fast reads, easy recovery. <b>Disadvantages:</b> costly (half capacity lost), writes go to both drives.</li><li><b>Use:</b> OS drives, small important servers, results database.</li></ul>
+<h3>RAID 5 — Striping + distributed parity</h3>
+<ul><li><b>Definition:</b> data and parity striped across all drives.</li><li><b>Min drives:</b> 3. <b>Usable capacity:</b> (N − 1) × S (e.g., 4×1 TB = 3 TB).</li><li><b>Fault tolerance:</b> typically <b>one</b> drive failure, because parity equals the information of one drive and can reconstruct exactly one missing piece per stripe.</li><li><b>Advantages:</b> good balance of capacity, speed and protection. <b>Disadvantages:</b> slower writes (parity calculation); rebuild is stressful; second failure during rebuild = data loss.</li><li><b>Use:</b> file servers, general storage.</li></ul>
+<h3>RAID 6 — Striping + double parity</h3>
+<ul><li><b>Definition:</b> like RAID 5 but with two independent parity blocks per stripe.</li><li><b>Min drives:</b> 4. <b>Usable capacity:</b> (N − 2) × S (e.g., 4×1 TB = 2 TB).</li><li><b>Fault tolerance:</b> typically <b>two</b> drive failures, because two parity sets can reconstruct two missing pieces.</li><li><b>Advantages:</b> safer for large arrays. <b>Disadvantages:</b> lower usable capacity, slower writes, more complex.</li><li><b>Use:</b> large storage/archives where rebuild takes long.</li></ul>
+<h3>RAID 10 (1+0) — Mirroring + striping</h3>
+<ul><li><b>Definition:</b> drives are mirrored in pairs, and data is striped across the pairs.</li><li><b>Why combine?</b> Mirroring gives redundancy; striping gives speed.</li><li><b>Min drives:</b> 4. <b>Usable capacity:</b> (N / 2) × S (e.g., 4×1 TB = 2 TB).</li><li><b>Fault tolerance:</b> guaranteed 1 drive failure; it can survive more only if the failures are in <b>different mirror pairs</b>. If both drives of one pair fail, data is lost.</li><li><b>Advantages:</b> high performance and good protection, quick rebuild. <b>Disadvantages:</b> 50% capacity loss, cost.</li><li><b>Use:</b> databases, busy servers.</li></ul>
+
+<h3>Parity — a tiny example</h3>
+<pre>Block A = 1010
+Block B = 0110
+Parity  = A XOR B = 1100
+
+If A is lost:  A = B XOR Parity = 0110 XOR 1100 = 1010  ✔</pre>
+<p>Hinglish: Parity ek "saath mein rakhi gayi calculated copy-jaisi information" hai; ek block kho jaye to baaki blocks + parity se wapas ban jata hai.</p>
+
+<h3>Comparison table (equal-sized drives, size S)</h3>
+<div class="tw"><table><tr><th>RAID</th><th>Technique</th><th>Min drives</th><th>Usable capacity</th><th>Example 4×1 TB</th><th>Fault tolerance</th><th>Speed notes</th></tr>
+<tr><td>0</td><td>Striping</td><td>2</td><td>N×S</td><td>4 TB</td><td><b>None</b></td><td>Very fast read/write</td></tr>
+<tr><td>1</td><td>Mirroring</td><td>2</td><td>S (2-drive mirror)</td><td>1 TB (using 2 drives; wider mirrors give less)</td><td>1 drive</td><td>Good reads</td></tr>
+<tr><td>5</td><td>Stripe + parity</td><td>3</td><td>(N−1)×S</td><td>3 TB</td><td>1 drive</td><td>Good reads, slower writes</td></tr>
+<tr><td>6</td><td>Stripe + double parity</td><td>4</td><td>(N−2)×S</td><td>2 TB</td><td>2 drives</td><td>Slower writes</td></tr>
+<tr><td>10</td><td>Mirror + stripe</td><td>4</td><td>(N/2)×S</td><td>2 TB</td><td>1 guaranteed; more if in different pairs</td><td>Fast</td></tr></table></div>
+
+<div class="box ex"><h4>🟢 Interactive RAID calculator (hypothetical drives)</h4>
+<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+<label>RAID level <select id="rc-level"><option value="0">RAID 0</option><option value="1">RAID 1</option><option value="5" selected>RAID 5</option><option value="6">RAID 6</option><option value="10">RAID 10</option></select></label>
+<label>Drives (N) <input id="rc-n" type="number" min="2" max="24" value="4" style="width:70px"></label>
+<label>Size each (GB) <input id="rc-s" type="number" min="1" value="1000" style="width:90px"></label>
+<button class="btn" id="rc-go">Calculate</button></div>
+<p id="rc-out" style="font-weight:700;margin:8px 0 0"></p></div>
+
+<div class="box warn"><h4>⚠ Why RAID is not a backup (more detail)</h4><ul><li>Delete a file → deleted on all mirrored/parity copies.</li><li>Ransomware encrypts data → encrypted on every disk.</li><li>Fire, flood, theft → whole array lost.</li><li>Controller/software fault may damage the whole array.</li></ul><p>Keep separate backups (3-2-1 idea).</p></div>
+<div class="box ex"><b>Misconceptions:</b> “RAID 0 is safest” ✗ (it has no redundancy). “RAID 10 can always survive any two failures” ✗. “RAID 1 protects from virus” ✗.</div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical working</h3>
+<ul><li><b>Stripe size / chunk size:</b> amount of data written to one drive before moving to the next.</li><li><b>RAID 5 parity:</b> typically XOR of the data blocks in a stripe; parity location rotates among drives (“distributed parity”) to avoid a parity-drive bottleneck.</li><li><b>RAID 6:</b> uses two independent parity calculations (commonly XOR-based P plus a second code Q, such as Reed–Solomon-style) so two missing blocks can be solved.</li><li><b>Write penalty:</b> updating data in parity RAID may require reading old data/parity and writing new data/parity (the “read-modify-write”).</li></ul>
+<h3>2. Security / reliability considerations</h3>
+<ul><li><b>Rebuild risk:</b> during rebuild, remaining drives are stressed; a second failure in RAID 5 means loss. Larger drives = longer rebuild.</li><li><b>Hot spare:</b> an idle drive that automatically replaces a failed drive. <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li><li><b>Hardware vs software RAID:</b> hardware uses a RAID controller; software RAID is managed by the OS. Controller failure can complicate recovery. <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li><li><b>Silent corruption</b> can be copied into parity/mirrors; RAID does not guarantee data correctness.</li><li><b>Monitoring:</b> alerts for degraded arrays; replace failed drives promptly.</li></ul>
+<h3>3. Practical implementation concepts</h3>
+<ul><li>Use drives from different batches where possible; label and document array layout.</li><li>Test restore from backup separately from RAID.</li><li>Keep UPS/power protection to reduce write-hole/power-loss issues.</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>A college file server uses RAID 5 with four drives. One drive fails and the server continues in <b>degraded mode</b>. The admin replaces it and the array <b>rebuilds</b>. Meanwhile, a second old drive shows errors. Because the admin also has a nightly offline backup, the college is safe. Without the backup, the second failure could have meant data loss.</p>
+<h3>5. Common failure cases</h3>
+<ul><li>Ignoring degraded-array warnings.</li><li>Using RAID 0 for important data.</li><li>No backup because “we have RAID”.</li><li>Mixing very different drives, limiting capacity/performance.</li></ul>
+<h3>6. Terminology</h3>
+<div class="kw"><span>Degraded array</span><span>Rebuild</span><span>Hot spare</span><span>Stripe size</span><span>Write penalty</span><span>JBOD</span><span>Hardware RAID</span><span>Software RAID</span><span>Distributed parity</span></div>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span><p>Other configurations: <b>RAID 01</b> (stripe first, then mirror — usually less fault-tolerant than RAID 10), <b>RAID 50/60</b> (striping across RAID 5/6 groups), <b>JBOD</b> (just a bunch of disks, no redundancy). Details vary by vendor.</p></div>
+<h3>7. Interview-level questions</h3>
+<details class="ans"><summary>Q1. Why does RAID 5 tolerate only one drive failure?</summary><div class="abody">It stores one drive's worth of parity information per stripe, which can recompute exactly one missing block per stripe.</div></details>
+<details class="ans"><summary>Q2. RAID 10 vs RAID 5?</summary><div class="abody">RAID 10: better write performance and faster rebuild, 50% capacity. RAID 5: more usable capacity, but slower writes and riskier rebuild.</div></details>
+<details class="ans"><summary>Q3. Can RAID replace backup?</summary><div class="abody">No. It addresses drive failure only, not deletion, malware, corruption or disasters.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 8</h4><p>RAID 0 (speed, no safety) · RAID 1 (mirror) · RAID 5 (1 parity, 1 failure) · RAID 6 (2 parity, 2 failures) · RAID 10 (mirror + stripe). Capacities: N·S, S, (N−1)·S, (N−2)·S, (N/2)·S. RAID ≠ backup.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t8"> ✅ I completed Topic 8</label>
+</div></details></section>
+
+<!-- ================= TOPIC 9 ================= -->
+<section class="topic" id="t9" data-title="antivirus anti-virus malware virus worm trojan signature heuristic real-time protection quarantine firewall defender">
+<details><summary><span class="num">9</span> Anti-Virus Software <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<h3>1. What is antivirus software?</h3>
+<div class="trio">
+<div class="en"><b class="l">Part A — Simple English</b><b>Antivirus software</b> is a security program that <b>detects, blocks and removes malware</b> (harmful software) from a computer.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Antivirus ek aisa software hai jo computer mein <b>harmful programs (malware)</b> ko pakadta hai, rokta hai aur hatata hai.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>Aap pen drive lagate ho; antivirus automatically scan karta hai aur kisi suspicious file par warning deta hai.</div></div>
+<h3>2. What is malware?</h3>
+<p><b>Malware</b> = <i>malicious software</i> made to harm, steal data, spy, or damage systems. Hinglish: Nuksan karne wala software.</p>
+<h3>3. Virus vs Worm vs Trojan</h3>
+<div class="tw"><table><tr><th>Type</th><th>Meaning</th><th>How it spreads</th><th>Simple example</th></tr>
+<tr><td><b>Virus</b></td><td>Attaches itself to a file/program</td><td>When the infected file is run/shared</td><td>Infected .exe on a pen drive</td></tr>
+<tr><td><b>Worm</b></td><td>Self-spreading program</td><td>Copies itself over networks without needing a host file</td><td>Spreads across lab network</td></tr>
+<tr><td><b>Trojan</b></td><td>Looks useful but hides harmful function</td><td>User installs it thinking it is genuine; usually does not self-replicate</td><td>Fake “free software” installer</td></tr></table></div>
+<div class="box ex"><h4>🟢 Fictional suspicious-file scenario</h4><p>A student downloads “Free_Game_Crack.exe” from an unknown site. Windows Security shows a threat warning and quarantines it. Lesson: do not open or run suspicious files; let security software handle it and report to the lab incharge.</p></div>
+<div class="kw"><span>Malware</span><span>Virus</span><span>Worm</span><span>Trojan</span><span>Scan</span><span>Quarantine</span><span>Update</span></div>
+<div class="box info"><h4>📌 Recap</h4><p>Antivirus protects against malware by scanning, detecting, blocking and removing threats; keep it updated.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<h3>1. How antivirus works</h3>
+<ol><li><b>Scanning:</b> checks files, downloads, memory.</li><li><b>Detection:</b> compares with known malware patterns and suspicious behaviour.</li><li><b>Action:</b> block, quarantine, delete or ask the user.</li><li><b>Updates:</b> downloads new definitions regularly.</li></ol>
+<div class="diagram"><div class="dt">Diagram 7: Antivirus Scanning Workflow</div>
+<div class="flow v">
+<div class="node">New file arrives<small>download / USB / email attachment</small></div><span class="arr"></span>
+<div class="node">Real-time protection scans it<small>or user starts manual scan</small></div><span class="arr"></span>
+<div class="node o">Detection engine checks<small>Signature match? Suspicious behaviour (heuristic)?</small></div><span class="arr"></span>
+<div class="flow"><div class="node r">Threat found → Quarantine / Remove / Block</div><div class="node g">No threat found → File allowed</div></div><span class="arr"></span>
+<div class="node">Result recorded in protection history; definitions updated regularly</div></div>
+<div class="cap">The antivirus makes a decision using known patterns and behaviour. No detection method is perfect, so updates and safe habits matter.</div></div>
+<h3>2. Key terms</h3>
+<ul><li><b>Signature-based detection:</b> matches files against a database of known malware “fingerprints”. Fast and accurate for known threats; weak against new ones.</li><li><b>Heuristic detection:</b> looks for suspicious characteristics/behaviour (e.g., file trying to modify many files). Can catch unknown threats, but may produce false positives.</li><li><b>Real-time protection:</b> continuously checks files as they are opened, downloaded or executed.</li><li><b>Scanning:</b> quick scan (common locations), full scan (whole system), custom scan (selected folder/drive).</li><li><b>Quarantine:</b> isolates a suspected file in a safe place so it cannot run; you can later delete or (if you are sure it is safe) restore it.</li><li><b>Updates:</b> new malware definitions and engine improvements.</li></ul>
+<h3>3. Safe scanning workflow (for students)</h3>
+<ol><li>Keep real-time protection <b>ON</b>.</li><li>Before opening a pen drive, let antivirus scan it.</li><li>Download files only from trusted sources.</li><li>If a warning appears, <b>do not open the file</b>; choose quarantine/remove.</li><li>Run a periodic full scan and check protection history.</li><li>Tell the lab incharge/IT if something repeats.</li></ol>
+<h3>4. Antivirus vs Firewall</h3>
+<div class="tw"><table><tr><th>Point</th><th>Antivirus</th><th>Firewall</th></tr>
+<tr><td>Main job</td><td>Detect/remove malware in files and processes</td><td>Control network traffic (allow/block connections)</td></tr>
+<tr><td>Looks at</td><td>Files, programs, behaviour</td><td>Network connections, ports, applications</td></tr>
+<tr><td>Example</td><td>Quarantines infected download</td><td>Blocks unwanted incoming connection</td></tr>
+<tr><td>Together?</td><td colspan="2">Yes — they are <b>complementary</b>, not replacements for each other.</td></tr></table></div>
+<div class="box ex"><h4>🟢 Practical example: Windows Security / Microsoft Defender</h4><p>Settings → Privacy &amp; security (Windows 11) or Update &amp; Security (Windows 10) → <b>Windows Security</b> → <b>Virus &amp; threat protection</b>. Here you can see <b>Quick scan</b>, <b>Scan options</b>, <b>Protection history</b>, check that <b>Real-time protection</b> is on, and update protection definitions.</p></div>
+<h3>5. Limitations</h3>
+<ul><li>New (zero-day) malware may not be detected immediately.</li><li>Cannot stop user mistakes (giving passwords on fake websites).</li><li>False positives can flag safe files.</li><li>Needs updates; may use system resources.</li></ul>
+<h3>6. Safe computing habits</h3>
+<ul><li>Update OS and apps; avoid pirated software.</li><li>Don't click unknown links/attachments.</li><li>Use strong unique passwords.</li><li>Take regular backups.</li></ul>
+<div class="box warn"><h4>⚠ Common misconceptions</h4><ul><li>“Antivirus makes me 100% safe.” ✗</li><li>“Two or three antivirus programs together are better.” ✗ (can conflict; usually use one main real-time antivirus).</li><li>“Macs/Linux/phones cannot get malware.” ✗ (less common is not impossible).</li><li>“If I see no warning, a file is safe.” ✗</li><li>“Turning off antivirus to speed up PC is fine.” ✗ (do not disable protection).</li></ul></div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<h3>1. Technical working</h3>
+<ul><li><b>Signature:</b> typically a hash or byte pattern identifying known malware.</li><li><b>Heuristics/behaviour analysis:</b> rules or models that watch actions (e.g., mass file encryption, modifying startup entries).</li><li><b>Sandboxing/emulation:</b> running suspicious code in an isolated environment to observe behaviour (vendor-dependent).</li><li><b>Cloud reputation:</b> checking file reputation with the vendor's online database.</li></ul>
+<h3>2. Security considerations</h3>
+<ul><li>Antivirus itself needs privileges to inspect files, so keep it updated (it is also software).</li><li>Tamper protection should stay enabled so malware cannot easily turn protection off.</li><li>Exclusions (excluded folders) reduce protection; use rarely and carefully.</li><li>Malware authors try to evade detection (e.g., changing code), so layered defence is needed.</li></ul>
+<h3>3. Practical implementation concepts</h3>
+<ul><li>Centralised management in organisations, scheduled scans, automatic updates, alert reporting.</li><li>Combine with patching, least privilege, backups, email filtering and user awareness.</li></ul>
+<h3>4. Real-world scenario</h3>
+<p>A lab PC gets a new ransomware variant not yet in signatures. Behaviour-based protection notices rapid file modification, blocks it and alerts the admin; offline backups cover any file already affected. This shows why behaviour detection and backups complement signatures.</p>
+<h3>5. Failure cases</h3>
+<ul><li>Outdated definitions; expired subscriptions; protection disabled “temporarily” and forgotten.</li><li>False sense of security.</li><li>Users approving prompts blindly.</li></ul>
+<div class="box extra"><span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span><p><b>EDR/Endpoint security:</b> “Endpoint Detection and Response” tools continuously record endpoint behaviour so security teams can investigate and respond. Traditional antivirus mainly prevents/removes; EDR adds visibility and response. Beyond basic Unit 1 level.</p></div>
+<h3>6. Terminology</h3>
+<div class="kw"><span>Signature</span><span>Heuristic</span><span>False positive</span><span>False negative</span><span>Zero-day</span><span>Sandbox</span><span>Ransomware</span><span>Tamper protection</span><span>EDR 🟠</span></div>
+<h3>7. Interview-level questions</h3>
+<details class="ans"><summary>Q1. Why can’t signature-based detection catch brand-new malware?</summary><div class="abody">Its signature may not exist in the database yet; heuristics, behaviour analysis and updates help.</div></details>
+<details class="ans"><summary>Q2. What is a false positive?</summary><div class="abody">A safe file wrongly flagged as malicious.</div></details>
+<details class="ans"><summary>Q3. Why is quarantine better than immediate permanent deletion in some cases?</summary><div class="abody">It safely isolates the file and allows review/restoration if it was a false positive.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 9</h4><p>Antivirus detects/blocks/removes malware via scanning, signatures, heuristics, real-time protection, quarantine, updates. It has limitations; combine with firewall, updates, safe habits and backups.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t9"> ✅ I completed Topic 9</label>
+</div></details></section>
+
+<!-- ================= TOPIC 10 ================= -->
+<section class="topic" id="t10" data-title="other os security features updates screen lock secure boot firewall account control backup recovery device encryption session locking etc">
+<details><summary><span class="num">10</span> Other Relevant OS Security Features (“etc.”) <span class="badge official">🔵 OFFICIAL BTEUP UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="box info"><p>The syllabus ends with “<b>etc.</b>”. This topic covers the <b>most relevant supporting features</b>. These items are <b>supporting explanations under “Other relevant security features”</b>; each one is not separately named in the supplied syllabus.</p></div>
+<div class="tabs"><button class="tab active" data-lv="basic">Level 1 · Basic</button><button class="tab" data-lv="inter">Level 2 · Intermediate</button><button class="tab" data-lv="adv">Level 3 · Advanced</button></div>
+
+<div class="pane active" data-lv="basic" data-name="LEVEL 1 — BASIC">
+<div class="tw"><table><tr><th>Feature</th><th>Simple English</th><th>Hinglish</th><th>Real-life example</th></tr>
+<tr><td><b>OS updates</b></td><td>Patches that fix security weaknesses and bugs.</td><td>Updates se purani kamziyan band hoti hain.</td><td>Windows Update installs a security fix.</td></tr>
+<tr><td><b>Screen lock</b></td><td>Locks the screen so others cannot use your device.</td><td>Device chhodte waqt screen lock karo.</td><td>Win + L in the lab.</td></tr>
+<tr><td><b>Secure boot</b></td><td>Checks that startup software is trusted during boot.</td><td>Computer start hote waqt trusted software hi chalne dena.</td><td>Blocks tampered boot loader (on supported systems).</td></tr>
+<tr><td><b>Firewall</b></td><td>Filters network traffic.</td><td>Network ka "gatekeeper".</td><td>Blocks unknown incoming connections.</td></tr>
+<tr><td><b>Account control</b></td><td>Managing users, passwords and rights.</td><td>Users aur unki permissions ko control karna.</td><td>Student accounts without admin rights.</td></tr>
+<tr><td><b>Backup &amp; recovery</b></td><td>Copies of data and ways to restore the system.</td><td>Data ki copy aur wapas laane ka tareeka.</td><td>Project saved on cloud and external drive.</td></tr>
+<tr><td><b>Device encryption</b></td><td>Scrambles disk data so a stolen device cannot be read easily.</td><td>Laptop chori ho jaye to bhi data padha na ja sake.</td><td>BitLocker/Device encryption on supported Windows.</td></tr>
+<tr><td><b>Automatic session locking</b></td><td>Locks after inactivity.</td><td>Kuch der kaam na karne par automatic lock.</td><td>Lock after 5 minutes idle.</td></tr></table></div>
+<div class="box info"><h4>📌 Recap</h4><p>Security is layered: updates, locks, boot protection, firewall, account control, backup, encryption and session locks all add protection.</p></div>
+</div>
+
+<div class="pane" data-lv="inter" data-name="LEVEL 2 — INTERMEDIATE">
+<ul>
+<li><b>Updates:</b> enable automatic updates; restart when asked. <i>Limitation:</i> updates don't fix user mistakes; unsupported OS versions stop receiving security patches.</li>
+<li><b>Screen lock / session locking:</b> set timeout (e.g., 5 min) and require password on wake. <i>Windows:</i> Settings → Accounts → Sign-in options; Win + L locks instantly.</li>
+<li><b>Secure boot:</b> part of UEFI firmware; verifies digital signatures of boot software. <i>Limitation:</i> protects the boot stage, not everything after it.</li>
+<li><b>Firewall basics:</b> rules allow/deny connections by direction, program or port. Windows Defender Firewall is on by default; keep it enabled.</li>
+<li><b>Account control:</b> standard accounts, strong passwords, remove unused accounts, UAC prompts.</li>
+<li><b>Backup &amp; recovery:</b> follow 3-2-1 idea; test restores; use restore points/system image where supported.</li>
+<li><b>Device encryption:</b> protects data at rest if the device is lost or stolen. <i>Keep the recovery key safe</i> (not on the same laptop).</li>
+</ul>
+<div class="box warn"><h4>⚠ Mistakes</h4><ul><li>Postponing updates for months.</li><li>Disabling firewall because an app “doesn't connect”.</li><li>Losing the encryption recovery key.</li><li>Leaving lab sessions unlocked.</li></ul></div>
+</div>
+
+<div class="pane" data-lv="adv" data-name="LEVEL 3 — ADVANCED">
+<ul>
+<li><b>Patch management:</b> test and deploy updates in organisations; critical patches have priority.</li>
+<li><b>Secure boot chain of trust:</b> firmware → bootloader → OS kernel, each verified before the next runs. Related concept: <b>TPM</b> (Trusted Platform Module) stores keys/measurements. <span class="badge extra">🟠 EXTRA KNOWLEDGE</span></li>
+<li><b>Host firewall:</b> stateful inspection tracks connection state; default-deny inbound is a common secure baseline.</li>
+<li><b>Full-disk encryption:</b> encrypts the disk contents using keys protected by passwords/TPM; protects against offline access.</li>
+<li><b>Real-world scenario:</b> a laptop containing project data is stolen from a bus. With device encryption and a strong sign-in, the thief is unlikely to read the data; with backups, the student can continue work.</li>
+<li><b>Failure cases:</b> outdated firmware, disabled secure boot, no recovery key backup, firewall exceptions too broad.</li>
+</ul>
+<h3>Interview-level questions</h3>
+<details class="ans"><summary>Q1. Does device encryption replace screen lock?</summary><div class="abody">No. Encryption protects stored data when the device is off/stolen; screen lock prevents use of an already running, logged-in session.</div></details>
+<details class="ans"><summary>Q2. Why do updates matter for security?</summary><div class="abody">They fix known vulnerabilities that attackers may try to exploit.</div></details>
+<div class="box info"><h4>📝 Revision summary — Topic 10</h4><p>Supporting features: updates, screen/session lock, secure boot, firewall, account control, backup/recovery, device encryption. They support (not replace) the main features.</p></div>
+</div>
+<label class="done"><input type="checkbox" data-done="t10"> ✅ I completed Topic 10</label>
+</div></details></section>
+
+<!-- ================= EXTRA ================= -->
+<section class="topic extra-sec" id="extra" data-title="extra knowledge cia triad mfa biometric event viewer linux permissions least privilege endpoint security raid incident response">
+<details><summary><span class="num" style="background:var(--orange)">E</span> Extra Knowledge Section <span class="badge extra">🟠 EXTRA KNOWLEDGE — NOT EXPLICITLY LISTED IN UNIT 1 SYLLABUS</span></summary>
+<div class="inner">
+<div class="box extra"><p>Ye topics <b>supporting knowledge</b> hain jo official syllabus ko samajhne mein help karte hain. Supplied syllabus mein ye alag se likhe nahi hain, isliye zaroori nahi ki inpar separate exam question aaye. Pehle official topics tayyar karo.</p></div>
+
+<h3>1. CIA Triad</h3>
+<div class="trio"><div class="en"><b class="l">Part A — Simple English</b><b>Confidentiality</b>: only authorised people can read information. <b>Integrity</b>: information is accurate and not changed wrongly. <b>Availability</b>: information and systems are accessible when needed.</div>
+<div class="hi"><b class="l">Part B — Hinglish</b>Confidentiality = sirf sahi log padh sakein. Integrity = data sahi rahe. Availability = zarurat padne par data/service mile.</div>
+<div class="ex"><b class="l">Part C — Real-life example</b>Online banking: PIN/OTP (confidentiality), correct balance (integrity), app working 24×7 (availability).</div></div>
+<div class="grid4"><div class="gcell" style="border-color:var(--orange);background:var(--orangeBg)"><b>C</b>onfidentiality<br>Encryption, access control</div><div class="gcell" style="border-color:var(--orange);background:var(--orangeBg)"><b>I</b>ntegrity<br>Hashing, permissions</div><div class="gcell" style="border-color:var(--orange);background:var(--orangeBg)"><b>A</b>vailability<br>Backup, RAID, updates</div></div>
+<p class="small">CIA is a different framework from PAIN. They overlap but are not identical. RAID mainly supports availability.</p>
+
+<h3>2. Multi-factor authentication (MFA) and biometrics</h3>
+<div class="trio"><div class="en"><b class="l">Part A</b>MFA uses <b>two or more different factor types</b> (know/have/are). Biometrics use body traits such as fingerprint or face.</div><div class="hi"><b class="l">Part B</b>MFA mein password ke saath koi doosra alag type ka proof hota hai (jaise phone OTP). Biometric mein fingerprint/face use hota hai.</div><div class="ex"><b class="l">Part C</b>Online shopping account: password + OTP; phone unlock: fingerprint.</div></div>
+
+<h3>3. Windows Event Viewer</h3>
+<p>Windows tool to read system, security and application logs. <b>Hinglish:</b> Windows ka log-reader. Path: Start → Event Viewer → Windows Logs → Security/System/Application. <b>Example:</b> Event ID 4625 = failed logon (needs admin rights to view security log).</p>
+
+<h3>4. Linux file permissions</h3>
+<p><code>r</code>=4, <code>w</code>=2, <code>x</code>=1; owner/group/others. <code>chmod 640 file</code> → owner rw-, group r--, others ---. <b>Hinglish:</b> Linux mein har file par teen logon ke liye teen permissions hoti hain.</p>
+
+<h3>5. Principle of Least Privilege</h3>
+<p>Give users, programs and services only the minimum rights needed. <b>Hinglish:</b> Jitni zaroorat utni permission. Example: student account without administrator rights in the lab; teacher edits only own course files.</p>
+
+<h3>6. Endpoint security</h3>
+<p>Protecting end-user devices (laptops, phones, lab PCs): antivirus, updates, firewall, encryption, device management, EDR. <b>Hinglish:</b> Hamare apne devices ko secure rakhna. Example: lab PCs with auto-updates and protection.</p>
+
+<h3>7. Additional RAID configurations</h3>
+<p>RAID 01, RAID 50, RAID 60, JBOD, hot spare, hardware vs software RAID (see RAID Level 3). Not needed in depth for Unit 1.</p>
+
+<h3>8. Basic security incident response</h3>
+<div class="flow">
+<div class="node o">1. Detect<small>alert, logs, user report</small></div><span class="arr"></span>
+<div class="node o">2. Report<small>tell lab incharge/IT</small></div><span class="arr"></span>
+<div class="node o">3. Contain<small>disconnect device, lock account</small></div><span class="arr"></span>
+<div class="node o">4. Fix &amp; Recover<small>remove malware, restore backup</small></div><span class="arr"></span>
+<div class="node o">5. Review<small>lessons, improve policy</small></div></div>
+<div class="box warn"><p>Students should <b>report</b> incidents to the authorised person and not try to attack, investigate or access other people's systems/accounts themselves.</p></div>
+</div></details></section>
+
+<!-- ================= PRACTICAL ================= -->
+<section class="topic" id="practical" data-title="practical activities windows account settings standard administrator security updates fictional logs file permissions raid checklist">
+<details><summary><span class="num" style="background:var(--green)">P</span> Practical Learning Activities <span class="badge prac">🟢 SAFE PRACTICE</span></summary>
+<div class="inner">
+<div class="box warn"><h4>⚠ General safety rules for all activities</h4><ul><li>Practice only on <b>your own</b> computer/accounts (or lab systems with permission).</li><li>Do <b>not</b> try to bypass passwords, open other people's files, recover other people's credentials or test security of any system without written permission.</li><li>Do not disable antivirus, firewall or updates.</li><li>No paid software is required.</li></ul></div>
+
+<div class="box ex"><h4>Activity 1 — Review basic Windows account-security settings</h4>
+<p><b>Objective:</b> check how your own Windows account is protected.<br><b>Requirements:</b> your own Windows laptop/PC.</p>
+<ol><li>Open <b>Settings → Accounts → Sign-in options</b>.</li><li>Note which sign-in methods are available (password, PIN, Windows Hello if supported).</li><li>Check “require sign-in” after sleep and find the screen-lock timeout (Settings → System → Power &amp; battery → Screen and sleep).</li><li>Make sure your password/PIN is not guessable.</li></ol>
+<p><b>Expected observation:</b> you can see which methods are enabled and how soon the device locks.<br><b>You learn:</b> authentication options and session locking.<br><b>Safety:</b> do not change settings you don't understand on a college/shared computer.</p></div>
+
+<div class="box ex"><h4>Activity 2 — Identify standard and administrator accounts</h4>
+<p><b>Objective:</b> understand privilege levels.<br><b>Requirements:</b> your own Windows PC.</p>
+<ol><li>Open <b>Settings → Accounts → Your info</b> (it may show “Administrator”) or <b>Accounts → Other users</b>.</li><li>Alternatively, open Control Panel → User Accounts.</li><li>Note whether your daily account is Standard or Administrator.</li><li>Observe the UAC prompt when installing/starting an app that needs admin rights (do not install unknown software).</li></ol>
+<p><b>Expected observation:</b> accounts are labelled by type; admin actions show a prompt.<br><b>You learn:</b> least privilege and why daily accounts should be standard.<br><b>Safety:</b> don't remove or change other users' accounts.</p></div>
+
+<div class="box ex"><h4>Activity 3 — Explore Windows Security and update settings</h4>
+<p><b>Objective:</b> see built-in protection.<br><b>Requirements:</b> Windows 10/11.</p>
+<ol><li>Open <b>Windows Security</b> from Start.</li><li>Check <b>Virus &amp; threat protection</b> → confirm Real-time protection is on → view Protection history.</li><li>Check <b>Firewall &amp; network protection</b> status.</li><li>Open <b>Settings → Windows Update</b> → check for updates.</li></ol>
+<p><b>Expected observation:</b> green/“no action needed” status or recommended actions.<br><b>You learn:</b> antivirus, firewall and updates in one place.<br><b>Safety:</b> never turn protections off; run a quick scan only with built-in tools.</p></div>
+
+<div class="box ex"><h4>Activity 4 — Observe fictional sample log entries</h4>
+<p><b>Objective:</b> read logs and identify patterns.<br><b>Requirements:</b> only this page.</p>
+<pre>09:15:42 student_demo Lab-PC-07 Login FAILED
+09:15:55 student_demo Lab-PC-07 Login FAILED
+09:16:10 student_demo Lab-PC-07 Login SUCCESS
+10:30:12 user_x       Lab-PC-03 File deleted: sample.txt</pre>
+<ol><li>Count the failed logins.</li><li>Decide whether this looks like a forgotten password or an attack, and what more information you would need.</li><li>Optional: open Event Viewer on <i>your own</i> PC and look at Windows Logs → System (do not change anything).</li></ol>
+<p><b>Expected observation:</b> 2 failures followed by success → probably a typo, but more evidence (source, count) is needed.<br><b>You learn:</b> reading logs and not over-concluding.<br><b>Safety:</b> sample data is fictional; don't share real logs publicly.</p></div>
+
+<div class="box ex"><h4>Activity 5 — Review file permissions on a sample document</h4>
+<p><b>Objective:</b> see ownership and permissions.<br><b>Requirements:</b> your own PC; create a file <code>sample.txt</code> in your own Documents folder.</p>
+<ol><li><b>Windows:</b> right-click the file → Properties → Security tab → view Users/Groups and their allowed rights (don't change unless you understand it).</li><li><b>Linux (optional):</b> <code>ls -l sample.txt</code> → read the permission string; try <code>chmod 600 sample.txt</code> on your own file only.</li></ol>
+<p><b>Expected observation:</b> owner has Full control/rw; others have limited or no access.<br><b>You learn:</b> permissions, ownership, ACL idea.<br><b>Safety:</b> never change permissions of system folders or other people's files.</p></div>
+
+<div class="box ex"><h4>Activity 6 — Compare RAID configurations using hypothetical drives</h4>
+<p><b>Objective:</b> calculate capacity and fault tolerance.<br><b>Requirements:</b> pen/paper or the calculator in Topic 8.</p>
+<ol><li>Assume 4 drives of 2 TB each (equal sizes).</li><li>Calculate: RAID 0 = 8 TB; RAID 5 = 6 TB; RAID 6 = 4 TB; RAID 10 = 4 TB.</li><li>For a 2-drive RAID 1 mirror = 2 TB.</li><li>Write down how many drive failures each can survive.</li></ol>
+<p><b>Expected observation:</b> more protection = less usable capacity.<br><b>You learn:</b> trade-off between capacity, performance, protection.<br><b>Safety:</b> hypothetical only — never build or change a real array without a backup.</p></div>
+
+<div class="box ex"><h4>Activity 7 — Create a basic personal-computer security checklist</h4>
+<p><b>Objective:</b> make your own routine.<br><b>Requirements:</b> notebook or text file.</p>
+<ol><li>Write items: strong unique password; MFA on email; updates on; antivirus on; firewall on; screen lock; standard daily account; backup (3-2-1); don't use pirated software; don't share OTP.</li><li>Check each item on your device and mark ✔ / ✘.</li><li>Fix ✘ items one by one.</li></ol>
+<p><b>Expected observation:</b> a personal list showing your gaps.<br><b>You learn:</b> applying all topics practically.<br><b>Safety:</b> don't store passwords in the checklist.</p></div>
+</div></details></section>
+<!-- ================= PRIORITY QUESTIONS ================= -->
+<section class="topic" id="priority" data-title="five priority exam questions important questions pain raid antivirus file system authentication logs audit">
+<details><summary><span class="num" style="background:var(--purple)">Q</span> Five Most Important Exam Questions <span class="badge exam">🟣 PRACTICE</span></summary>
+<div class="inner">
+<div class="box exam"><p><b>Important note:</b> These are <b>suggested high-priority practice questions based on the Unit 1 syllabus</b>. They are <b>NOT guaranteed examination questions</b>, and they are not previous-year questions. Suggested answer lengths are <b>preparation guidance only</b>, not official BTEUP marking rules. Always follow your teacher's/University's instructions.</p></div>
+<p><button class="btn sbtn" data-ans="priority" data-show="1">Show all answers</button> <button class="btn sbtn" data-ans="priority" data-show="0">Hide all answers</button></p>
+
+<!-- Q1 -->
+<div class="pq"><h3>Question 1 — Information Security and PAIN</h3>
+<p><b>Question (simple English):</b> What is Information Security? Explain the PAIN aspects of Information Security with examples.</p>
+<p><b>Hinglish meaning:</b> Information Security kya hai? PAIN ke chaaron aspects ko examples ke saath samjhao.</p>
+<details class="ans"><summary>Show suggested answer</summary><div class="abody">
+<p><b>Suggested answer structure:</b> Definition → Why needed (2–3 points) → PAIN diagram → each element (definition, example, protection) → comparison table → conclusion.</p>
+<h4>Full answer</h4>
+<p><b>Information Security</b> is the practice of protecting information, in any form (digital, paper or spoken), from unauthorised access, misuse, modification, loss or destruction. It is needed to protect private data, keep services running, follow rules, and maintain trust.</p>
+<p><b>PAIN</b> stands for Privacy, Authentication, Integrity and Non-repudiation.</p>
+<div class="diagram"><div class="dt">PAIN Framework</div><div class="center">Information Security</div><div class="grid4"><div class="gcell"><b>P</b>rivacy</div><div class="gcell"><b>A</b>uthentication</div><div class="gcell"><b>I</b>ntegrity</div><div class="gcell"><b>N</b>on-repudiation</div></div></div>
+<ol><li><b>Privacy:</b> protection of personal information and control over its collection, access and use. <i>Example:</i> a student can see only his own marks. <i>Protection:</i> access control, encryption.</li>
+<li><b>Authentication:</b> verification of identity. <i>Example:</i> login with username/password (and OTP). <i>Protection:</i> strong passwords, MFA, lockouts.</li>
+<li><b>Integrity:</b> keeping information accurate and complete and changed only by authorised users. <i>Example:</i> marks cannot be altered by students. <i>Protection:</i> permissions, hashing, backups.</li>
+<li><b>Non-repudiation:</b> providing evidence that makes it difficult to deny an action or message. <i>Example:</i> digitally signed document, protected transaction logs. <i>Protection:</i> digital signatures, unique accounts, audit records.</li></ol>
+<div class="tw"><table><tr><th>Aspect</th><th>Meaning</th><th>Main Purpose</th><th>Example</th><th>Security Measure</th></tr>
+<tr><td>Privacy</td><td>Control of personal information</td><td>Protect individuals' data</td><td>Own marks only</td><td>Access control, encryption</td></tr>
+<tr><td>Authentication</td><td>Identity verification</td><td>Allow genuine users</td><td>Portal login</td><td>Password, OTP, MFA</td></tr>
+<tr><td>Integrity</td><td>Accuracy and completeness</td><td>Prevent unauthorised change</td><td>Unchangeable marks</td><td>Permissions, hashing</td></tr>
+<tr><td>Non-repudiation</td><td>Evidence of action</td><td>Accountability</td><td>Signed document</td><td>Digital signature, audit records</td></tr></table></div>
+<p><b>Conclusion:</b> Together, PAIN helps keep information protected, correct, and accountable.</p>
+<h4>Hinglish explanation (samajhne ke liye)</h4><p>Information Security matlab apni information ko galat use, change aur loss se bachana. PAIN mein Privacy = personal info safe, Authentication = pehchan verify, Integrity = data sahi rahe, Non-repudiation = saboot rahe taaki koi mukar na sake.</p>
+<p><b>Keywords to include:</b> information assets, privacy, authentication, integrity, non-repudiation, digital signature, access control, audit record.</p>
+<p class="small"><b>Suggested length (guidance only):</b> long-answer format — about 2 pages with diagram and table. Short version — definition + PAIN list with one line each.</p>
+</div></details></div>
+
+<!-- Q2 -->
+<div class="pq"><h3>Question 2 — OS security features: Authentication, Logs and Auditing</h3>
+<p><b>Question (simple English):</b> Explain authentication, logs and audit features as security features of an operating system.</p>
+<p><b>Hinglish meaning:</b> Operating system ke security features — authentication, logs aur audit — ko explain karo.</p>
+<details class="ans"><summary>Show suggested answer</summary><div class="abody">
+<p><b>Suggested structure:</b> Intro → Authentication (definition, methods, flow) → Logs (types, example) → Audit (purpose, workflow) → relation/comparison table → conclusion.</p>
+<h4>Full answer</h4>
+<p><b>Introduction:</b> An operating system protects users and data using features such as authentication, logging and auditing.</p>
+<p><b>1. Authentication:</b> It verifies the identity of a user before granting access. Common methods: password, OTP, token, biometrics. After authentication, <i>authorization</i> decides what the user may do. Good practice: strong passwords, hashed storage, lockout after failed attempts, extra factors (MFA).</p>
+<div class="diagram"><div class="flow"><div class="node">Enter username</div><span class="arr"></span><div class="node">Enter password / OTP</div><span class="arr"></span><div class="node">System verifies</div><span class="arr"></span><div class="node g">Access + authorization</div></div></div>
+<p><b>2. Logs:</b> Logs are timestamped records of events such as logins, errors and file operations. Types: system, security and application logs. They help in troubleshooting and investigation. Example: Windows Event Viewer (Event ID 4625 = failed logon). Logs must be protected, backed up and retained as per policy.</p>
+<p><b>3. Audit features:</b> Auditing records and reviews important activities (audit trail) to ensure accountability and policy compliance. It includes file-access records and user-activity records based on an audit policy.</p>
+<div class="tw"><table><tr><th>Point</th><th>Logs</th><th>Monitoring</th><th>Auditing</th></tr><tr><td>Meaning</td><td>Event records</td><td>Watching activity</td><td>Review against rules</td></tr><tr><td>Purpose</td><td>Keep data</td><td>Detect quickly</td><td>Accountability/compliance</td></tr></table></div>
+<p><b>Conclusion:</b> Authentication controls entry; logs record events; auditing reviews them to establish accountability.</p>
+<h4>Hinglish explanation</h4><p>Authentication = login pe pehchan verify. Logs = system ki diary jisme time ke saath events likhe hote hain. Audit = un records ko check karna ki rules follow hue ya nahi aur kaun zimmedar hai.</p>
+<p><b>Keywords:</b> identity, credential, authorization, timestamp, event, security log, audit trail, accountability, retention.</p>
+<p class="small"><b>Suggested length (guidance only):</b> long answer ~2 pages; short answer: 2–3 lines per feature.</p>
+</div></details></div>
+
+<!-- Q3 -->
+<div class="pq"><h3>Question 3 — File System Protection and User Privileges</h3>
+<p><b>Question (simple English):</b> Explain file system protection and user privileges in an operating system.</p>
+<p><b>Hinglish meaning:</b> File system protection aur user privileges ko explain karo.</p>
+<details class="ans"><summary>Show suggested answer</summary><div class="abody">
+<p><b>Suggested structure:</b> Definitions → permissions (r/w/x) → ownership/ACL → encryption/backup → privileges (standard/admin/root) → least privilege → table → conclusion.</p>
+<h4>Full answer</h4>
+<p><b>File system protection</b> controls who can access files/folders and what operations they may perform. Main features: <b>permissions</b> (read, write, execute), <b>ownership</b>, <b>access control lists</b>, <b>encryption</b>, <b>integrity checks</b> and <b>backups</b>.</p>
+<div class="tw"><table><tr><th>Who</th><th>Read</th><th>Write</th><th>Execute</th></tr><tr><td>Owner</td><td>✔</td><td>✔</td><td>✘</td></tr><tr><td>Group</td><td>✔</td><td>✘</td><td>✘</td></tr><tr><td>Others</td><td>✘</td><td>✘</td><td>✘</td></tr></table></div>
+<p>Permissions decide access while the OS is enforcing them; encryption protects data even if the disk is stolen; backups help recovery. Permissions alone do not stop every attack.</p>
+<p><b>User privileges</b> are the rights assigned to user accounts. Types: <b>standard user</b> (normal work), <b>administrator</b> (manage system, install software), <b>root/superuser</b> (highest rights in Unix/Linux). The <b>principle of least privilege</b> says to give only the minimum rights required. Using admin accounts unnecessarily is risky because malware or mistakes can affect the whole system. <b>Privilege escalation</b> (gaining higher rights than intended) must be prevented through updates, correct configuration and account reviews.</p>
+<div class="tw"><table><tr><th>Point</th><th>Standard user</th><th>Administrator</th></tr><tr><td>Install software</td><td>Usually no</td><td>Yes</td></tr><tr><td>Change security settings</td><td>No</td><td>Yes</td></tr><tr><td>Risk if compromised</td><td>Lower</td><td>Higher</td></tr></table></div>
+<p><b>Conclusion:</b> File protection and proper privileges together limit who can do what, reducing damage from mistakes and attacks.</p>
+<h4>Hinglish explanation</h4><p>File par permission lagana = kaun padhe/likhe/chalaye. User privileges = account ko kitna adhikaar diya gaya. Least privilege = jitna kaam utni permission, daily kaam ke liye standard account use karo.</p>
+<p><b>Keywords:</b> permission, ownership, ACL, encryption, backup, standard user, administrator, root, least privilege, privilege escalation.</p>
+<p class="small"><b>Suggested length (guidance only):</b> long answer ~2 pages with table; short answer ~8–10 lines.</p>
+</div></details></div>
+
+<!-- Q4 -->
+<div class="pq"><h3>Question 4 — RAID Levels</h3>
+<p><b>Question (simple English):</b> What is RAID? Explain RAID 0, 1, 5, 6 and 10 with their advantages and a comparison.</p>
+<p><b>Hinglish meaning:</b> RAID kya hai? RAID 0, 1, 5, 6, 10 ko advantages ke saath samjhao aur compare karo.</p>
+<details class="ans"><summary>Show suggested answer</summary><div class="abody">
+<p><b>Suggested structure:</b> Definition + purpose → striping/mirroring/parity → each level (working, min drives, capacity, tolerance, pros/cons) → table → RAID ≠ backup.</p>
+<h4>Full answer</h4>
+<p><b>RAID (Redundant Array of Independent Disks)</b> combines multiple drives into one logical unit to improve performance, fault tolerance, or both. It uses <b>striping</b> (splitting data across disks), <b>mirroring</b> (copying data) and <b>parity</b> (extra information to rebuild lost data).</p>
+<div class="raidrow"><div class="disk"><div class="d">RAID 0</div><div class="blk a">A1</div><div class="blk a">A2</div></div><div class="disk"><div class="d">RAID 1</div><div class="blk b">A</div><div class="blk b">A</div></div><div class="disk"><div class="d">RAID 5</div><div class="blk a">D</div><div class="blk a">D</div><div class="blk p">P</div></div><div class="disk"><div class="d">RAID 6</div><div class="blk a">D</div><div class="blk a">D</div><div class="blk p">P</div><div class="blk p">Q</div></div><div class="disk"><div class="d">RAID 10</div><div class="blk c">M</div><div class="blk c">S</div></div></div>
+<p class="small">Simplified symbols: D = data, P/Q = parity, M = mirror, S = stripe.</p>
+<ul><li><b>RAID 0:</b> striping; min 2 drives; capacity N×S; no fault tolerance (any drive failure loses data); fastest; used for non-critical temporary data.</li><li><b>RAID 1:</b> mirroring; min 2; capacity S (two-drive mirror); tolerates one drive failure; simple, reliable; half capacity lost.</li><li><b>RAID 5:</b> striping + distributed parity; min 3; capacity (N−1)×S; tolerates one drive failure; good balance; slower writes.</li><li><b>RAID 6:</b> striping + double parity; min 4; capacity (N−2)×S; tolerates two drive failures; safer for big arrays; slower writes.</li><li><b>RAID 10:</b> mirrors striped together; min 4; capacity (N/2)×S; survives one failure for sure, more only if in different mirror pairs; high performance; 50% capacity lost.</li></ul>
+<div class="tw"><table><tr><th>RAID</th><th>Min drives</th><th>Usable (equal drives)</th><th>Fault tolerance</th><th>Main use</th></tr><tr><td>0</td><td>2</td><td>N×S</td><td>None</td><td>Speed, temporary data</td></tr><tr><td>1</td><td>2</td><td>S</td><td>1 drive</td><td>Critical small data/OS</td></tr><tr><td>5</td><td>3</td><td>(N−1)×S</td><td>1 drive</td><td>File servers</td></tr><tr><td>6</td><td>4</td><td>(N−2)×S</td><td>2 drives</td><td>Large safe storage</td></tr><tr><td>10</td><td>4</td><td>(N/2)×S</td><td>≥1 (pair-dependent)</td><td>Databases</td></tr></table></div>
+<p><i>Assumption: all drives have equal size S.</i></p>
+<p><b>Important:</b> RAID is not a backup; it does not protect against deletion, malware, corruption or disasters.</p>
+<h4>Hinglish explanation</h4><p>RAID mein kai disks ek saath kaam karti hain. RAID 0 sirf speed (disk gayi to sab gaya), RAID 1 copy, RAID 5 mein parity se ek disk kharab hone par bhi data wapas, RAID 6 mein do disks, RAID 10 mein mirror + speed. Backup ka replacement nahi hai.</p>
+<p><b>Keywords:</b> striping, mirroring, parity, fault tolerance, usable capacity, degraded mode, rebuild.</p>
+<p class="small"><b>Suggested length (guidance only):</b> long answer ~2 pages with table/diagram; short answer: definition + 5 one-line points.</p>
+</div></details></div>
+
+<!-- Q5 -->
+<div class="pq"><h3>Question 5 — Antivirus Software</h3>
+<p><b>Question (simple English):</b> What is antivirus software? Explain its working and role in operating-system security. Mention its limitations.</p>
+<p><b>Hinglish meaning:</b> Antivirus kya hai? Ye kaise kaam karta hai, OS security mein iska role kya hai aur iski limitations kya hain?</p>
+<details class="ans"><summary>Show suggested answer</summary><div class="abody">
+<p><b>Suggested structure:</b> Definition → malware types → working flow → detection methods → features → role in OS security → limitations → safe habits.</p>
+<h4>Full answer</h4>
+<p><b>Antivirus software</b> is a security program that detects, blocks and removes <b>malware</b> (malicious software) such as viruses, worms and Trojans.</p>
+<div class="tw"><table><tr><th>Malware</th><th>Meaning</th></tr><tr><td>Virus</td><td>Attaches to files/programs and spreads when they are run</td></tr><tr><td>Worm</td><td>Self-replicates across networks without needing a host file</td></tr><tr><td>Trojan</td><td>Pretends to be useful but performs harmful actions</td></tr></table></div>
+<div class="diagram"><div class="flow"><div class="node">New file / USB / download</div><span class="arr"></span><div class="node">Real-time scan</div><span class="arr"></span><div class="node o">Signature + heuristic check</div><span class="arr"></span><div class="node r">Threat → Quarantine / remove</div></div></div>
+<ul><li><b>Signature-based detection:</b> compares files with known malware patterns.</li><li><b>Heuristic detection:</b> looks for suspicious behaviour or characteristics; can detect some unknown threats but may give false positives.</li><li><b>Real-time protection, scanning, quarantine, updates</b> are key features.</li></ul>
+<p><b>Role in OS security:</b> It protects files, memory and removable media; reduces malware infection; works with firewall, updates, user privileges and backups as part of layered security. Example: Microsoft Defender in Windows Security.</p>
+<p><b>Limitations:</b> cannot guarantee 100% protection; new malware may not be detected immediately; cannot stop user mistakes such as sharing passwords; needs updates; may produce false positives.</p>
+<p><b>Antivirus vs firewall:</b> antivirus deals with malicious files/programs; firewall controls network traffic. They complement each other.</p>
+<p><b>Safe habits:</b> update systems, avoid pirated software, don't open unknown attachments, keep backups, do not disable protection.</p>
+<h4>Hinglish explanation</h4><p>Antivirus computer ka "health checker" jaisa hai jo harmful programs ko pakadta aur quarantine karta hai. Ye signature (known pehchan) aur heuristic (shak wale behaviour) dono se check karta hai. 100% safe nahi hai, isliye updates aur safe habits zaroori hain.</p>
+<p><b>Keywords:</b> malware, signature, heuristic, real-time protection, quarantine, scan, definition update, false positive.</p>
+<p class="small"><b>Suggested length (guidance only):</b> long answer ~1.5–2 pages with flow diagram; short answer: definition, 3 features, 2 limitations.</p>
+</div></details></div>
+</div></details></section>
+
+<!-- ================= PRACTICE ================= -->
+<section class="topic" id="practice" data-title="mcq multiple choice short answer true false scenario questions practice">
+<details><summary><span class="num" style="background:var(--purple)">M</span> Practice: MCQs, Short Answers, True/False, Scenarios <span class="badge exam">🟣 ADDITIONAL PRACTICE</span></summary>
+<div class="inner">
+<div class="box exam"><p>Ye additional practice questions Unit 1 syllabus par based hain (jahan 🟠 likha hai wahan extra knowledge se hai). Ye actual exam questions nahi hain.</p></div>
+<p><button class="btn sbtn" data-ans="practice" data-show="1">Show all answers</button> <button class="btn sbtn" data-ans="practice" data-show="0">Hide all answers</button></p>
+
+<h2>A. 15 Multiple-Choice Questions</h2>
+<div class="q"><div class="qt">1. Which of the following is NOT one of the PAIN aspects used in this syllabus?</div><ol class="opts"><li>Privacy</li><li>Authentication</li><li>Availability</li><li>Non-repudiation</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>C — Availability.</b> PAIN = Privacy, Authentication, Integrity, Non-repudiation. Availability belongs to the CIA triad (🟠 extra knowledge).</div></details></div>
+<div class="q"><div class="qt">2. Verifying that a user is really who they claim to be is called:</div><ol class="opts"><li>Authorization</li><li>Authentication</li><li>Accounting</li><li>Encryption</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B — Authentication.</b> Authorization decides permissions after identity is verified.</div></details></div>
+<div class="q"><div class="qt">3. After login, the OS decides that a student can read but not edit the marks file. This decision is:</div><ol class="opts"><li>Authentication</li><li>Authorization</li><li>Hashing</li><li>Quarantine</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B — Authorization.</b> It determines what an authenticated user is allowed to do.</div></details></div>
+<div class="q"><div class="qt">4. 🟠 Which is an example of multi-factor authentication?</div><ol class="opts"><li>Password + security question</li><li>Password + PIN</li><li>Password + OTP from phone</li><li>Two different passwords</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>C.</b> MFA needs different factor types: knows (password) + has (phone). Others are all “something you know”.</div></details></div>
+<div class="q"><div class="qt">5. In Windows security logs, Event ID 4625 commonly indicates:</div><ol class="opts"><li>Successful logon</li><li>Failed logon</li><li>System shutdown</li><li>Antivirus update</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B — Failed logon.</b> (4624 is a successful logon.)</div></details></div>
+<div class="q"><div class="qt">6. Systematic review of records against security rules to ensure accountability is called:</div><ol class="opts"><li>Logging</li><li>Auditing</li><li>Mirroring</li><li>Scanning</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B — Auditing.</b> Logging only records; auditing reviews and verifies.</div></details></div>
+<div class="q"><div class="qt">7. 🟠 A Linux file has permission 640. This means:</div><ol class="opts"><li>Owner rw, group r, others none</li><li>Owner r, group rw, others none</li><li>Everyone can read and write</li><li>Owner executes only</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>A.</b> 6 = rw-, 4 = r--, 0 = ---.</div></details></div>
+<div class="q"><div class="qt">8. Which practice best follows the principle of least privilege?</div><ol class="opts"><li>Giving all students administrator rights</li><li>Using a standard account for daily work</li><li>Sharing one admin password in the lab</li><li>Keeping old staff accounts active</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B.</b> Standard accounts limit the damage of mistakes or malware.</div></details></div>
+<div class="q"><div class="qt">9. Which RAID level provides no protection against a single drive failure?</div><ol class="opts"><li>RAID 1</li><li>RAID 0</li><li>RAID 5</li><li>RAID 6</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B — RAID 0.</b> It only stripes data; failure of any drive loses the array's data.</div></details></div>
+<div class="q"><div class="qt">10. Four equal 1 TB drives in RAID 5 give approximately how much usable capacity?</div><ol class="opts"><li>1 TB</li><li>2 TB</li><li>3 TB</li><li>4 TB</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>C — 3 TB.</b> (N−1)×S = 3×1 TB.</div></details></div>
+<div class="q"><div class="qt">11. Detection of suspicious behaviour or characteristics, even without an exact known signature, is called:</div><ol class="opts"><li>Heuristic detection</li><li>Mirroring</li><li>Striping</li><li>Authorization</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>A.</b> Heuristics can catch some unknown malware but can cause false positives.</div></details></div>
+<div class="q"><div class="qt">12. Four equal 2 TB drives in RAID 10 give usable capacity of:</div><ol class="opts"><li>2 TB</li><li>4 TB</li><li>6 TB</li><li>8 TB</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B — 4 TB.</b> (N/2)×S = 2×2 TB.</div></details></div>
+<div class="q"><div class="qt">13. What does “quarantine” do in antivirus software?</div><ol class="opts"><li>Isolates a suspected file so it cannot run</li><li>Formats the drive</li><li>Speeds up the PC</li><li>Blocks all websites</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>A.</b> The file is isolated and can be reviewed, deleted or (if safe) restored.</div></details></div>
+<div class="q"><div class="qt">14. A malware that spreads by copying itself across a network without needing a host file is a:</div><ol class="opts"><li>Virus</li><li>Worm</li><li>Trojan</li><li>Firewall</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B — Worm.</b> Viruses need a host file; Trojans pretend to be useful software.</div></details></div>
+<div class="q"><div class="qt">15. Why is RAID not a replacement for backup?</div><ol class="opts"><li>Because RAID is always slow</li><li>Because accidental deletion or malware changes can be copied to all disks</li><li>Because RAID cannot use more than one disk</li><li>Because RAID works only on Linux</li></ol><details class="ans"><summary>Show answer</summary><div class="abody"><b>B.</b> RAID mainly protects against some drive failures, not deletion, ransomware, corruption or disasters.</div></details></div>
+
+<h2>B. 10 Short-Answer Questions</h2>
+<div class="q"><div class="qt">1. Define Information Security.</div><details class="ans"><summary>Show answer</summary><div class="abody">Protection of information in any form from unauthorised access, misuse, modification, loss or destruction.</div></details></div>
+<div class="q"><div class="qt">2. Differentiate threat, vulnerability and risk.</div><details class="ans"><summary>Show answer</summary><div class="abody">Threat: potential cause of harm. Vulnerability: weakness that can be exploited. Risk: possible loss when a threat exploits a vulnerability (considering likelihood and impact).</div></details></div>
+<div class="q"><div class="qt">3. Expand PAIN and define Privacy in one line.</div><details class="ans"><summary>Show answer</summary><div class="abody">Privacy, Authentication, Integrity, Non-repudiation. Privacy = protection of personal information and control over its collection, access and use.</div></details></div>
+<div class="q"><div class="qt">4. Why is a password alone not enough to guarantee non-repudiation?</div><details class="ans"><summary>Show answer</summary><div class="abody">Passwords can be shared, guessed or stolen, so an action cannot be firmly linked to one person. Digital signatures with protected keys and secure audit records give stronger evidence.</div></details></div>
+<div class="q"><div class="qt">5. List three types of logs maintained by an OS.</div><details class="ans"><summary>Show answer</summary><div class="abody">System logs, security logs and application logs.</div></details></div>
+<div class="q"><div class="qt">6. Give one difference between logging and auditing.</div><details class="ans"><summary>Show answer</summary><div class="abody">Logging records events; auditing reviews records against policy to check compliance and accountability.</div></details></div>
+<div class="q"><div class="qt">7. Why should everyday users not use administrator accounts?</div><details class="ans"><summary>Show answer</summary><div class="abody">Malware or mistakes running with admin rights can change system settings or damage the whole system; standard accounts limit damage (least privilege).</div></details></div>
+<div class="q"><div class="qt">8. Why does RAID 5 usually tolerate only one drive failure, and RAID 6 two?</div><details class="ans"><summary>Show answer</summary><div class="abody">RAID 5 stores one set of parity (one drive's worth) which can rebuild one missing block per stripe. RAID 6 stores two independent parity sets, so two missing blocks can be rebuilt.</div></details></div>
+<div class="q"><div class="qt">9. Distinguish virus, worm and Trojan.</div><details class="ans"><summary>Show answer</summary><div class="abody">Virus attaches to files and spreads when run; worm self-replicates over networks; Trojan disguises itself as useful software and usually does not self-replicate.</div></details></div>
+<div class="q"><div class="qt">10. How do antivirus and firewall differ?</div><details class="ans"><summary>Show answer</summary><div class="abody">Antivirus detects/removes malware in files and processes; firewall filters network connections. They complement each other.</div></details></div>
+
+<h2>C. 5 True / False Questions</h2>
+<div class="q"><div class="qt">1. A plain password alone guarantees non-repudiation. (True/False)</div><details class="ans"><summary>Show answer</summary><div class="abody"><b>False.</b> Passwords can be shared or stolen; non-repudiation needs stronger evidence like digital signatures and protected audit records.</div></details></div>
+<div class="q"><div class="qt">2. RAID 1 protects you if you accidentally delete a file. (True/False)</div><details class="ans"><summary>Show answer</summary><div class="abody"><b>False.</b> The deletion is applied to both mirrored copies. Backups are needed.</div></details></div>
+<div class="q"><div class="qt">3. Using a standard user account for daily work can reduce damage from malware. (True/False)</div><details class="ans"><summary>Show answer</summary><div class="abody"><b>True.</b> Malware inherits the privileges of the account it runs under.</div></details></div>
+<div class="q"><div class="qt">4. If antivirus is installed, a computer is 100% safe. (True/False)</div><details class="ans"><summary>Show answer</summary><div class="abody"><b>False.</b> Antivirus has limitations: new threats, user mistakes and missed detections.</div></details></div>
+<div class="q"><div class="qt">5. Authorization normally happens after authentication. (True/False)</div><details class="ans"><summary>Show answer</summary><div class="abody"><b>True.</b> The system first identifies who you are, then decides what you may do.</div></details></div>
+
+<h2>D. 5 Scenario-Based Questions</h2>
+<div class="q"><div class="qt">1. A student uses the same password for the college portal, email and a gaming site. The gaming site reports a data leak. What should the student do and why?</div><details class="ans"><summary>Show answer</summary><div class="abody">Change the password immediately on all important accounts, using a different strong password for each; enable MFA where available (🟠); check account activity; consider a password manager. Reason: attackers try leaked passwords on other sites (credential stuffing).</div></details></div>
+<div class="q"><div class="qt">2. The internal-marks file was modified at 11:45 PM. How can the administrator investigate, and what controls would you recommend?</div><details class="ans"><summary>Show answer</summary><div class="abody">Check audit/file-access records and security logs around that time (who, which machine), review login attempts, protect and preserve evidence, restore the file from backup, reset affected accounts and report to the authority. Recommend unique accounts, stronger passwords/lockout, tighter file permissions, regular log review and audit policy.</div></details></div>
+<div class="q"><div class="qt">3. In a lab, all students have administrator rights and malware keeps returning. Suggest improvements.</div><details class="ans"><summary>Show answer</summary><div class="abody">Switch students to standard accounts, restrict software installation, keep OS/antivirus updated, enable firewall, disable auto-run from USB or scan removable media, keep an admin account only for technicians, enable logging/auditing and provide user awareness training.</div></details></div>
+<div class="q"><div class="qt">4. A small office stores important accounts data on a RAID 0 array and says “our data is safe”. Is this correct? What do you advise?</div><details class="ans"><summary>Show answer</summary><div class="abody">Not correct: RAID 0 has no redundancy; one drive failure loses all data. Advise RAID 1/5/6/10 depending on needs, plus regular tested backups (3-2-1), since RAID itself is not backup.</div></details></div>
+<div class="q"><div class="qt">5. Your antivirus warns that a downloaded file is suspicious. What should you do?</div><details class="ans"><summary>Show answer</summary><div class="abody">Do not open or run it. Let the antivirus quarantine/remove it, check protection history, keep protection enabled, update definitions and run a scan, and report to the lab incharge/IT if it is a college system. Download software only from trusted sources.</div></details></div>
+</div></details></section>
+
+<!-- ================= REVISION ================= -->
+<section class="topic" id="revision" data-title="revision sheet important definitions differences comparison tables">
+<details><summary><span class="num">R</span> Final Revision Sheet <span class="badge official">🔵 OFFICIAL SYLLABUS REVISION</span></summary>
+<div class="inner">
+<h2>Quick Revision (one-page recap)</h2>
+<ul>
+<li><b>Information Security:</b> protect information in all forms; threat + vulnerability → risk; controls reduce risk.</li>
+<li><b>PAIN:</b> Privacy, Authentication, Integrity, Non-repudiation.</li>
+<li><b>Authentication:</b> verify identity; factors: know/have/are; authorization = what you may do.</li>
+<li><b>Logs:</b> timestamped event records (system, security, application); protect, retain, monitor.</li>
+<li><b>Audit:</b> review of records for accountability and compliance; audit trail; audit policy.</li>
+<li><b>File system protection:</b> permissions (r/w/x), ownership, ACL, encryption, integrity, backup.</li>
+<li><b>User privileges:</b> standard/admin/root; least privilege; escalation risk; account management.</li>
+<li><b>RAID:</b> 0 stripe (no tolerance), 1 mirror, 5 parity (1), 6 double parity (2), 10 mirror+stripe. Not a backup.</li>
+<li><b>Antivirus:</b> signature + heuristic detection, real-time protection, quarantine, updates; limits exist.</li>
+<li><b>Others (“etc.”):</b> updates, screen lock, secure boot, firewall, account control, backup/recovery, device encryption, session lock.</li></ul>
+
+<h2>Important Definitions</h2>
+<div class="tw"><table><tr><th>Term</th><th>Definition</th></tr>
+<tr><td>Information Security</td><td>Protection of information in any form from unauthorised access, misuse, modification, loss or destruction.</td></tr>
+<tr><td>Privacy</td><td>Protection of personal information and control over its collection, access and use.</td></tr>
+<tr><td>Authentication</td><td>Verification of a user's identity.</td></tr>
+<tr><td>Integrity</td><td>Maintaining accuracy and completeness of information.</td></tr>
+<tr><td>Non-repudiation</td><td>Evidence supporting accountability for an action/communication, making denial difficult.</td></tr>
+<tr><td>Log</td><td>Timestamped record of system events.</td></tr>
+<tr><td>Audit</td><td>Systematic recording and review of activities against policy for accountability.</td></tr>
+<tr><td>File permission</td><td>Rule that defines who can read, write or execute a file.</td></tr>
+<tr><td>Least privilege</td><td>Giving only the minimum access needed.</td></tr>
+<tr><td>RAID</td><td>Combining multiple drives into a logical unit for performance and/or redundancy.</td></tr>
+<tr><td>Antivirus</td><td>Software that detects, blocks and removes malware.</td></tr>
+<tr><td>Quarantine</td><td>Isolation of a suspected file so it cannot run.</td></tr></table></div>
+
+<h2>Important Differences</h2>
+<div class="tw"><table><tr><th>Compare</th><th>Key difference</th></tr>
+<tr><td>Threat vs Vulnerability vs Risk</td><td>Danger source vs weakness vs possible loss.</td></tr>
+<tr><td>Authentication vs Authorization</td><td>Verify identity vs decide permissions.</td></tr>
+<tr><td>Identification vs Authentication</td><td>Claim identity vs prove it.</td></tr>
+<tr><td>Logs vs Monitoring vs Auditing</td><td>Records vs watching vs reviewing against rules.</td></tr>
+<tr><td>Permissions vs Encryption</td><td>OS-enforced access rules vs unreadable data without key.</td></tr>
+<tr><td>Backup vs Access control</td><td>Recovery vs prevention.</td></tr>
+<tr><td>Standard vs Administrator</td><td>Limited vs system-management rights.</td></tr>
+<tr><td>RAID vs Backup</td><td>Drive-failure tolerance/performance vs recoverable separate copy.</td></tr>
+<tr><td>Virus vs Worm vs Trojan</td><td>Attaches to file vs self-spreads vs disguised.</td></tr>
+<tr><td>Antivirus vs Firewall</td><td>Malware in files vs network traffic.</td></tr>
+<tr><td>Information security vs Cybersecurity vs Data security</td><td>All forms of information vs digital/cyber systems vs data itself — related, not identical.</td></tr>
+<tr><td>PAIN vs CIA 🟠</td><td>Different frameworks that overlap partly.</td></tr></table></div>
+
+<h2>RAID formula sheet (equal drives, size S, N drives)</h2>
+<div class="tw"><table><tr><th>RAID 0</th><th>RAID 1 (2 drives)</th><th>RAID 5</th><th>RAID 6</th><th>RAID 10</th></tr><tr><td>N × S</td><td>S</td><td>(N−1) × S</td><td>(N−2) × S</td><td>(N/2) × S</td></tr><tr><td>Min 2</td><td>Min 2</td><td>Min 3</td><td>Min 4</td><td>Min 4</td></tr><tr><td>0 failures</td><td>1</td><td>1</td><td>2</td><td>≥1 (pair-dependent)</td></tr></table></div>
+</div></details></section>
+
+<!-- ================= GLOSSARY ================= -->
+<section class="topic" id="glossary" data-title="glossary technical terms definitions">
+<details><summary><span class="num">G</span> Glossary of Technical Terms</summary>
+<div class="inner">
+<div class="tw"><table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>ACL</td><td>Access Control List: list of who can do what on an object.</td></tr>
+<tr><td>Account lockout</td><td>Temporarily blocking an account after repeated failed logins.</td></tr>
+<tr><td>Administrator</td><td>Account with rights to manage system settings and users.</td></tr>
+<tr><td>Asset</td><td>Anything valuable to an organisation, including information.</td></tr>
+<tr><td>Audit trail</td><td>Chronological record of who did what and when.</td></tr>
+<tr><td>Authentication</td><td>Verifying identity.</td></tr>
+<tr><td>Authorization</td><td>Deciding what an authenticated user may do.</td></tr>
+<tr><td>Backup</td><td>Separate copy of data for recovery.</td></tr>
+<tr><td>Biometric</td><td>Authentication using body traits (fingerprint, face).</td></tr>
+<tr><td>Brute force</td><td>Trying many passwords until one works.</td></tr>
+<tr><td>CIA Triad 🟠</td><td>Confidentiality, Integrity, Availability.</td></tr>
+<tr><td>Control</td><td>Measure used to reduce risk.</td></tr>
+<tr><td>Digital signature</td><td>Cryptographic proof of origin/integrity created with a private key.</td></tr>
+<tr><td>Encryption</td><td>Converting data into unreadable form without a key.</td></tr>
+<tr><td>Event ID</td><td>Number that identifies a type of event in Windows logs.</td></tr>
+<tr><td>Firewall</td><td>Filters network traffic by rules.</td></tr>
+<tr><td>Hash</td><td>Fixed-size fingerprint of data produced by a one-way function.</td></tr>
+<tr><td>Heuristic</td><td>Detection based on suspicious behaviour/characteristics.</td></tr>
+<tr><td>Integrity</td><td>Accuracy and completeness of data.</td></tr>
+<tr><td>Least privilege</td><td>Minimum necessary access.</td></tr>
+<tr><td>Log</td><td>Record of events.</td></tr>
+<tr><td>Malware</td><td>Malicious software.</td></tr>
+<tr><td>MFA 🟠</td><td>Using two or more different authentication factor types.</td></tr>
+<tr><td>Mirroring</td><td>Writing identical data to more than one drive.</td></tr>
+<tr><td>Non-repudiation</td><td>Evidence making denial of an action difficult.</td></tr>
+<tr><td>OTP</td><td>One-Time Password valid for one use/short time.</td></tr>
+<tr><td>Parity</td><td>Calculated data used to rebuild lost data in RAID.</td></tr>
+<tr><td>Patch</td><td>Update that fixes a flaw.</td></tr>
+<tr><td>Phishing</td><td>Trick using fake messages/sites to steal information.</td></tr>
+<tr><td>Privacy</td><td>Protection and proper handling of personal information.</td></tr>
+<tr><td>Privilege escalation</td><td>Gaining higher access than intended.</td></tr>
+<tr><td>Quarantine</td><td>Isolation of suspected malicious file.</td></tr>
+<tr><td>RAID</td><td>Redundant Array of Independent Disks.</td></tr>
+<tr><td>Real-time protection</td><td>Continuous scanning as files are accessed.</td></tr>
+<tr><td>Risk</td><td>Possible loss from a threat exploiting a vulnerability.</td></tr>
+<tr><td>Root</td><td>Superuser account in Unix/Linux.</td></tr>
+<tr><td>Salt</td><td>Random data added before hashing a password.</td></tr>
+<tr><td>Secure boot</td><td>Boot-time check that startup software is trusted.</td></tr>
+<tr><td>Signature (antivirus)</td><td>Pattern identifying known malware.</td></tr>
+<tr><td>Striping</td><td>Splitting data across multiple drives.</td></tr>
+<tr><td>Threat</td><td>Potential cause of harm.</td></tr>
+<tr><td>Timestamp</td><td>Date and time of an event.</td></tr>
+<tr><td>Token</td><td>Item/data proving possession or session identity.</td></tr>
+<tr><td>Trojan</td><td>Malware disguised as legitimate software.</td></tr>
+<tr><td>Virus</td><td>Malware that attaches to files and spreads when run.</td></tr>
+<tr><td>Vulnerability</td><td>Weakness that can be exploited.</td></tr>
+<tr><td>Worm</td><td>Self-replicating malware spreading over networks.</td></tr></table></div>
+</div></details></section>
+
+<!-- ================= CHECKLIST ================= -->
+<section class="topic" id="checklist" data-title="completion checklist progress">
+<details open><summary><span class="num">✓</span> Completion Checklist</summary>
+<div class="inner checklist">
+<p class="small">Progress sirf aapke browser (localStorage) mein save hota hai; koi personal data nahi.</p>
+<label><input type="checkbox" data-done="t1"> 1. Introduction to Information Security</label>
+<label><input type="checkbox" data-done="t2"> 2. PAIN</label>
+<label><input type="checkbox" data-done="t3"> 3. Authentication</label>
+<label><input type="checkbox" data-done="t4"> 4. Logs</label>
+<label><input type="checkbox" data-done="t5"> 5. Audit Features</label>
+<label><input type="checkbox" data-done="t6"> 6. File System Protection</label>
+<label><input type="checkbox" data-done="t7"> 7. User Privileges</label>
+<label><input type="checkbox" data-done="t8"> 8. RAID Options</label>
+<label><input type="checkbox" data-done="t9"> 9. Anti-Virus Software</label>
+<label><input type="checkbox" data-done="t10"> 10. Other OS Security Features</label>
+<label><input type="checkbox" data-done="c_extra"> Extra Knowledge section read</label>
+<label><input type="checkbox" data-done="c_prac"> Practical activities done</label>
+<label><input type="checkbox" data-done="c_prio"> Five priority questions practised</label>
+<label><input type="checkbox" data-done="c_mcq"> MCQs / short / T-F / scenarios practised</label>
+<label><input type="checkbox" data-done="c_rev"> Revision sheet and glossary revised</label>
+<p style="margin-top:12px"><button class="btn" id="reset">Reset progress</button></p>
+</div></details></section>
+</main>
+
+<footer>
+<p>BTEUP CSE · Information Security · Unit 1 · Study notes for learning. Practice questions are preparation guidance and not actual exam papers.</p>
+</footer>
+</div>
+
+<button class="btn primary noprint" id="top" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,c){return (c||document).querySelector(s)};
+var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+function store(k,v){try{if(v===undefined){return localStorage.getItem(k)}localStorage.setItem(k,v)}catch(e){return null}}
+
+/* theme */
+var root=document.documentElement,tbtn=$("#theme");
+function setTheme(t){root.setAttribute("data-theme",t);tbtn.textContent=t==="dark"?"☀ Light":"🌙 Dark";store("bteup_is_theme",t)}
+var saved=store("bteup_is_theme");
+if(saved){setTheme(saved)}else if(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches){setTheme("dark")}
+tbtn.addEventListener("click",function(){setTheme(root.getAttribute("data-theme")==="dark"?"light":"dark")});
+
+/* tabs */
+document.addEventListener("click",function(e){
+ var t=e.target.closest&&e.target.closest(".tab");
+ if(!t)return;
+ var inner=t.closest(".inner"),lv=t.getAttribute("data-lv");
+ $$(".tab",inner).forEach(function(b){if(b.closest(".inner")===inner)b.classList.toggle("active",b===t)});
+ $$(".pane",inner).forEach(function(p){if(p.closest(".inner")===inner)p.classList.toggle("active",p.getAttribute("data-lv")===lv)});
+});
+
+/* expand / collapse */
+$("#expand").addEventListener("click",function(){$$(".topic>details").forEach(function(d){d.open=true})});
+$("#collapse").addEventListener("click",function(){$$(".topic>details").forEach(function(d){d.open=false})});
+
+/* show/hide answers */
+$$("[data-ans]").forEach(function(b){b.addEventListener("click",function(){
+ var sec=document.getElementById(b.getAttribute("data-ans")),show=b.getAttribute("data-show")==="1";
+ $$("details.ans",sec).forEach(function(d){d.open=show});
+})});
+
+/* search */
+var sb=$("#search");
+sb.addEventListener("input",function(){
+ var q=sb.value.trim().toLowerCase(),topics=$$(".topic"),tocLinks=$$("#toc a");
+ topics.forEach(function(t){
+  var hay=(t.getAttribute("data-title")||"")+" "+t.textContent.toLowerCase();
+  var m=!q||hay.indexOf(q)>-1;
+  t.classList.toggle("hide",!m);
+  if(q&&m){t.querySelector("details").open=true}
+ });
+ tocLinks.forEach(function(a){
+  var id=a.getAttribute("href").slice(1),t=document.getElementById(id);
+  a.parentNode.classList.toggle("hide",!!t&&t.classList.contains("hide"));
+ });
+ var any=topics.some(function(t){return !t.classList.contains("hide")});
+ var nr=$("#noresult");
+ if(!any&&!nr){nr=document.createElement("div");nr.id="noresult";nr.className="box warn";nr.textContent="No matching topic found. Try words like RAID, logs, PAIN, antivirus, privileges.";$("#main").appendChild(nr)}
+ if(any&&nr){nr.remove()}
+});
+
+/* TOC click: open target */
+$$("#toc a").forEach(function(a){a.addEventListener("click",function(){
+ var t=document.getElementById(a.getAttribute("href").slice(1));
+ if(t){t.classList.remove("hide");var d=t.querySelector("details");if(d)d.open=true}
+})});
+
+/* progress / checklist */
+var inputs=$$("input[data-done]"),keys=[];
+inputs.forEach(function(i){var k=i.getAttribute("data-done");if(keys.indexOf(k)<0)keys.push(k)});
+var state={};
+try{state=JSON.parse(store("bteup_is_progress")||"{}")||{}}catch(e){state={}}
+function render(){
+ var done=0;
+ keys.forEach(function(k){if(state[k])done++});
+ var p=Math.round(done/keys.length*100);
+ $("#pbar").style.width=p+"%";
+ $("#plabel").textContent="Progress: "+p+"% ("+done+" of "+keys.length+" items completed)";
+ inputs.forEach(function(i){i.checked=!!state[i.getAttribute("data-done")]});
+}
+inputs.forEach(function(i){i.addEventListener("change",function(){
+ state[i.getAttribute("data-done")]=i.checked;
+ store("bteup_is_progress",JSON.stringify(state));render();
+})});
+$("#reset").addEventListener("click",function(){state={};store("bteup_is_progress","{}");render()});
+render();
+
+/* back to top */
+var top=$("#top");
+window.addEventListener("scroll",function(){top.style.display=window.scrollY>400?"block":"none"});
+top.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
+
+/* print */
+var openState=[];
+function beforePrint(){
+ openState=$$("details").map(function(d){return d.open});
+ $$("details").forEach(function(d){d.open=true});
+ $$(".topic").forEach(function(t){t.classList.remove("hide")});
+}
+function afterPrint(){$$("details").forEach(function(d,i){d.open=openState[i]})}
+window.addEventListener("beforeprint",beforePrint);
+window.addEventListener("afterprint",afterPrint);
+$("#print").addEventListener("click",function(){window.print()});
+
+/* RAID calculator */
+function fmt(gb){return gb>=1000?(gb/1000).toFixed(gb%1000===0?0:2)+" TB":gb+" GB"}
+function calc(){
+ var lv=$("#rc-level").value,n=parseInt($("#rc-n").value,10),s=parseFloat($("#rc-s").value),out=$("#rc-out");
+ if(!(n>=2)||!(s>0)){out.textContent="Enter valid values (N ≥ 2, size > 0).";return}
+ var min={"0":2,"1":2,"5":3,"6":4,"10":4}[lv];
+ if(n<min){out.textContent="RAID "+lv+" needs at least "+min+" drives.";return}
+ var cap,ft;
+ if(lv==="0"){cap=n*s;ft="no drive-failure tolerance"}
+ else if(lv==="1"){cap=s;ft="survives failure of drives as long as one copy remains (a 2-drive mirror survives 1 failure)"}
+ else if(lv==="5"){cap=(n-1)*s;ft="typically survives 1 drive failure"}
+ else if(lv==="6"){cap=(n-2)*s;ft="typically survives 2 drive failures"}
+ else{if(n%2!==0){out.textContent="RAID 10 needs an even number of drives (mirrored pairs).";return}cap=(n/2)*s;ft="survives 1 failure for sure; more only if failures are in different mirror pairs"}
+ out.textContent="RAID "+lv+" with "+n+" × "+fmt(s)+": raw "+fmt(n*s)+" → usable ≈ "+fmt(cap)+" ("+Math.round(cap/(n*s)*100)+"% efficiency); "+ft+". (Equal drive sizes assumed. RAID is not a backup.)";
+}
+$("#rc-go").addEventListener("click",calc);
+["rc-level","rc-n","rc-s"].forEach(function(id){$("#"+id).addEventListener("change",calc)});
+calc();
+})();
+</script>
+</body>
+</html>
