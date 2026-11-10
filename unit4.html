@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTEUP CSE Information Security – Unit 4: Network Security Products</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#1d2733;--muted:#5b6b7c;--border:#d9e2ec;--primary:#1e5fd1;--side:#0f2447;--sidetext:#dbe6ff;--green:#0f8a4b;--greenbg:#e3f7ec;--blue:#1769c9;--bluebg:#e4f0ff;--amber:#b36b00;--amberbg:#fff3dc;--red:#c0392b;--redbg:#fdeaea;--code:#eef2f8;--hing:#fff8e6;--hingb:#f0c660}
+[data-theme=dark]{--bg:#0d1420;--card:#16202f;--text:#e6edf6;--muted:#9fb0c4;--border:#2a3a52;--primary:#6aa5ff;--side:#08101d;--sidetext:#c5d6f2;--green:#4cd68d;--greenbg:#12372a;--blue:#6db3ff;--bluebg:#12304f;--amber:#ffc266;--amberbg:#3b2d12;--red:#ff8b7e;--redbg:#41201d;--code:#1d2a3c;--hing:#2c2713;--hingb:#8a7326}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:17px}
+#side{position:fixed;top:0;left:0;bottom:0;width:290px;background:var(--side);color:var(--sidetext);overflow-y:auto;padding:14px 12px 40px;z-index:50;transition:transform .25s}
+#side h3{margin:6px 6px 10px;font-size:15px;color:#fff;letter-spacing:.3px}
+#side a{display:block;color:var(--sidetext);text-decoration:none;padding:7px 10px;border-radius:8px;font-size:14.5px;margin:2px 0}
+#side a:hover,#side a.active{background:rgba(255,255,255,.14);color:#fff}
+#side .grp{font-size:11.5px;text-transform:uppercase;letter-spacing:1px;margin:14px 8px 4px;color:#8fb0ee}
+#side a.hide{display:none}
+#search{width:100%;padding:9px 11px;border-radius:8px;border:1px solid #35507d;background:#0b1a34;color:#fff;font-size:14.5px}
+#search::placeholder{color:#8aa0c6}
+#main{margin-left:290px;padding:18px 26px 80px;max-width:1150px}
+.top{position:sticky;top:0;z-index:40;background:var(--bg);padding:8px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.btn{background:var(--primary);color:#fff;border:0;border-radius:8px;padding:8px 13px;font-size:14px;cursor:pointer;font-weight:600}
+.btn.alt{background:transparent;color:var(--primary);border:1px solid var(--primary)}
+.btn:hover{filter:brightness(1.1)}
+#menu{display:none}
+.hero{background:linear-gradient(135deg,#12336b,#1e5fd1 60%,#2b86e0);color:#fff;border-radius:16px;padding:26px 24px;margin:16px 0}
+.hero h1{margin:0 0 6px;font-size:28px;line-height:1.25}
+.hero p{margin:4px 0;opacity:.95}
+.badge{display:inline-block;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:20px;margin:2px 4px 2px 0;vertical-align:middle}
+.badge.off{background:var(--greenbg);color:var(--green);border:1px solid var(--green)}
+.badge.extra{background:var(--bluebg);color:var(--blue);border:1px solid var(--blue)}
+.badge.lvl{background:var(--amberbg);color:var(--amber);border:1px solid var(--amber)}
+.badge.exam{background:var(--redbg);color:var(--red);border:1px solid var(--red)}
+section.topic{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0;scroll-margin-top:60px}
+section.topic>h2{margin:0 0 8px;font-size:24px;color:var(--primary)}
+h3{margin:22px 0 8px;font-size:20px}
+h4{margin:16px 0 6px;font-size:17.5px;color:var(--primary)}
+.def{position:relative;background:var(--bluebg);border-left:5px solid var(--primary);padding:12px 78px 12px 14px;border-radius:8px;margin:12px 0}
+.def b.t{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--primary);margin-bottom:2px}
+.copy{position:absolute;top:8px;right:8px;font-size:12px;padding:4px 9px;border-radius:6px;border:1px solid var(--primary);background:var(--card);color:var(--primary);cursor:pointer}
+.hing{background:var(--hing);border:1px dashed var(--hingb);border-radius:8px;padding:10px 14px;margin:10px 0}
+.hing b.t{color:var(--amber)}
+.ex{background:var(--greenbg);border-left:5px solid var(--green);border-radius:8px;padding:10px 14px;margin:10px 0}
+.ex b.t{color:var(--green)}
+.warn{background:var(--redbg);border-left:5px solid var(--red);border-radius:8px;padding:10px 14px;margin:10px 0}
+.kw{background:var(--amberbg);border-radius:8px;padding:9px 14px;margin:10px 0;font-size:15.5px}
+.kw b{color:var(--amber)}
+.ans{background:var(--card);border:1px solid var(--border);border-top:4px solid var(--red);border-radius:8px;padding:10px 14px;margin:10px 0}
+.ans .m{display:inline-block;background:var(--red);color:#fff;border-radius:6px;font-size:12.5px;font-weight:700;padding:2px 9px;margin-bottom:4px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cols>div{border:1px solid var(--border);border-radius:10px;padding:8px 14px}
+.pro h5{color:var(--green)}.con h5{color:var(--red)}
+h5{margin:4px 0;font-size:16px}
+ul,ol{padding-left:22px;margin:6px 0}
+li{margin:3px 0}
+details{border:1px solid var(--border);border-radius:10px;margin:12px 0;background:var(--card)}
+details>summary{cursor:pointer;padding:10px 14px;font-weight:700;list-style:none;border-radius:10px;background:var(--code)}
+details>summary::before{content:"▶ ";font-size:12px;color:var(--primary)}
+details[open]>summary::before{content:"▼ "}
+details>div.in{padding:4px 14px 12px}
+.tw{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15.5px}
+th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--primary);color:#fff}
+tr:nth-child(even) td{background:var(--code)}
+.dia{border:1px solid var(--border);border-radius:12px;padding:10px;margin:14px 0;background:var(--card)}
+.dia h4{margin:0 0 6px}
+.dia svg{width:100%;height:auto;display:block}
+.dia svg text{font-family:"Segoe UI",Arial,sans-serif;fill:var(--text)}
+.dia svg .box{fill:var(--bluebg);stroke:var(--primary);stroke-width:1.6}
+.dia svg .bx2{fill:var(--greenbg);stroke:var(--green);stroke-width:1.6}
+.dia svg .bx3{fill:var(--redbg);stroke:var(--red);stroke-width:1.6}
+.dia svg .bx4{fill:var(--amberbg);stroke:var(--amber);stroke-width:1.6}
+.dia svg .ln{stroke:var(--muted);stroke-width:2;fill:none}
+.dia svg .lnr{stroke:var(--red);stroke-width:2.4;fill:none}
+.dia svg .lng{stroke:var(--green);stroke-width:2.4;fill:none}
+.dia svg .sm{font-size:12.5px}
+.dia svg .md{font-size:14px;font-weight:700}
+.dia svg .tl{font-size:13px;fill:var(--muted)}
+.quiz-q{border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:12px 0;background:var(--card)}
+.opt{display:block;width:100%;text-align:left;margin:5px 0;padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--code);color:var(--text);cursor:pointer;font-size:15.5px}
+.opt:hover{border-color:var(--primary)}
+.opt.right{background:var(--greenbg);border-color:var(--green)}
+.opt.wrong{background:var(--redbg);border-color:var(--red)}
+.fb{font-size:14.5px;margin-top:4px}
+.fib input{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--code);color:var(--text);font-size:15.5px;width:200px;max-width:100%}
+.score{font-size:20px;font-weight:700;color:var(--primary);margin:10px 0}
+.sticky-score{position:sticky;top:52px;background:var(--card);border:1px solid var(--primary);border-radius:8px;padding:5px 12px;z-index:5;display:inline-block;font-weight:700;color:var(--primary)}
+mark{background:#ffe066;color:#222;padding:0 2px;border-radius:3px}
+code,.mono{background:var(--code);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:.92em}
+.noresult{display:none;background:var(--amberbg);padding:10px;border-radius:8px;margin:16px 0}
+@media (max-width:900px){
+ #side{transform:translateX(-100%)}
+ #side.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.5)}
+ #main{margin-left:0;padding:12px 12px 70px}
+ #menu{display:inline-block}
+ .cols{grid-template-columns:1fr}
+ .hero h1{font-size:22px}
+ body{font-size:16.5px}
+ section.topic{padding:14px 12px}
+}
+@media print{
+ #side,.top,.copy,.sticky-score,.noprint{display:none!important}
+ #main{margin:0;padding:0;max-width:none}
+ body{background:#fff;color:#000;font-size:12pt}
+ section.topic,.dia,.ans{break-inside:avoid-page;border-color:#999}
+ details>*{display:block!important}
+ .hero{background:#12336b!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<nav id="side" aria-label="Table of contents">
+ <h3>📘 Unit 4 – Contents</h3>
+ <input id="search" type="search" placeholder="🔍 Search topics (e.g. DMZ, IPS)">
+ <div class="grp">Start here</div>
+ <a href="#syllabus">Syllabus &amp; How to use</a>
+ <a href="#l1">Level 1 – Basics</a>
+ <div class="grp">Level 2 – Official Syllabus 🟢</div>
+ <a href="#fw">A. Firewall</a>
+ <a href="#ids">B. IDS</a>
+ <a href="#ips">C. IPS</a>
+ <a href="#vpn">D. VPN Concentrator</a>
+ <a href="#csg">E. Content Screening Gateways</a>
+ <div class="grp">Level 3 – Extra Knowledge 🔵</div>
+ <a href="#ngfw">NGFW (Advanced)</a>
+ <a href="#utm">UTM</a>
+ <a href="#swg">Secure Web Gateway</a>
+ <a href="#esg">Email Security Gateway</a>
+ <a href="#waf">WAF</a>
+ <a href="#nac">NAC</a>
+ <a href="#siem">SIEM</a>
+ <a href="#zt">Zero Trust</a>
+ <a href="#arch">Enterprise Architecture</a>
+ <div class="grp">Practice &amp; Exam</div>
+ <a href="#scen">Real-Life Scenarios</a>
+ <a href="#tables">11 Comparison Tables</a>
+ <a href="#top10">Top 10 Questions</a>
+ <a href="#rev">Quick Revision</a>
+ <a href="#mnem">Mnemonics</a>
+ <a href="#mcq">20 MCQs</a>
+ <a href="#fib">10 Fill-ups</a>
+ <a href="#tf">10 True / False</a>
+ <a href="#final">Final Quiz</a>
+</nav>
+
+<div id="main">
+<div class="top noprint">
+ <button class="btn" id="menu">☰ Menu</button>
+ <button class="btn alt" id="theme">🌙 Dark</button>
+ <button class="btn alt" id="expand">Expand all</button>
+ <button class="btn alt" id="collapse">Collapse all</button>
+ <button class="btn" id="print">🖨 Print</button>
+</div>
+
+<div class="hero">
+ <h1>Information Security – Unit 4<br>Network Security Products</h1>
+ <p>BTEUP Diploma CSE • Simple English + Hinglish • Exam-oriented</p>
+ <p><span class="badge off">🟢 OFFICIAL SYLLABUS</span> <span class="badge extra">🔵 EXTRA KNOWLEDGE</span></p>
+</div>
+<div class="noresult" id="noresult">No matching topic found. Try another word.</div>
+
+<section class="topic" id="syllabus" data-title="syllabus how to use study plan">
+ <h2>Official Syllabus &amp; How to Use This File</h2>
+ <div class="def"><b class="t">Official Unit 4 syllabus</b><p>Network Security Products – Firewall, IDS/IPS, VPN Concentrator, Content Screening Gateways, etc.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Is unit mein hum un devices aur software ko padhte hain jo network ko hackers, virus aur galat traffic se bachate hain. "Etc." ka matlab hai ki examiner kuch related products (jaise UTM, WAF) bhi pooch sakta hai, isliye extra topics bhi diye hain.</p></div>
+ <h3>Colour badges</h3>
+ <p><span class="badge off">🟢 OFFICIAL SYLLABUS</span> = syllabus mein likha hua topic. Pehle yeh padho.</p>
+ <p><span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> = samajh badhane ke liye. Exam mein "etc." ke under aa sakta hai, lekin pakka nahi.</p>
+ <p><span class="badge lvl">LEVEL 1/2/3</span> = difficulty level. <span class="badge exam">EXAM</span> = answer likhne ke liye ready.</p>
+ <h3>Suggested study plan</h3>
+ <ol>
+  <li><b>Day 1:</b> Level 1 + Firewall (Level 2-A).</li>
+  <li><b>Day 2:</b> IDS, IPS and their comparison tables.</li>
+  <li><b>Day 3:</b> VPN Concentrator + Content Screening Gateways.</li>
+  <li><b>Day 4:</b> All 11 tables + 7 diagrams (draw them on paper).</li>
+  <li><b>Day 5:</b> Top 10 questions + quizzes. Extra topics only if time is left.</li>
+ </ol>
+ <div class="warn"><b>Honest note:</b> The "Top 10 questions" are based on the syllabus and common diploma patterns. No question is guaranteed to come in the exam. Also, check your own college syllabus copy and teacher notes once, because wording can differ.</div>
+</section>
+
+<section class="topic" id="l1" data-title="level 1 basics network security fundamentals what is network security product why organizations analogy">
+ <h2>Level 1 – Basics: Network Security Fundamentals</h2>
+ <span class="badge lvl">LEVEL 1 – BASIC</span>
+
+ <h3>1.1 What is a network?</h3>
+ <p>A <b>network</b> is a group of computers, phones, servers and printers connected to share data. Example: your college lab computers connected by a switch and connected to the Internet by a router.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Network matlab bahut saare computers ka aapas mein judna taaki data share ho sake.</p></div>
+
+ <h3>1.2 What is Network Security?</h3>
+ <div class="def"><b class="t">Definition</b><p>Network security is the set of tools, rules and practices that protect a network and its data from unauthorized access, misuse, attacks and data theft.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Network security ka matlab hai network aur uske data ko chor, hacker, virus aur galat use se bachana.</p></div>
+ <div class="kw"><b>Remember the 3 goals (CIA):</b> <b>C</b>onfidentiality (only allowed people see data), <b>I</b>ntegrity (data is not changed), <b>A</b>vailability (service is always working).</div>
+
+ <h3>1.3 What is a Network Security Product?</h3>
+ <div class="def"><b class="t">Definition</b><p>A network security product is a hardware device or software program that is placed in or around a network to monitor, filter, control or protect network traffic.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Network security product ek device ya software hota hai jo network ke traffic ko dekhta, rokta aur check karta hai.</p></div>
+
+ <h3>1.4 Why do organizations use security devices?</h3>
+ <ul>
+  <li><b>Stop attackers</b> – block hackers from entering the internal network.</li>
+  <li><b>Protect data</b> – customer records, bank details, exam results.</li>
+  <li><b>Stop malware</b> – virus, ransomware, worms.</li>
+  <li><b>Follow rules</b> – laws and company policies need security controls.</li>
+  <li><b>Keep services running</b> – avoid downtime because of attacks.</li>
+  <li><b>Safe remote work</b> – employees connect from home securely.</li>
+ </ul>
+
+ <h3>1.5 Five products in one line each</h3>
+ <div class="tw"><table>
+  <tr><th>Product</th><th>One-line meaning</th><th>Everyday analogy</th></tr>
+  <tr><td><b>Firewall</b></td><td>Allows or blocks traffic using rules.</td><td>Security guard at the main gate checking the entry list.</td></tr>
+  <tr><td><b>IDS</b></td><td>Watches traffic and raises an alarm on suspicious activity.</td><td>CCTV camera + burglar alarm. It only alerts.</td></tr>
+  <tr><td><b>IPS</b></td><td>Watches traffic and automatically blocks attacks.</td><td>Guard who sees a thief and stops him immediately.</td></tr>
+  <tr><td><b>VPN Concentrator</b></td><td>Device that creates many secure encrypted tunnels for remote users.</td><td>A private covered tunnel from your home to the office.</td></tr>
+  <tr><td><b>Content Screening Gateway</b></td><td>Checks web pages, emails and files for bad content.</td><td>Airport baggage scanner checking bags for dangerous items.</td></tr>
+ </table></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Firewall = gate guard (rules se rokta hai). IDS = CCTV (sirf alarm bajata hai). IPS = guard jo chor ko pakad leta hai. VPN concentrator = office tak private tunnel. Content gateway = bag scanner jo kharab content pakadta hai.</p></div>
+
+ <div class="ex"><b class="t">Real-life picture: College</b><p>Your college has one Internet line. Firewall protects the entry. IDS/IPS watches for attacks. Content gateway blocks adult and malware websites in the lab. VPN lets teachers open college server from home.</p></div>
+
+ <details><summary>Basic terms you must know (click)</summary><div class="in"><ul>
+  <li><b>Packet</b> – small piece of data travelling in a network.</li>
+  <li><b>IP address</b> – address of a device. <b>Port</b> – door number of a service (HTTP 80, HTTPS 443, SSH 22).</li>
+  <li><b>Traffic</b> – data moving in the network. <b>Inbound</b> = coming in. <b>Outbound</b> = going out.</li>
+  <li><b>LAN</b> – local network (trusted). <b>WAN/Internet</b> – outside network (untrusted).</li>
+  <li><b>Malware</b> – harmful software. <b>Intrusion</b> – unauthorized entry. <b>Threat</b> – possible danger. <b>Vulnerability</b> – weakness.</li>
+  <li><b>Encryption</b> – converting data into unreadable form. <b>Authentication</b> – proving who you are.</li>
+ </ul></div></details>
+
+ <div class="ans"><span class="m">2 marks</span><p><b>Q. What is a network security product?</b><br>A network security product is a hardware or software tool used to protect a network by monitoring, filtering and controlling traffic. Examples: firewall, IDS, IPS, VPN concentrator and content screening gateway.</p></div>
+</section>
+<section class="topic" id="fw" data-title="firewall packet filtering stateful inspection proxy circuit level gateway ngfw hardware software rules policy dmz architecture acl">
+ <h2>A. Firewall</h2>
+ <span class="badge off">🟢 OFFICIAL SYLLABUS</span> <span class="badge lvl">LEVEL 2 – EXAM LEVEL</span>
+
+ <h3>A.1 Definition and purpose</h3>
+ <div class="def"><b class="t">Definition</b><p>A firewall is a network security device or software that monitors incoming and outgoing network traffic and allows or blocks it according to a set of security rules. It sits between a trusted network (LAN) and an untrusted network (Internet).</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Firewall ek aisa guard hai jo network ke darwaze par baitha hai. Wo har aane-jaane wale packet ko rules ki list se check karta hai. Rule allow kare to jaane deta hai, nahi to rok deta hai.</p></div>
+ <p><b>Purpose:</b> (1) control access, (2) block attacks, (3) hide internal network, (4) log traffic, (5) enforce company policy.</p>
+
+ <h3>A.2 Why is a firewall required?</h3>
+ <ul>
+  <li>Internet has hackers, bots and malware. Without a firewall every system is open to them.</li>
+  <li>Many services (like Telnet or file sharing) should never be reachable from outside.</li>
+  <li>It gives one central place to apply security rules instead of setting every computer separately.</li>
+  <li>It keeps a record (log) of who tried to connect, useful for investigation.</li>
+ </ul>
+ <div class="ex"><b class="t">Real-life example</b><p>A house has a main door lock. Without it anyone can walk in. Firewall is the lock plus guard for your network.</p></div>
+
+ <h3>A.3 How a firewall works (step by step)</h3>
+ <ol>
+  <li>A packet arrives at the firewall (from LAN or Internet).</li>
+  <li>Firewall reads packet details: source IP, destination IP, port, protocol (TCP/UDP/ICMP).</li>
+  <li>It compares these details with the rule list <b>from top to bottom</b>.</li>
+  <li>First matching rule is applied: <b>Allow</b>, <b>Deny (drop)</b> or <b>Reject</b>.</li>
+  <li>If no rule matches, the <b>default rule</b> is applied (best practice: <b>deny all</b>).</li>
+  <li>The decision is written in the log.</li>
+ </ol>
+ <div class="hing"><b class="t">Hinglish</b><p>Packet aata hai, firewall uska IP, port aur protocol padhta hai, rule list se match karta hai, allow ya deny karta hai. Koi rule match na ho to default deny lagta hai. Isko "Default Deny" kehte hain aur yeh sabse safe tarika hai.</p></div>
+
+ <div class="dia"><h4>Diagram 1: Firewall between LAN and Internet</h4>
+ <svg viewBox="0 0 760 250" role="img" aria-label="Firewall placed between internet and LAN">
+  <ellipse cx="85" cy="125" rx="70" ry="48" class="bx3"/><text x="85" y="120" text-anchor="middle" class="md">INTERNET</text><text x="85" y="140" text-anchor="middle" class="sm">(Untrusted)</text>
+  <line x1="155" y1="125" x2="270" y2="125" class="ln"/>
+  <text x="212" y="112" text-anchor="middle" class="sm">All traffic</text>
+  <rect x="270" y="75" width="120" height="100" rx="10" class="bx4"/><text x="330" y="118" text-anchor="middle" class="md">🛡 FIREWALL</text><text x="330" y="138" text-anchor="middle" class="sm">Rules: Allow / Deny</text>
+  <line x1="390" y1="125" x2="470" y2="125" class="lng"/>
+  <text x="430" y="112" text-anchor="middle" class="sm">Allowed</text>
+  <rect x="470" y="100" width="90" height="50" rx="8" class="box"/><text x="515" y="130" text-anchor="middle" class="md">Switch</text>
+  <line x1="560" y1="115" x2="620" y2="55" class="ln"/><line x1="560" y1="125" x2="620" y2="125" class="ln"/><line x1="560" y1="135" x2="620" y2="195" class="ln"/>
+  <rect x="620" y="35" width="120" height="40" rx="8" class="bx2"/><text x="680" y="60" text-anchor="middle" class="sm">PC 1 (Lab)</text>
+  <rect x="620" y="105" width="120" height="40" rx="8" class="bx2"/><text x="680" y="130" text-anchor="middle" class="sm">PC 2 (Office)</text>
+  <rect x="620" y="175" width="120" height="40" rx="8" class="bx2"/><text x="680" y="200" text-anchor="middle" class="sm">Internal Server</text>
+  <text x="590" y="240" text-anchor="middle" class="tl">Trusted LAN (inside network)</text>
+  <line x1="330" y1="175" x2="330" y2="215" class="lnr"/><text x="330" y="235" text-anchor="middle" class="sm" style="fill:var(--red)">✖ Blocked traffic is dropped</text>
+ </svg>
+ <p><b>Explanation:</b> All traffic between Internet and LAN must pass through the firewall. Allowed packets (green line) go inside. Bad packets (red line) are dropped.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Internet aur LAN ke beech firewall lagta hai. Har packet firewall se hokar jaata hai. Sahi packet andar jaata hai, kharab packet wahin rok diya jaata hai.</p></div></div>
+
+ <h3>A.4 Types of firewall</h3>
+
+ <h4>1) Packet Filtering Firewall (Network layer, Layer 3-4)</h4>
+ <div class="def"><b class="t">Definition</b><p>A packet filtering firewall checks every packet separately using source IP, destination IP, source/destination port and protocol, and then allows or blocks it using an Access Control List (ACL).</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Yeh sabse simple firewall hai. Har packet ko alag-alag check karta hai, pichle packet ko yaad nahi rakhta. Isliye ise "stateless" bhi kehte hain.</p></div>
+ <div class="tw"><table><tr><th>Rule</th><th>Source</th><th>Destination</th><th>Port/Protocol</th><th>Action</th></tr>
+ <tr><td>1</td><td>Any</td><td>Web server</td><td>TCP 80, 443</td><td>Allow</td></tr>
+ <tr><td>2</td><td>Any</td><td>Any</td><td>TCP 23 (Telnet)</td><td>Deny</td></tr>
+ <tr><td>3</td><td>Any</td><td>Any</td><td>Any</td><td>Deny (default)</td></tr></table></div>
+ <p><b>Advantages:</b> fast, cheap, simple. <b>Disadvantages:</b> does not understand connection state or application data; can be fooled by IP spoofing and fragmented packets.</p>
+
+ <h4>2) Stateful Inspection Firewall</h4>
+ <div class="def"><b class="t">Definition</b><p>A stateful inspection firewall tracks the state of every active connection (for example TCP handshake) in a state table and allows only those packets that belong to a valid, established connection.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Yeh firewall yaad rakhta hai ki kaun si connection chal rahi hai. Agar andar se kisi ne request bheji hai, to uska reply allow hoga. Bina request ke bahar se aaya reply block ho jaata hai.</p></div>
+ <div class="ex"><b class="t">Example</b><p>You open google.com from your PC. Firewall notes this connection in its state table. Google's reply is allowed because it matches the entry. If a stranger sends a random reply packet with no matching entry, it is dropped.</p></div>
+ <p><b>State table entry:</b> source IP, destination IP, ports, protocol, connection state (NEW, ESTABLISHED, CLOSING), timeout.</p>
+ <p><b>Advantages:</b> more secure than packet filter, understands connections. <b>Disadvantages:</b> needs more memory and CPU; cannot read deep application content.</p>
+
+ <h4>3) Application-Level Firewall / Proxy Firewall (Layer 7)</h4>
+ <div class="def"><b class="t">Definition</b><p>An application-level (proxy) firewall acts as a middleman between user and server. It receives the request, inspects the application data (HTTP, FTP, SMTP), and then creates a new separate request to the destination on behalf of the user.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Proxy firewall beech mein "darmiyaan wala" ban jaata hai. User seedha server se baat nahi karta. Proxy request ko andar tak padhta hai (jaise website ka URL, command) aur phir khud server se connect karta hai.</p></div>
+ <p><b>Advantages:</b> deep checking, hides internal IPs, content filtering, detailed logs. <b>Disadvantages:</b> slower, needs one proxy per application, costly.</p>
+
+ <h4>4) Circuit-Level Gateway (Layer 5, Session layer)</h4>
+ <div class="def"><b class="t">Definition</b><p>A circuit-level gateway monitors the TCP handshake and session setup between two hosts to decide if the session is legitimate. After the session is approved, it forwards the data without checking the content.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Yeh sirf dekhta hai ki connection (circuit) sahi tarike se bani ya nahi (TCP handshake). Ek baar connection ok ho gayi, to andar ka data nahi padhta. SOCKS isi type ka example hai.</p></div>
+ <p><b>Advantages:</b> fast, hides internal network. <b>Disadvantages:</b> cannot detect malware inside the allowed session.</p>
+
+ <h4>5) Next-Generation Firewall (NGFW)</h4>
+ <div class="def"><b class="t">Definition</b><p>A Next-Generation Firewall combines traditional stateful firewall with deep packet inspection, application awareness, integrated IPS, user identity control and threat intelligence.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>NGFW purane firewall ka smart version hai. Yeh sirf IP aur port nahi dekhta, balki yeh bhi pehchanta hai ki kaun si application (WhatsApp, YouTube) chal rahi hai aur kaun user hai. Iske andar IPS bhi hota hai. Advanced detail Level 3 mein hai.</p></div>
+
+ <details><summary>Quick compare of the 5 types (click)</summary><div class="in"><div class="tw"><table>
+  <tr><th>Type</th><th>OSI layer</th><th>What it checks</th><th>Speed</th><th>Security</th></tr>
+  <tr><td>Packet filter</td><td>3-4</td><td>IP, port, protocol</td><td>Very fast</td><td>Basic</td></tr>
+  <tr><td>Stateful</td><td>3-4</td><td>Connection state</td><td>Fast</td><td>Good</td></tr>
+  <tr><td>Circuit-level</td><td>5</td><td>Session handshake</td><td>Fast</td><td>Medium</td></tr>
+  <tr><td>Application/Proxy</td><td>7</td><td>Application data</td><td>Slower</td><td>High</td></tr>
+  <tr><td>NGFW</td><td>3-7</td><td>Apps, users, threats</td><td>Medium-Fast</td><td>Very high</td></tr>
+ </table></div></div></details>
+
+ <h3>A.5 Hardware firewall vs software firewall</h3>
+ <p><b>Hardware firewall:</b> a dedicated physical box (e.g. Cisco ASA, Fortinet FortiGate, Palo Alto) that protects the whole network. <b>Software firewall:</b> a program installed on one computer (e.g. Windows Defender Firewall, iptables on Linux) that protects only that computer. Detailed table is in Section "11 Comparison Tables".</p>
+
+ <h3>A.6 Firewall rules, policies and access control</h3>
+ <ul>
+  <li><b>Rule:</b> one instruction, for example "Allow TCP 443 from Any to Web server".</li>
+  <li><b>Policy (Security policy):</b> the full set of rules based on company needs.</li>
+  <li><b>ACL (Access Control List):</b> ordered list of allow/deny rules.</li>
+  <li><b>Default Deny:</b> block everything that is not clearly allowed (secure approach).</li>
+  <li><b>Default Allow:</b> allow everything that is not blocked (risky approach).</li>
+  <li><b>Principle of least privilege:</b> give only the minimum access needed.</li>
+  <li><b>Rule order matters:</b> first match wins, so specific rules go before general ones.</li>
+  <li><b>Inbound rules</b> control traffic coming in; <b>outbound rules</b> control traffic going out.</li>
+ </ul>
+ <div class="ex"><b class="t">Example policy for a college</b><p>Allow students: HTTP/HTTPS only. Allow staff: HTTP, HTTPS, SSH to servers. Deny: all P2P and Telnet. Deny: everything else.</p></div>
+
+ <h3>A.7 Firewall architecture and placement</h3>
+ <ul>
+  <li><b>Perimeter firewall:</b> at the border between Internet and LAN (most common).</li>
+  <li><b>Internal firewall:</b> between internal departments (e.g. HR network and student network).</li>
+  <li><b>Host firewall:</b> on each computer.</li>
+  <li><b>Screened subnet (DMZ) architecture:</b> public servers are placed in a separate zone (see below).</li>
+  <li><b>Dual firewall:</b> one firewall in front of DMZ and another behind it for extra safety.</li>
+ </ul>
+
+ <h3>A.8 DMZ (Demilitarized Zone) and firewall</h3>
+ <div class="def"><b class="t">Definition</b><p>A DMZ is a separate small network zone between the Internet and the internal LAN, where public-facing servers (web, mail, DNS) are kept. The firewall controls traffic between Internet, DMZ and LAN.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>DMZ ek "beech ka zone" hai. Website ya mail server ko public ko dikhana padta hai, isliye unhe andar ke private network mein nahi rakhte. Agar hacker DMZ ke server ko hack kar bhi le, to wo seedha aapke LAN tak nahi pahunch paata.</p></div>
+ <div class="ex"><b class="t">Real-life example</b><p>Bank has a reception hall (DMZ) where public can come. The vault and staff offices (LAN) are behind another locked door.</p></div>
+ <p><b>Typical rules:</b> Internet → DMZ: only web (80/443) and mail allowed. Internet → LAN: denied. LAN → DMZ: allowed for management. DMZ → LAN: denied (or very limited).</p>
+
+ <div class="dia"><h4>Diagram 2: Firewall with DMZ architecture</h4>
+ <svg viewBox="0 0 760 330" role="img" aria-label="Firewall with DMZ">
+  <ellipse cx="90" cy="165" rx="70" ry="48" class="bx3"/><text x="90" y="160" text-anchor="middle" class="md">INTERNET</text><text x="90" y="180" text-anchor="middle" class="sm">(Untrusted)</text>
+  <line x1="160" y1="165" x2="300" y2="165" class="ln"/>
+  <rect x="300" y="115" width="130" height="100" rx="10" class="bx4"/><text x="365" y="158" text-anchor="middle" class="md">🛡 FIREWALL</text><text x="365" y="178" text-anchor="middle" class="sm">3 interfaces</text>
+  <line x1="365" y1="115" x2="365" y2="70" class="lng"/>
+  <rect x="240" y="10" width="250" height="60" rx="10" class="bx2" stroke-dasharray="6 4"/>
+  <text x="365" y="28" text-anchor="middle" class="md">DMZ (Public servers)</text>
+  <text x="300" y="55" text-anchor="middle" class="sm">Web Server</text><text x="365" y="55" text-anchor="middle" class="sm">|</text><text x="420" y="55" text-anchor="middle" class="sm">Mail / DNS</text>
+  <line x1="430" y1="165" x2="540" y2="165" class="lng"/>
+  <rect x="540" y="105" width="200" height="120" rx="10" class="box"/>
+  <text x="640" y="130" text-anchor="middle" class="md">Internal LAN (Trusted)</text>
+  <text x="640" y="160" text-anchor="middle" class="sm">Staff PCs</text><text x="640" y="182" text-anchor="middle" class="sm">Database / File Server</text><text x="640" y="204" text-anchor="middle" class="sm">Student Lab</text>
+  <text x="365" y="260" text-anchor="middle" class="sm" style="fill:var(--red)">✖ Internet → LAN direct access: BLOCKED</text>
+  <text x="365" y="285" text-anchor="middle" class="sm" style="fill:var(--green)">✔ Internet → DMZ: only web / mail ports allowed</text>
+  <text x="365" y="310" text-anchor="middle" class="sm" style="fill:var(--red)">✖ DMZ → LAN: blocked or very limited</text>
+ </svg>
+ <p><b>Explanation:</b> The firewall has three zones: Internet (outside), DMZ (public servers) and LAN (private). Public users can reach only the DMZ servers. LAN is hidden.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Firewall ke teen hisse hain: bahar ka Internet, beech ka DMZ aur andar ka LAN. Public sirf DMZ ke web/mail server tak pahunch sakta hai. LAN safe rehta hai.</p></div></div>
+
+ <h3>A.9 Advantages, disadvantages and limitations</h3>
+ <div class="cols">
+  <div class="pro"><h5>✔ Advantages</h5><ul><li>Blocks unauthorized access</li><li>Central control of rules</li><li>Hides internal IP addresses (NAT)</li><li>Keeps logs for audit</li><li>Enforces company policy</li></ul></div>
+  <div class="con"><h5>✖ Disadvantages / Limitations</h5><ul><li>Cannot stop attacks from inside (insider threat)</li><li>Cannot stop traffic that does not pass through it</li><li>Cannot fully stop viruses inside allowed files</li><li>Wrong rules create holes or block good traffic</li><li>Can slow the network; needs regular updates</li><li>Cannot protect from social engineering/phishing alone</li></ul></div>
+ </div>
+
+ <h3>A.10 Real-world examples</h3>
+ <ul>
+  <li><b>Hardware:</b> Cisco ASA / Firepower, Fortinet FortiGate, Palo Alto Networks, pfSense.</li>
+  <li><b>Software:</b> Windows Defender Firewall, Linux iptables / nftables / UFW, ZoneAlarm.</li>
+  <li>Home Wi-Fi router has a small built-in firewall (NAT + packet filter).</li>
+ </ul>
+
+ <div class="kw"><b>Keywords:</b> packet, ACL, rule, default deny, stateful, state table, proxy, circuit-level, NGFW, DMZ, perimeter, trusted/untrusted, NAT, inbound/outbound.</div>
+
+ <h3>A.11 Exam answers</h3>
+ <div class="ans"><span class="m">2 marks</span><p><b>Q. Define firewall.</b><br>A firewall is a hardware or software security system that monitors network traffic and allows or blocks it according to predefined security rules. It is placed between a trusted internal network and an untrusted network like the Internet.</p></div>
+ <div class="ans"><span class="m">3-5 marks</span><p><b>Q. Explain types of firewall.</b></p><ol><li><b>Packet filtering:</b> checks IP, port and protocol of each packet using ACL. Fast but basic.</li><li><b>Stateful inspection:</b> remembers connection state in a state table; allows only valid replies.</li><li><b>Application/Proxy:</b> works at application layer, checks content, hides internal hosts.</li><li><b>Circuit-level gateway:</b> checks TCP handshake/session validity.</li><li><b>NGFW:</b> adds deep packet inspection, application control, IPS and user identity.</li></ol></div>
+ <div class="ans"><span class="m">5-7 marks</span><p><b>Q. Explain working of firewall with diagram. Write its advantages and limitations.</b><br>Draw Diagram 1. Then write: (1) Packet arrives at firewall. (2) Firewall reads IP, port and protocol. (3) Compares with rule list top to bottom. (4) First match gives allow or deny. (5) If no match, default deny is applied. (6) Event is logged. <b>Advantages:</b> access control, hides internal network, logging, policy enforcement. <b>Limitations:</b> cannot stop insider attacks, cannot check encrypted content without extra features, wrong rules cause holes.</p></div>
+ <div class="ans"><span class="m">3 marks</span><p><b>Q. What is DMZ? Why is it used?</b><br>DMZ is a separate network zone between Internet and internal LAN that contains public servers like web and mail. It is used so that if a public server is attacked, the attacker cannot directly reach the internal network. The firewall controls traffic between Internet, DMZ and LAN.</p></div>
+</section>
+
+<section class="topic" id="ids" data-title="ids intrusion detection system nids hids signature anomaly detection alert snort">
+ <h2>B. IDS – Intrusion Detection System</h2>
+ <span class="badge off">🟢 OFFICIAL SYLLABUS</span> <span class="badge lvl">LEVEL 2 – EXAM LEVEL</span>
+
+ <h3>B.1 Definition and purpose</h3>
+ <div class="def"><b class="t">Definition</b><p>An Intrusion Detection System (IDS) is a security tool that monitors network traffic or system activity, detects suspicious or malicious behaviour, and sends an alert to the administrator. It only detects and reports; it does not block by itself.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>IDS ek CCTV camera aur alarm jaisa hai. Wo network ko dekhta rehta hai. Kuch galat dikhe to admin ko alert bhejta hai. Lekin attack ko khud rokta nahi (passive).</p></div>
+ <p><b>Purpose:</b> detect attacks early, collect evidence, support investigation, find policy violations.</p>
+
+ <h3>B.2 Working mechanism (step by step)</h3>
+ <ol>
+  <li><b>Collect:</b> IDS sensor copies network traffic (using a SPAN/mirror port or network TAP) or reads host logs.</li>
+  <li><b>Analyze:</b> traffic is compared with attack signatures or with a normal-behaviour profile.</li>
+  <li><b>Detect:</b> if a match or abnormal behaviour is found, an event is created.</li>
+  <li><b>Alert:</b> alert is sent by email, SMS or to a dashboard/SIEM.</li>
+  <li><b>Log:</b> details are stored for investigation.</li>
+  <li><b>Respond:</b> the administrator decides what action to take (block IP, patch system).</li>
+ </ol>
+ <div class="hing"><b class="t">Hinglish</b><p>Pehle traffic ki copy li jaati hai, phir analysis hota hai, suspicious mile to alert aata hai, log save hota hai, aur admin action leta hai.</p></div>
+
+ <div class="dia"><h4>Diagram 3: IDS monitoring network traffic</h4>
+ <svg viewBox="0 0 760 270" role="img" aria-label="IDS monitoring traffic using mirror port">
+  <ellipse cx="80" cy="95" rx="65" ry="42" class="bx3"/><text x="80" y="100" text-anchor="middle" class="md">INTERNET</text>
+  <line x1="145" y1="95" x2="215" y2="95" class="ln"/>
+  <rect x="215" y="65" width="110" height="60" rx="10" class="bx4"/><text x="270" y="100" text-anchor="middle" class="md">Firewall</text>
+  <line x1="325" y1="95" x2="395" y2="95" class="ln"/>
+  <rect x="395" y="65" width="110" height="60" rx="10" class="box"/><text x="450" y="90" text-anchor="middle" class="md">Switch</text><text x="450" y="108" text-anchor="middle" class="sm">(mirror port)</text>
+  <line x1="505" y1="95" x2="580" y2="95" class="ln"/>
+  <rect x="580" y="55" width="150" height="80" rx="10" class="bx2"/><text x="655" y="90" text-anchor="middle" class="md">Internal LAN</text><text x="655" y="110" text-anchor="middle" class="sm">PCs and Servers</text>
+  <path d="M450 125 L450 190" class="ln" stroke-dasharray="6 5"/>
+  <text x="372" y="165" class="tl">copy of traffic</text>
+  <rect x="380" y="190" width="140" height="55" rx="10" class="bx3"/><text x="450" y="215" text-anchor="middle" class="md">👁 IDS Sensor</text><text x="450" y="233" text-anchor="middle" class="sm">analyzes only</text>
+  <line x1="520" y1="217" x2="590" y2="217" class="ln"/>
+  <rect x="590" y="190" width="140" height="55" rx="10" class="bx4"/><text x="660" y="215" text-anchor="middle" class="md">🔔 Admin Alert</text><text x="660" y="233" text-anchor="middle" class="sm">email / dashboard</text>
+ </svg>
+ <p><b>Explanation:</b> IDS gets only a <b>copy</b> of the traffic. Real traffic keeps flowing, so IDS cannot block it. It sends an alert to the administrator.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>IDS traffic ki sirf copy dekhta hai. Asli traffic nahi rukta. Isliye IDS sirf alert deta hai, block nahi karta.</p></div></div>
+
+ <h3>B.3 Types of IDS by location</h3>
+ <h4>1) Network-based IDS (NIDS)</h4>
+ <div class="def"><b class="t">Definition</b><p>A NIDS is placed at key points in the network and monitors the traffic of all devices on that network segment.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>NIDS poore network ka traffic dekhta hai, jaise ek CCTV jo poori building ka gate dekhta hai. Example: Snort, Suricata, Zeek.</p></div>
+ <p><b>Pros:</b> one sensor covers many devices; does not affect host performance. <b>Cons:</b> cannot read encrypted traffic; can miss attacks on very busy links; does not see what happens inside a single host.</p>
+
+ <h4>2) Host-based IDS (HIDS)</h4>
+ <div class="def"><b class="t">Definition</b><p>A HIDS is installed on a single computer or server and monitors system logs, file changes, running processes and local activity of that host.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>HIDS ek hi computer ke andar baitha hai. Wo dekhta hai ki koi important file to nahi badli, koi unknown program to nahi chala. Example: OSSEC, Wazuh, Tripwire.</p></div>
+ <p><b>Pros:</b> sees inside the host, can read decrypted data, detects file tampering. <b>Cons:</b> must be installed on every host; uses host CPU/memory; if host is hacked, HIDS can be disabled.</p>
+
+ <h3>B.4 Detection methods</h3>
+ <h4>1) Signature-based detection (misuse detection)</h4>
+ <div class="def"><b class="t">Definition</b><p>Signature-based detection compares traffic with a database of known attack patterns (signatures). If a pattern matches, an alert is raised.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Jaise police ke paas chor ki photo (signature) hoti hai. Photo se match hua to pakad liya. Jo chor naya hai aur photo nahi hai, wo nahi pakda jaayega.</p></div>
+ <p><b>Pros:</b> accurate for known attacks, few false alarms. <b>Cons:</b> cannot detect new attacks (zero-day); database must be updated often.</p>
+ <h4>2) Anomaly-based detection (behaviour-based)</h4>
+ <div class="def"><b class="t">Definition</b><p>Anomaly-based detection first learns what normal network behaviour looks like (a baseline). Any big deviation from this baseline is treated as suspicious.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>System pehle normal behaviour seekhta hai. Agar raat ke 3 baje achanak 10 GB data bahar ja raha ho, to ye normal nahi hai, alert aa jaayega.</p></div>
+ <p><b>Pros:</b> can detect new/unknown attacks. <b>Cons:</b> more false positives; needs a learning period; baseline can be poisoned by attacker.</p>
+ <div class="kw"><b>Also remember:</b> <b>False positive</b> = harmless activity wrongly flagged. <b>False negative</b> = real attack missed (more dangerous). <b>Hybrid IDS</b> uses both signature and anomaly methods.</div>
+
+ <h3>B.5 Advantages, disadvantages and limitations</h3>
+ <div class="cols">
+  <div class="pro"><h5>✔ Advantages</h5><ul><li>Detects attacks that pass the firewall</li><li>Gives early warning</li><li>Provides logs and evidence</li><li>Does not slow traffic (passive)</li><li>Finds policy violations</li></ul></div>
+  <div class="con"><h5>✖ Disadvantages / Limitations</h5><ul><li>Does not stop the attack</li><li>False positives need manual work</li><li>Needs expert admin to read alerts</li><li>Cannot inspect encrypted traffic (NIDS)</li><li>Signature database must be updated</li></ul></div>
+ </div>
+
+ <h3>B.6 Real-world examples</h3>
+ <ul><li><b>Snort</b> and <b>Suricata</b> (open-source NIDS), <b>Zeek</b> (network analysis), <b>OSSEC / Wazuh</b> (HIDS), <b>Tripwire</b> (file integrity).</li>
+ <li>A college server room has Snort. At midnight it detects a port scan from one IP and emails the admin.</li></ul>
+
+ <h3>B.7 IDS vs Firewall</h3>
+ <p>Firewall = <b>prevents</b> access using rules (gate guard). IDS = <b>detects</b> and alerts (CCTV). They work together. Full table is in "11 Comparison Tables".</p>
+
+ <div class="kw"><b>Keywords:</b> sensor, SPAN/mirror port, TAP, signature, anomaly, baseline, alert, false positive, false negative, passive, NIDS, HIDS, log, zero-day.</div>
+
+ <h3>B.8 Exam answers</h3>
+ <div class="ans"><span class="m">2 marks</span><p><b>Q. What is IDS?</b><br>IDS (Intrusion Detection System) is a tool that monitors network or host activity, detects suspicious behaviour and sends alerts to the administrator. It does not block traffic by itself.</p></div>
+ <div class="ans"><span class="m">3-5 marks</span><p><b>Q. Explain NIDS and HIDS.</b><br><b>NIDS</b> is placed on the network and monitors traffic of all devices in that segment (e.g. Snort). <b>HIDS</b> is installed on a single host and monitors logs, files and processes (e.g. OSSEC). NIDS covers the whole network but cannot see inside encrypted traffic or one host; HIDS sees inside the host but must be installed on every machine.</p></div>
+ <div class="ans"><span class="m">5-7 marks</span><p><b>Q. Explain working and detection methods of IDS.</b><br>Draw Diagram 3. Write 6 steps: collect, analyze, detect, alert, log, respond. Then explain <b>signature-based</b> (matches known attack patterns, accurate but misses new attacks) and <b>anomaly-based</b> (compares with normal baseline, detects new attacks but gives false positives). Add advantages and limitations.</p></div>
+</section>
+<section class="topic" id="ips" data-title="ips intrusion prevention system nips hips block malicious traffic inline">
+ <h2>C. IPS – Intrusion Prevention System</h2>
+ <span class="badge off">🟢 OFFICIAL SYLLABUS</span> <span class="badge lvl">LEVEL 2 – EXAM LEVEL</span>
+
+ <h3>C.1 Definition and purpose</h3>
+ <div class="def"><b class="t">Definition</b><p>An Intrusion Prevention System (IPS) is a security device or software placed <b>in-line</b> in the network path that inspects traffic, detects malicious activity and automatically blocks or stops it in real time.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>IPS wo guard hai jo sirf alarm nahi bajata, balki chor ko turant pakad bhi leta hai. IDS sirf dekhta hai, IPS dekhta bhi hai aur rokta bhi hai. IPS traffic ke raaste ke beech mein (in-line) lagta hai.</p></div>
+ <p><b>Purpose:</b> stop attacks before they reach the target, reduce admin workload, give automatic protection.</p>
+
+ <h3>C.2 How IPS works (step by step)</h3>
+ <ol>
+  <li>All traffic passes <b>through</b> the IPS (in-line placement).</li>
+  <li>IPS inspects each packet and session (headers + payload).</li>
+  <li>It uses detection methods: signature, anomaly, policy and reputation.</li>
+  <li>If traffic is clean, it is forwarded to the destination.</li>
+  <li>If traffic is malicious, IPS takes action: <b>drop packet</b>, <b>block source IP</b>, <b>reset connection</b> or <b>quarantine</b>.</li>
+  <li>IPS logs the event and alerts the administrator.</li>
+ </ol>
+ <div class="hing"><b class="t">Hinglish</b><p>Traffic IPS ke andar se hokar guzarta hai. Saaf hai to aage jaata hai. Kharab hai to IPS use drop kar deta hai, IP block kar deta hai ya connection tod deta hai. Phir log aur alert bhi banata hai.</p></div>
+
+ <div class="dia"><h4>Diagram 4: IPS blocking malicious traffic</h4>
+ <svg viewBox="0 0 760 290" role="img" aria-label="IPS inline blocking malicious packets">
+  <ellipse cx="75" cy="130" rx="62" ry="42" class="bx3"/><text x="75" y="135" text-anchor="middle" class="md">INTERNET</text>
+  <line x1="137" y1="110" x2="285" y2="110" class="lng"/><text x="210" y="100" text-anchor="middle" class="sm">Normal traffic</text>
+  <line x1="137" y1="150" x2="285" y2="150" class="lnr"/><text x="210" y="172" text-anchor="middle" class="sm" style="fill:var(--red)">Malicious traffic</text>
+  <rect x="285" y="75" width="150" height="110" rx="10" class="bx4"/><text x="360" y="118" text-anchor="middle" class="md">🛡 IPS (in-line)</text><text x="360" y="140" text-anchor="middle" class="sm">inspect → decide</text><text x="360" y="160" text-anchor="middle" class="sm">allow / block</text>
+  <line x1="435" y1="110" x2="560" y2="110" class="lng"/><text x="498" y="100" text-anchor="middle" class="sm">Clean only</text>
+  <rect x="560" y="70" width="170" height="80" rx="10" class="bx2"/><text x="645" y="105" text-anchor="middle" class="md">Protected network</text><text x="645" y="126" text-anchor="middle" class="sm">Servers and PCs</text>
+  <line x1="360" y1="185" x2="360" y2="225" class="lnr"/>
+  <text x="360" y="248" text-anchor="middle" class="md" style="fill:var(--red)">✖ DROPPED / BLOCKED</text>
+  <text x="360" y="270" text-anchor="middle" class="sm">Event logged + admin alert</text>
+ </svg>
+ <p><b>Explanation:</b> Unlike IDS, the IPS sits <b>directly in the path</b>. Clean traffic passes (green). Malicious traffic (red) is dropped and logged.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>IPS raaste ke beech mein hai, isliye har packet usi se guzarta hai. Bura packet wahin ruk jaata hai.</p></div></div>
+
+ <h3>C.3 Types of IPS</h3>
+ <h4>1) Network-based IPS (NIPS)</h4>
+ <div class="def"><b class="t">Definition</b><p>A NIPS is placed in-line on a network link (usually behind the firewall) and inspects and blocks malicious traffic for all devices behind it.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>NIPS network ke entry point par lagta hai aur poore network ko protect karta hai. Example: Cisco Firepower, Palo Alto Threat Prevention, Snort in inline mode.</p></div>
+ <h4>2) Host-based IPS (HIPS)</h4>
+ <div class="def"><b class="t">Definition</b><p>A HIPS is software installed on one computer that monitors and blocks dangerous activity on that host, such as unknown program execution or changes to system files.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>HIPS ek computer ke andar chalta hai aur wahi ke khatarnak program ya file change ko rokta hai. Example: endpoint security software with HIPS module, Symantec/McAfee HIPS.</p></div>
+
+ <h3>C.4 Detection and prevention techniques</h3>
+ <div class="tw"><table>
+  <tr><th>Technique</th><th>Simple meaning</th></tr>
+  <tr><td>Signature-based</td><td>Matches known attack patterns.</td></tr>
+  <tr><td>Anomaly-based</td><td>Detects behaviour different from normal.</td></tr>
+  <tr><td>Policy-based</td><td>Blocks anything that breaks a written policy (e.g. no FTP).</td></tr>
+  <tr><td>Reputation-based</td><td>Blocks IPs/domains known to be bad.</td></tr>
+  <tr><td>Protocol analysis</td><td>Checks that protocol follows its standard rules.</td></tr>
+ </table></div>
+ <h3>C.5 How IPS blocks malicious traffic (actions)</h3>
+ <ul>
+  <li><b>Drop</b> the bad packet silently.</li>
+  <li><b>Block</b> the attacker's IP address for some time.</li>
+  <li><b>Reset</b> the TCP connection (send RST).</li>
+  <li><b>Rate limit</b> – slow down flood traffic (DoS).</li>
+  <li><b>Quarantine</b> the infected host (mostly HIPS).</li>
+  <li><b>Alert and log</b> the event.</li>
+ </ul>
+ <div class="ex"><b class="t">Example</b><p>An attacker tries SQL injection on your website. IPS sees the SQL pattern in the HTTP request, drops the packet and blocks the attacker's IP for 1 hour. The website never receives the attack.</p></div>
+
+ <h3>C.6 Advantages, disadvantages and limitations</h3>
+ <div class="cols">
+  <div class="pro"><h5>✔ Advantages</h5><ul><li>Automatic real-time blocking</li><li>Stops attacks before damage</li><li>Reduces admin work</li><li>Protects unpatched systems (virtual patching)</li><li>Logs and reports</li></ul></div>
+  <div class="con"><h5>✖ Disadvantages / Limitations</h5><ul><li>False positives can block real users</li><li>In-line device can become a single point of failure</li><li>Can add small delay (latency)</li><li>Expensive; needs tuning and updates</li><li>Cannot read encrypted traffic without SSL inspection</li></ul></div>
+ </div>
+ <h3>C.7 Real-world examples</h3>
+ <ul><li>Cisco Firepower, Palo Alto Networks, Fortinet FortiGate IPS, Snort/Suricata in inline mode, TippingPoint.</li>
+ <li>A bank uses IPS behind its firewall to stop brute-force login attacks on net banking.</li></ul>
+
+ <div class="kw"><b>Keywords:</b> in-line, prevent, drop, block, reset, rate limit, NIPS, HIPS, signature, anomaly, false positive, real-time, virtual patching.</div>
+
+ <h3>C.8 IDS vs IPS (short)</h3>
+ <p><b>IDS:</b> passive, out-of-band (gets a copy), detects and alerts. <b>IPS:</b> active, in-line, detects and blocks. Full table in "11 Comparison Tables".</p>
+
+ <h3>C.9 Exam answers</h3>
+ <div class="ans"><span class="m">2 marks</span><p><b>Q. What is IPS?</b><br>IPS (Intrusion Prevention System) is an in-line security device that inspects network traffic and automatically blocks malicious traffic in real time.</p></div>
+ <div class="ans"><span class="m">3-5 marks</span><p><b>Q. Differentiate between IDS and IPS.</b><br>IDS only detects and alerts; IPS detects and also blocks. IDS is passive and gets a copy of traffic; IPS is in-line and traffic passes through it. IDS cannot stop an attack by itself; IPS can. IDS failure does not stop the network; IPS failure can block the network. (Add 1-2 more points from the table.)</p></div>
+ <div class="ans"><span class="m">5-7 marks</span><p><b>Q. Explain working of IPS with diagram.</b><br>Draw Diagram 4. Write the 6 steps (traffic passes through IPS, inspection, detection by signature/anomaly/policy, forward if clean, block if malicious, log and alert). Mention types NIPS and HIPS, advantages and limitations.</p></div>
+</section>
+
+<section class="topic" id="vpn" data-title="vpn concentrator virtual private network tunnel ipsec ssl tls remote access site to site encryption authentication">
+ <h2>D. VPN Concentrator</h2>
+ <span class="badge off">🟢 OFFICIAL SYLLABUS</span> <span class="badge lvl">LEVEL 2 – EXAM LEVEL</span>
+
+ <h3>D.1 What is a VPN?</h3>
+ <div class="def"><b class="t">Definition</b><p>VPN (Virtual Private Network) creates a secure, encrypted tunnel over a public network like the Internet, so that data travels privately as if it were on a private network.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>VPN Internet ke upar ek private, encrypted surang (tunnel) bana deta hai. Beech mein koi data padh nahi sakta. Jaise bheed wali sadak par aapki apni band gaadi.</p></div>
+
+ <h3>D.2 What is a VPN Concentrator?</h3>
+ <div class="def"><b class="t">Definition</b><p>A VPN concentrator is a dedicated network device that creates and manages a large number of VPN tunnels at the same time, handling encryption, authentication and secure access for many remote users or sites.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Jab hazaron employees ghar se office ka network use karte hain, to sabke tunnel ek hi device sambhalta hai. Isi device ko VPN concentrator kehte hain. Ye VPN ka "bada control room" hai.</p></div>
+ <p><b>Purpose:</b> give secure remote access to company resources, support many users, centralize VPN policy, offload heavy encryption work.</p>
+
+ <h3>D.3 How a VPN concentrator works (step by step)</h3>
+ <ol>
+  <li>Remote user starts the VPN client software and connects to the concentrator's public IP.</li>
+  <li><b>Authentication:</b> user proves identity (username + password, certificate, OTP/MFA).</li>
+  <li>Both sides agree on encryption method and exchange keys (e.g. IKE in IPsec).</li>
+  <li>An <b>encrypted tunnel</b> is created.</li>
+  <li>User's data is encrypted by the client, sent through the Internet, and <b>decrypted</b> by the concentrator.</li>
+  <li>Concentrator applies access policy and forwards data to internal servers. Replies come back through the same tunnel.</li>
+  <li>When user disconnects, the tunnel is closed.</li>
+ </ol>
+ <div class="dia"><h4>Diagram 5: VPN concentrator connecting multiple remote users</h4>
+ <svg viewBox="0 0 760 320" role="img" aria-label="VPN concentrator with remote users and branch office">
+  <rect x="10" y="20" width="150" height="50" rx="8" class="bx2"/><text x="85" y="42" text-anchor="middle" class="md">👩 Employee 1</text><text x="85" y="60" text-anchor="middle" class="sm">(Home, VPN client)</text>
+  <rect x="10" y="95" width="150" height="50" rx="8" class="bx2"/><text x="85" y="117" text-anchor="middle" class="md">👨 Employee 2</text><text x="85" y="135" text-anchor="middle" class="sm">(Hotel, laptop)</text>
+  <rect x="10" y="170" width="150" height="50" rx="8" class="bx2"/><text x="85" y="192" text-anchor="middle" class="md">📱 Employee 3</text><text x="85" y="210" text-anchor="middle" class="sm">(Mobile)</text>
+  <rect x="10" y="245" width="150" height="50" rx="8" class="bx4"/><text x="85" y="267" text-anchor="middle" class="md">🏢 Branch Office</text><text x="85" y="285" text-anchor="middle" class="sm">(Site-to-site)</text>
+  <path d="M160 45 L300 150" class="lng"/><path d="M160 120 L300 155" class="lng"/><path d="M160 195 L300 165" class="lng"/><path d="M160 270 L300 175" class="lng"/>
+  <rect x="215" y="100" width="170" height="26" rx="6" fill="none"/><text x="235" y="106" class="tl" transform="rotate(-0 235 106)">Encrypted tunnels over Internet</text>
+  <rect x="300" y="115" width="140" height="90" rx="10" class="bx3"/><text x="370" y="150" text-anchor="middle" class="md">🔐 VPN</text><text x="370" y="168" text-anchor="middle" class="md">Concentrator</text><text x="370" y="190" text-anchor="middle" class="sm">auth + encrypt</text>
+  <line x1="440" y1="160" x2="500" y2="160" class="ln"/>
+  <rect x="500" y="130" width="90" height="60" rx="10" class="bx4"/><text x="545" y="165" text-anchor="middle" class="md">Firewall</text>
+  <line x1="590" y1="160" x2="625" y2="160" class="ln"/>
+  <rect x="625" y="95" width="125" height="130" rx="10" class="box"/><text x="687" y="122" text-anchor="middle" class="md">Company LAN</text><text x="687" y="150" text-anchor="middle" class="sm">File Server</text><text x="687" y="172" text-anchor="middle" class="sm">Database</text><text x="687" y="194" text-anchor="middle" class="sm">Intranet</text>
+ </svg>
+ <p><b>Explanation:</b> Many users and a branch office connect over the Internet using encrypted tunnels. The concentrator checks identity, decrypts data and passes it to the company LAN.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Ghar, hotel, mobile aur branch office, sab alag-alag tunnel se concentrator tak aate hain. Concentrator pehchaan check karta hai, data decrypt karta hai aur company ke LAN tak pahunchata hai.</p></div></div>
+
+ <h3>D.4 Role of encryption and authentication</h3>
+ <ul>
+  <li><b>Encryption</b> keeps data secret (confidentiality). Example algorithms: AES, 3DES.</li>
+  <li><b>Authentication</b> checks who is connecting. Methods: password, digital certificate, pre-shared key, OTP / multi-factor, RADIUS server.</li>
+  <li><b>Integrity check</b> (hash, e.g. SHA) makes sure data was not changed on the way.</li>
+ </ul>
+ <div class="hing"><b class="t">Hinglish</b><p>Encryption data ko chhupata hai, authentication batata hai ki aap kaun ho, aur integrity check batata hai ki data raste mein badla nahi.</p></div>
+
+ <h3>D.5 Types of VPN</h3>
+ <h4>Remote-access VPN</h4>
+ <p>One user connects to the company network using VPN client software from anywhere. <b>Example:</b> a teacher opens the college server from home. The VPN concentrator is the usual endpoint.</p>
+ <h4>Site-to-site VPN</h4>
+ <p>Two whole networks are connected permanently using VPN gateways. <b>Example:</b> bank head office and branch office share one secure network over the Internet.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Remote-access = ek insaan ka ghar se office. Site-to-site = poore office ka doosre office se permanent connection.</p></div>
+
+ <h3>D.6 IPsec VPN and SSL/TLS VPN (basic idea)</h3>
+ <div class="tw"><table>
+  <tr><th>Point</th><th>IPsec VPN</th><th>SSL/TLS VPN</th></tr>
+  <tr><td>Layer</td><td>Network layer (Layer 3)</td><td>Application/Transport (uses TLS, port 443)</td></tr>
+  <tr><td>Client</td><td>Usually needs VPN client software</td><td>Often works from a web browser (clientless) or light client</td></tr>
+  <tr><td>Access</td><td>Full network access</td><td>Access to specific apps/resources</td></tr>
+  <tr><td>Best for</td><td>Site-to-site and full remote access</td><td>Easy remote user access</td></tr>
+  <tr><td>Main parts</td><td>IKE, ESP, AH</td><td>TLS handshake, certificates</td></tr>
+ </table></div>
+
+ <h3>D.7 VPN concentrator vs ordinary VPN router</h3>
+ <p>An ordinary VPN-capable router supports only a few tunnels (small office). A VPN concentrator is built for hundreds or thousands of tunnels with high-speed hardware encryption and stronger authentication. See table in "11 Comparison Tables".</p>
+
+ <h3>D.8 Advantages, disadvantages and limitations</h3>
+ <div class="cols">
+  <div class="pro"><h5>✔ Advantages</h5><ul><li>Secure remote access over Internet</li><li>Handles many users together</li><li>Strong authentication and encryption</li><li>Cheaper than leased lines</li><li>Central policy and logging</li></ul></div>
+  <div class="con"><h5>✖ Disadvantages / Limitations</h5><ul><li>Costly device for small companies</li><li>Single point of failure (needs backup)</li><li>Encryption adds delay</li><li>If user's device has malware, it can enter the LAN</li><li>Needs skilled setup and key management</li></ul></div>
+ </div>
+ <h3>D.9 Real-world examples</h3>
+ <ul><li>Cisco VPN 3000 Series Concentrator (older classic), Cisco ASA/Firepower and Fortinet FortiGate (modern VPN gateways), Palo Alto GlobalProtect gateway.</li>
+ <li>Company employees working from home open ERP and file servers through the VPN concentrator.</li></ul>
+ <div class="kw"><b>Keywords:</b> tunnel, encryption, authentication, IPsec, SSL/TLS, IKE, remote-access, site-to-site, VPN client, gateway, AES, MFA.</div>
+
+ <h3>D.10 Exam answers</h3>
+ <div class="ans"><span class="m">2 marks</span><p><b>Q. What is a VPN concentrator?</b><br>A VPN concentrator is a dedicated device that creates and manages many encrypted VPN tunnels at once and authenticates remote users or sites for secure access to a private network.</p></div>
+ <div class="ans"><span class="m">3-5 marks</span><p><b>Q. Differentiate remote-access VPN and site-to-site VPN.</b><br>Remote-access connects one user to the company network using VPN client; site-to-site connects two complete networks using gateways. Remote-access is temporary and per user; site-to-site is permanent and always on. (More points in table.)</p></div>
+ <div class="ans"><span class="m">5-7 marks</span><p><b>Q. Explain the working of VPN concentrator with diagram.</b><br>Draw Diagram 5. Write the 7 steps (connect, authenticate, negotiate keys, create tunnel, encrypt/decrypt, forward by policy, close). Explain encryption and authentication. Add IPsec vs SSL VPN, advantages and limitations.</p></div>
+</section>
+
+<section class="topic" id="csg" data-title="content screening gateway web filtering url filtering email spam malware attachment scanning content inspection dlp data loss prevention proxy">
+ <h2>E. Content Screening Gateways</h2>
+ <span class="badge off">🟢 OFFICIAL SYLLABUS</span> <span class="badge lvl">LEVEL 2 – EXAM LEVEL</span>
+
+ <h3>E.1 Definition and purpose</h3>
+ <div class="def"><b class="t">Definition</b><p>A content screening gateway is a security device or service placed between users and the Internet that inspects the content of web pages, emails and files and blocks harmful, inappropriate or policy-violating content.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Firewall dekhta hai "kaun aa raha hai" (IP, port). Content gateway dekhta hai "kya aa raha hai" (website, email, attachment ke andar kya hai). Jaise airport par bag ke andar ka saman scan hota hai.</p></div>
+ <p><b>Purpose:</b> stop malware, block unsafe/adult sites, stop spam and phishing, prevent data leakage, save bandwidth, enforce Internet usage policy.</p>
+
+ <h3>E.2 How it works (step by step)</h3>
+ <ol>
+  <li>User opens a website or receives an email. The request goes <b>through the gateway</b>.</li>
+  <li>Gateway checks <b>URL / domain</b> against category and reputation lists.</li>
+  <li>If allowed, it downloads the content and <b>scans</b> it (antivirus, keywords, file type).</li>
+  <li>Spam, phishing, malware or policy violation is <b>blocked or quarantined</b>.</li>
+  <li>Clean content is delivered to the user.</li>
+  <li>All actions are logged and reports are generated.</li>
+ </ol>
+ <div class="dia"><h4>Diagram 6: Content screening gateway filtering Internet access</h4>
+ <svg viewBox="0 0 760 300" role="img" aria-label="Content screening gateway between users and internet">
+  <rect x="10" y="40" width="130" height="50" rx="8" class="bx2"/><text x="75" y="70" text-anchor="middle" class="md">👩‍🎓 Student PC</text>
+  <rect x="10" y="110" width="130" height="50" rx="8" class="bx2"/><text x="75" y="140" text-anchor="middle" class="md">👨‍🏫 Staff PC</text>
+  <rect x="10" y="180" width="130" height="50" rx="8" class="bx2"/><text x="75" y="210" text-anchor="middle" class="md">✉ Mail Client</text>
+  <path d="M140 65 L250 130" class="ln"/><path d="M140 135 L250 140" class="ln"/><path d="M140 205 L250 150" class="ln"/>
+  <rect x="250" y="80" width="190" height="130" rx="10" class="bx4"/><text x="345" y="108" text-anchor="middle" class="md">🔎 CONTENT SCREENING</text><text x="345" y="126" text-anchor="middle" class="md">GATEWAY</text>
+  <text x="345" y="150" text-anchor="middle" class="sm">• URL / Web filter</text><text x="345" y="168" text-anchor="middle" class="sm">• Spam + Antivirus scan</text><text x="345" y="186" text-anchor="middle" class="sm">• Attachment check, DLP</text>
+  <line x1="440" y1="130" x2="540" y2="110" class="lng"/><text x="500" y="100" text-anchor="middle" class="sm">Safe content</text>
+  <ellipse cx="640" cy="110" rx="90" ry="45" class="bx3"/><text x="640" y="106" text-anchor="middle" class="md">INTERNET</text><text x="640" y="126" text-anchor="middle" class="sm">Websites / Mail</text>
+  <line x1="345" y1="210" x2="345" y2="250" class="lnr"/>
+  <text x="345" y="272" text-anchor="middle" class="md" style="fill:var(--red)">✖ BLOCKED: malware, adult sites, spam, phishing</text>
+ </svg>
+ <p><b>Explanation:</b> All web and email requests pass through the gateway. It checks URL, content and attachments. Harmful items are blocked; safe content is allowed.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Student, staff aur mail, sab ki request gateway se guzarti hai. Gateway URL, content aur attachment check karta hai. Kharab cheez block hoti hai, achhi cheez jaati hai.</p></div></div>
+
+ <h3>E.3 Functions of a content screening gateway</h3>
+ <div class="tw"><table>
+  <tr><th>Function</th><th>Simple meaning</th><th>Example</th></tr>
+  <tr><td><b>Web filtering</b></td><td>Controls which kinds of websites users can open.</td><td>Block gambling, adult, torrent sites in college.</td></tr>
+  <tr><td><b>URL filtering</b></td><td>Allow/block by exact address or category, using blacklist/whitelist.</td><td>Block "badsite.example", allow "nptel.ac.in".</td></tr>
+  <tr><td><b>Email filtering</b></td><td>Checks incoming/outgoing mail for threats.</td><td>Blocks phishing mail pretending to be a bank.</td></tr>
+  <tr><td><b>Spam filtering</b></td><td>Detects unwanted bulk mail using keywords, sender reputation, patterns.</td><td>Moves "You won lottery!" mail to Spam.</td></tr>
+  <tr><td><b>Malware / attachment scanning</b></td><td>Scans files with antivirus and sandbox; blocks risky types (.exe, .js).</td><td>Blocks an infected PDF attachment.</td></tr>
+  <tr><td><b>Content inspection</b></td><td>Reads text and file content for banned words or patterns.</td><td>Blocks pages with offensive words.</td></tr>
+  <tr><td><b>DLP</b></td><td>Stops sensitive data from leaving the company.</td><td>Blocks email with 100 Aadhaar numbers going out.</td></tr>
+ </table></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Web filter site ki category dekhta hai, URL filter exact link dekhta hai, email filter mail ko check karta hai, spam filter faltu mail rokta hai, attachment scan virus pakadta hai, aur DLP company ka secret data bahar jaane se rokta hai.</p></div>
+
+ <h3>E.4 DLP – Data Loss Prevention (basic connection)</h3>
+ <div class="def"><b class="t">Definition</b><p>DLP is a security method that detects and stops sensitive data (like card numbers, ID numbers, confidential files) from leaving the organization through email, web upload or USB.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Content gateway sirf andar aane wale kharab content ko hi nahi, balki bahar jaane wale important data ko bhi check kar sakta hai. Isi ko DLP kehte hain.</p></div>
+
+ <h3>E.5 Advantages, disadvantages and limitations</h3>
+ <div class="cols">
+  <div class="pro"><h5>✔ Advantages</h5><ul><li>Blocks malware and phishing</li><li>Enforces Internet policy</li><li>Saves bandwidth and improves productivity</li><li>Protects children/students from unsafe content</li><li>Gives usage reports</li></ul></div>
+  <div class="con"><h5>✖ Disadvantages / Limitations</h5><ul><li>Can block safe sites by mistake (false positive)</li><li>Cannot inspect HTTPS without SSL inspection</li><li>Smart users may bypass using VPN/proxy</li><li>Privacy concerns, needs policy</li><li>Needs constant database updates</li></ul></div>
+ </div>
+ <h3>E.6 Real-world examples</h3>
+ <ul><li>Cisco Secure Web Appliance (WSA), Cisco Secure Email, Forcepoint, Symantec/Broadcom Web Gateway, Zscaler, Squid proxy with filters.</li>
+ <li>School Wi-Fi blocks adult and gaming sites; company mail gateway removes spam before it reaches users.</li></ul>
+ <div class="kw"><b>Keywords:</b> web filtering, URL filtering, blacklist, whitelist, spam, phishing, attachment scanning, sandbox, content inspection, DLP, quarantine, policy.</div>
+
+ <h3>E.7 Exam answers</h3>
+ <div class="ans"><span class="m">2 marks</span><p><b>Q. What is a content screening gateway?</b><br>It is a device placed between users and the Internet that inspects web, email and file content and blocks harmful or unwanted content such as malware, spam and prohibited websites.</p></div>
+ <div class="ans"><span class="m">3-5 marks</span><p><b>Q. Explain web filtering, URL filtering and spam filtering.</b><br><b>Web filtering</b> allows or blocks websites by category. <b>URL filtering</b> allows or blocks exact URLs using blacklist/whitelist. <b>Spam filtering</b> detects unwanted bulk email by sender reputation, keywords and patterns and moves it to a spam folder.</p></div>
+ <div class="ans"><span class="m">5-7 marks</span><p><b>Q. Explain content screening gateway with diagram.</b><br>Draw Diagram 6. Write 6 working steps. List functions: web, URL, email, spam filtering, malware scanning, content inspection, DLP. Add advantages and limitations.</p></div>
+</section>
+<section class="topic" id="l3intro" data-title="level 3 advanced extra knowledge intro">
+ <h2>Level 3 – Advanced / Extra Knowledge</h2>
+ <span class="badge lvl">LEVEL 3 – ADVANCED</span> <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span>
+ <p>These topics are <b>not written directly</b> in the official syllabus. The syllabus says "etc.", so they can help in understanding and in long answers. First finish Level 2 (green) topics. Then read these.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Neeche ke topics syllabus mein seedhe nahi likhe hain. Pehle green topics pakke karo. Samay bache to ye padho, kyunki real companies mein yahi devices use hote hain.</p></div>
+</section>
+
+<section class="topic" id="ngfw" data-title="ngfw next generation firewall advanced deep packet inspection application awareness ssl inspection">
+ <h2>NGFW – Next-Generation Firewall (Advanced Detail)</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>NGFW is a firewall that combines stateful inspection with deep packet inspection (DPI), application awareness, user identity control, integrated IPS, malware protection, SSL/TLS inspection and threat intelligence in one platform.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Purana firewall bolta hai "port 443 allowed". NGFW bolta hai "port 443 allowed hai, lekin isme YouTube nahi chalega, Facebook chat band hai, aur is user ko hi Gmail allowed hai." Yaani wo application aur user dono pehchanta hai.</p></div>
+ <h4>Main features</h4>
+ <ul>
+  <li><b>Application awareness:</b> identifies apps (WhatsApp, Torrent, Zoom) even on the same port.</li>
+  <li><b>User identity:</b> rules by user or group (connected with Active Directory), not only by IP.</li>
+  <li><b>Integrated IPS:</b> blocks exploits.</li>
+  <li><b>Deep packet inspection:</b> reads packet payload.</li>
+  <li><b>SSL/TLS inspection:</b> decrypts, checks and re-encrypts HTTPS traffic.</li>
+  <li><b>Sandboxing and threat intelligence:</b> tests unknown files in a safe area; uses online lists of bad IPs/domains.</li>
+ </ul>
+ <h4>SSL/TLS inspection – how it works</h4>
+ <ol><li>User opens an HTTPS site; NGFW acts as a middleman.</li><li>NGFW decrypts the traffic using its own trusted certificate.</li><li>Traffic is scanned by IPS, antivirus and filters.</li><li>NGFW re-encrypts it and sends it to the server or user.</li></ol>
+ <div class="warn"><b>Note:</b> SSL inspection has privacy and legal issues. Banking and health sites are usually excluded from inspection.</div>
+ <div class="cols">
+  <div class="pro"><h5>✔ Advantages</h5><ul><li>One device, many protections</li><li>Controls applications and users</li><li>Detects hidden threats in HTTPS</li></ul></div>
+  <div class="con"><h5>✖ Disadvantages</h5><ul><li>Costly, needs licences</li><li>Needs powerful hardware</li><li>SSL inspection slows traffic</li></ul></div>
+ </div>
+ <p><b>Examples:</b> Palo Alto Networks, Fortinet FortiGate, Cisco Firepower, Check Point.</p>
+ <div class="ans"><span class="m">3-5 marks</span><p><b>Q. What is NGFW? Write its features.</b><br>NGFW is an advanced firewall that adds application awareness, user identity control, integrated IPS, deep packet inspection, SSL inspection and threat intelligence to normal stateful firewall functions.</p></div>
+ <div class="kw"><b>Keywords:</b> DPI, application awareness, user identity, SSL inspection, sandbox, threat intelligence.</div>
+</section>
+
+<section class="topic" id="utm" data-title="utm unified threat management all in one security appliance">
+ <h2>UTM – Unified Threat Management</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>UTM is a single security appliance that combines many security functions such as firewall, IDS/IPS, antivirus, VPN, web filtering and anti-spam in one box with one management console.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>UTM "sab kuch ek mein" device hai. Chhote office ke liye alag-alag 5 device kharidne ki jagah ek hi device sab kaam kar deta hai. Sasta aur manage karna aasan.</p></div>
+ <div class="ex"><b class="t">Example</b><p>A small coaching institute with 40 PCs uses one UTM box for firewall, VPN, web filtering and antivirus instead of buying four devices.</p></div>
+ <div class="cols">
+  <div class="pro"><h5>✔ Advantages</h5><ul><li>Low cost, easy management</li><li>One vendor, one dashboard</li><li>Good for small/medium business</li></ul></div>
+  <div class="con"><h5>✖ Disadvantages</h5><ul><li>Single point of failure</li><li>Performance drops when all features are on</li><li>Less powerful than separate specialist devices</li></ul></div>
+ </div>
+ <p><b>Examples:</b> Sophos XG, Fortinet FortiGate, WatchGuard, SonicWall.</p>
+ <div class="ans"><span class="m">3 marks</span><p><b>Q. What is UTM?</b><br>UTM is an all-in-one security device that provides firewall, IDS/IPS, antivirus, VPN, web filtering and spam filtering together, managed from one console. It is mostly used in small and medium organizations.</p></div>
+</section>
+
+<section class="topic" id="swg" data-title="swg secure web gateway proxy web security cloud">
+ <h2>SWG – Secure Web Gateway</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>A Secure Web Gateway is a security solution (appliance or cloud service) that filters Internet traffic of users, enforces web policy, blocks malicious websites and scans downloads for malware.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>SWG ek specialist content gateway hai jo sirf web browsing ko safe rakhta hai: bure sites block, download scan, aur HTTPS check.</p></div>
+ <p><b>Features:</b> URL filtering, malware scanning, SSL inspection, application control, DLP, user-based policy. <b>Examples:</b> Zscaler, Cisco Secure Web Appliance, Forcepoint. <b>Relation to syllabus:</b> it is a modern form of the content screening gateway (Topic E).</p>
+</section>
+
+<section class="topic" id="esg" data-title="email security gateway spam phishing mail filter spf dkim dmarc">
+ <h2>Email Security Gateway</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>An email security gateway is a filter placed in front of the mail server that scans incoming and outgoing email for spam, phishing, malware and sensitive data.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Ye mail server ke aage baitha chowkidaar hai. Fake bank mail (phishing), spam aur virus wale attachment ko andar aane se pehle hi pakad leta hai.</p></div>
+ <p><b>How it works:</b> mail arrives → sender checks (SPF, DKIM, DMARC) → spam score → attachment and link scan (sandbox) → deliver, quarantine or reject. <b>Examples:</b> Proofpoint, Mimecast, Cisco Secure Email.</p>
+ <p><b>Relation to syllabus:</b> it is the email part of content screening gateways (Topic E).</p>
+</section>
+
+<section class="topic" id="waf" data-title="waf web application firewall sql injection xss owasp">
+ <h2>WAF – Web Application Firewall</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>A WAF is a firewall that protects web applications and websites by filtering and monitoring HTTP/HTTPS requests, blocking attacks such as SQL injection and cross-site scripting (XSS).</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Normal firewall port aur IP dekhta hai. WAF website ke request ke andar ka text dekhta hai, jaise login box mein koi hacker SQL command to nahi daal raha. Online shopping website ko isse bachate hain.</p></div>
+ <div class="ex"><b class="t">Example</b><p>E-commerce site: an attacker types <code>' OR 1=1 --</code> in the login box. WAF detects the SQL injection pattern and blocks the request.</p></div>
+ <p><b>Examples:</b> Cloudflare WAF, AWS WAF, ModSecurity (open source), F5. <b>Difference:</b> Network firewall protects the network (Layers 3-4); WAF protects web applications (Layer 7).</p>
+</section>
+
+<section class="topic" id="nac" data-title="nac network access control endpoint compliance 802.1x guest">
+ <h2>NAC – Network Access Control</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>NAC is a security solution that decides which devices and users are allowed to connect to the network, after checking their identity and security health (antivirus, updates).</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>NAC network ke gate par "ID card aur health check" jaisa hai. Koi bhi laptop plug karega to pehle check hoga: kaun hai, antivirus update hai ya nahi. Fail hua to guest ya quarantine network mein bhej diya jaata hai.</p></div>
+ <p><b>Steps:</b> device connects → identify (802.1X, certificate, MAC) → health check → allow, restrict or quarantine. <b>Example:</b> a visitor's laptop with no antivirus gets only guest Internet, not the college server.</p>
+</section>
+
+<section class="topic" id="siem" data-title="siem security information event management log correlation soc monitoring">
+ <h2>SIEM – Security Information and Event Management</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>SIEM is a system that collects logs and alerts from firewalls, IDS/IPS, servers and other devices in one place, correlates them, and raises alerts about possible security incidents.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Firewall, IDS, server sab apne-apne log banate hain. SIEM sab logs ko ek jagah jama karke jodta hai. Jaise bank ke saare CCTV ka ek control room. Isse admin ko poori tasveer milti hai.</p></div>
+ <div class="ex"><b class="t">Example of correlation</b><p>Firewall log: many failed logins from one IP. IDS: port scan from same IP. Server log: successful login from same IP at 3 AM. SIEM joins these and raises one high-priority alert: "Possible brute-force attack succeeded".</p></div>
+ <p><b>Functions:</b> log collection, correlation, alerting, dashboards, reports, compliance. <b>Examples:</b> Splunk, IBM QRadar, Microsoft Sentinel, Wazuh. IDS/IPS alerts are normally sent to SIEM.</p>
+</section>
+
+<section class="topic" id="zt" data-title="zero trust security never trust always verify microsegmentation least privilege">
+ <h2>Zero Trust Security – Basic Introduction</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <div class="def"><b class="t">Definition</b><p>Zero Trust is a security model based on the idea "never trust, always verify". No user or device is trusted automatically, even if it is inside the company network. Every access request is verified.</p></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Purana model: "andar wale sab bharosemand". Zero Trust: "andar ho ya bahar, har baar pehchaan aur permission check karo." Jaise office mein har room ke liye alag swipe card.</p></div>
+ <ul>
+  <li><b>Verify explicitly:</b> check user, device health and location every time.</li>
+  <li><b>Least privilege:</b> give only the minimum access.</li>
+  <li><b>Assume breach:</b> design as if attacker is already inside.</li>
+  <li><b>Micro-segmentation:</b> divide network into small zones so an attacker cannot move freely.</li>
+ </ul>
+ <p><b>Why important:</b> remote work, cloud and mobile devices mean the old "perimeter" firewall alone is not enough. VPN is slowly being replaced by Zero Trust Network Access (ZTNA) in many companies.</p>
+</section>
+
+<section class="topic" id="arch" data-title="enterprise network security architecture integrated ids ips integration defense in depth layered security practical industry">
+ <h2>Enterprise Network Security Architecture (Integrated View)</h2>
+ <span class="badge extra">🔵 EXTRA KNOWLEDGE — NOT EXPLICITLY MENTIONED IN SYLLABUS</span> <span class="badge lvl">LEVEL 3</span>
+ <p>Real organizations do not use one device. They use <b>Defense in Depth</b>: many layers, so if one layer fails, the next one still protects.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Ghar ki suraksha ki tarah: boundary wall, gate, darwaza, almari ka lock. Ek fail ho to doosra bachata hai. Network mein bhi firewall, IPS, VPN, content gateway, sab milkar kaam karte hain.</p></div>
+
+ <div class="dia"><h4>Diagram 7: Integrated network security architecture</h4>
+ <svg viewBox="0 0 760 420" role="img" aria-label="Integrated security architecture">
+  <ellipse cx="380" cy="35" rx="95" ry="26" class="bx3"/><text x="380" y="40" text-anchor="middle" class="md">INTERNET</text>
+  <line x1="380" y1="61" x2="380" y2="90" class="ln"/>
+  <rect x="300" y="90" width="160" height="42" rx="8" class="bx4"/><text x="380" y="116" text-anchor="middle" class="md">🛡 Perimeter Firewall</text>
+  <line x1="380" y1="132" x2="380" y2="160" class="ln"/>
+  <rect x="300" y="160" width="160" height="42" rx="8" class="bx3"/><text x="380" y="186" text-anchor="middle" class="md">IPS (in-line)</text>
+  <path d="M300 111 L160 111 L160 160" class="ln"/>
+  <rect x="60" y="160" width="200" height="50" rx="8" class="bx2"/><text x="160" y="182" text-anchor="middle" class="md">DMZ</text><text x="160" y="200" text-anchor="middle" class="sm">Web / Mail / DNS servers</text>
+  <path d="M460 111 L600 111 L600 160" class="ln"/>
+  <rect x="510" y="160" width="190" height="50" rx="8" class="box"/><text x="605" y="182" text-anchor="middle" class="md">🔐 VPN Concentrator</text><text x="605" y="200" text-anchor="middle" class="sm">Remote users, branches</text>
+  <line x1="380" y1="202" x2="380" y2="235" class="ln"/>
+  <rect x="300" y="235" width="160" height="42" rx="8" class="bx4"/><text x="380" y="261" text-anchor="middle" class="md">🔎 Content Gateway</text>
+  <line x1="380" y1="277" x2="380" y2="305" class="ln"/>
+  <rect x="270" y="305" width="220" height="60" rx="10" class="box"/><text x="380" y="330" text-anchor="middle" class="md">Internal LAN</text><text x="380" y="350" text-anchor="middle" class="sm">PCs, Servers (HIDS/HIPS on hosts)</text>
+  <path d="M605 210 L605 285 L490 335" class="ln"/>
+  <rect x="40" y="260" width="180" height="60" rx="8" class="bx2"/><text x="130" y="285" text-anchor="middle" class="md">📊 IDS sensor + SIEM</text><text x="130" y="303" text-anchor="middle" class="sm">logs and alerts</text>
+  <path d="M220 290 L300 215" class="ln" stroke-dasharray="6 5"/>
+  <text x="380" y="400" text-anchor="middle" class="tl">Layered defense: each device protects a different level</text>
+ </svg>
+ <p><b>Explanation:</b> Internet traffic first meets the perimeter firewall. IPS blocks attacks. Public servers sit in the DMZ. Remote users enter through the VPN concentrator. Web and email pass through the content gateway. IDS sensors and SIEM watch everything and collect logs.</p>
+ <div class="hing"><b class="t">Hinglish</b><p>Pehle firewall, phir IPS, public servers DMZ mein, remote log VPN se, web/mail content gateway se. IDS aur SIEM sab par nazar rakhte hain. Ye sab milkar poori suraksha dete hain.</p></div></div>
+
+ <h4>IDS/IPS integration</h4>
+ <p>IDS and IPS are often combined (IDPS). Many NGFWs include IPS. IDS sensors send alerts to SIEM, the SOC (Security Operations Centre) team investigates, and IPS rules are tuned to block repeated attacks.</p>
+ <h4>Practical industry applications</h4>
+ <ul><li><b>Banks:</b> NGFW + IPS + WAF + SIEM + VPN for staff.</li><li><b>Colleges:</b> UTM or NGFW with web filter.</li><li><b>E-commerce:</b> WAF + DDoS protection + IPS.</li><li><b>IT companies:</b> VPN/ZTNA + SWG + email gateway + SIEM.</li></ul>
+ <div class="ans"><span class="m">5 marks</span><p><b>Q. Explain integrated network security architecture.</b><br>Draw Diagram 7 and explain: firewall at the perimeter, IPS in-line behind it, DMZ for public servers, VPN concentrator for remote access, content gateway for web/email, IDS and SIEM for monitoring, host-based protection on servers. Mention defense in depth.</p></div>
+</section>
+
+<section class="topic" id="scen" data-title="real life examples scenarios college lab bank office home school wifi e-commerce server suspicious traffic unauthorized access">
+ <h2>Real-Life Scenarios: How the Products Protect You</h2>
+ <span class="badge lvl">LEVEL 2/3 – PRACTICAL</span>
+ <div class="tw"><table>
+  <tr><th>Scenario</th><th>Problem</th><th>Product used</th><th>How it protects</th></tr>
+  <tr><td><b>College computer lab</b></td><td>Students open unsafe/torrent sites, virus enters.</td><td>Firewall + Content gateway</td><td>Firewall blocks unneeded ports; web filter blocks adult/torrent sites; antivirus scans downloads.</td></tr>
+  <tr><td><b>Bank network</b></td><td>Hackers try to steal customer data.</td><td>NGFW, IPS, DMZ, SIEM</td><td>Net-banking server in DMZ; IPS blocks brute force; SIEM raises alert on strange login pattern.</td></tr>
+  <tr><td><b>Employees working from home</b></td><td>Public Internet is not safe.</td><td>VPN concentrator</td><td>Employee logs in with password + OTP; encrypted tunnel; only allowed servers are reachable.</td></tr>
+  <tr><td><b>School Wi-Fi</b></td><td>Children can open adult/gaming sites.</td><td>Content screening gateway</td><td>URL and category filtering block unsafe sites; reports show usage.</td></tr>
+  <tr><td><b>E-commerce website</b></td><td>SQL injection, bot traffic, DDoS.</td><td>WAF + IPS + Firewall</td><td>WAF blocks malicious requests; IPS blocks exploits; firewall allows only ports 80/443.</td></tr>
+  <tr><td><b>Protecting internal server</b></td><td>Database must not be public.</td><td>Firewall + DMZ + HIDS</td><td>Server is in LAN, firewall denies Internet access to it; HIDS watches file changes.</td></tr>
+  <tr><td><b>Detecting suspicious traffic</b></td><td>Port scan at midnight.</td><td>IDS (NIDS) + SIEM</td><td>NIDS matches port-scan signature, sends alert; admin blocks the IP.</td></tr>
+  <tr><td><b>Blocking unauthorized access</b></td><td>Outsider tries to reach internal PCs.</td><td>Firewall + IPS</td><td>Default deny blocks unknown inbound traffic; IPS drops exploit packets.</td></tr>
+ </table></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Har situation mein alag device kaam aata hai. Exam mein example likhna ho to inmein se koi bhi 1-2 simple examples likh do.</p></div>
+</section>
+<section class="topic" id="tables" data-title="comparison tables difference between firewall ids ips vpn utm ngfw stateless stateful signature anomaly nids hids hardware software content gateway remote access site to site">
+ <h2>11 Important Comparison Tables</h2>
+ <span class="badge off">🟢 OFFICIAL SYLLABUS</span> <span class="badge exam">EXAM</span>
+ <div class="hing"><b class="t">Hinglish</b><p>"Difference between" ka question bahut common hota hai. Exam mein table banao, kam se kam 4-5 points likho.</p></div>
+
+ <h3>1. Firewall vs IDS</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Firewall</th><th>IDS</th></tr>
+ <tr><td>Main job</td><td>Allows or blocks traffic using rules</td><td>Detects suspicious activity and alerts</td></tr>
+ <tr><td>Action</td><td>Active (blocks)</td><td>Passive (only alerts)</td></tr>
+ <tr><td>Placement</td><td>In-line at network boundary</td><td>Out-of-band (mirror port)</td></tr>
+ <tr><td>Based on</td><td>Rules (IP, port, protocol)</td><td>Signatures and anomalies</td></tr>
+ <tr><td>Looks at</td><td>Mostly headers</td><td>Headers + payload patterns</td></tr>
+ <tr><td>Analogy</td><td>Gate guard</td><td>CCTV and alarm</td></tr></table></div>
+
+ <h3>2. IDS vs IPS</h3>
+ <div class="tw"><table><tr><th>Point</th><th>IDS</th><th>IPS</th></tr>
+ <tr><td>Full form</td><td>Intrusion Detection System</td><td>Intrusion Prevention System</td></tr>
+ <tr><td>Action</td><td>Detects and alerts</td><td>Detects and blocks</td></tr>
+ <tr><td>Placement</td><td>Out-of-band (copy of traffic)</td><td>In-line (traffic passes through)</td></tr>
+ <tr><td>Nature</td><td>Passive</td><td>Active</td></tr>
+ <tr><td>Effect of failure</td><td>Network keeps working</td><td>May block the network</td></tr>
+ <tr><td>Delay</td><td>No delay</td><td>Small delay</td></tr>
+ <tr><td>False positive impact</td><td>Only a wrong alert</td><td>Real traffic can be blocked</td></tr></table></div>
+
+ <h3>3. Firewall vs IPS</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Firewall</th><th>IPS</th></tr>
+ <tr><td>Decision based on</td><td>Access rules (who/where/port)</td><td>Attack patterns and behaviour</td></tr>
+ <tr><td>Checks</td><td>Headers, connection state</td><td>Deep packet content</td></tr>
+ <tr><td>Stops</td><td>Unauthorized access</td><td>Exploits, worms, attacks inside allowed traffic</td></tr>
+ <tr><td>Allowed traffic</td><td>Trusts it once allowed by rule</td><td>Still inspects allowed traffic</td></tr>
+ <tr><td>Updates</td><td>Rule changes by admin</td><td>Regular signature updates</td></tr>
+ <tr><td>Position</td><td>Network edge</td><td>Behind firewall</td></tr></table></div>
+
+ <h3>4. Hardware firewall vs Software firewall</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Hardware firewall</th><th>Software firewall</th></tr>
+ <tr><td>Form</td><td>Dedicated physical device</td><td>Program on a computer</td></tr>
+ <tr><td>Protects</td><td>Whole network</td><td>Only that one computer</td></tr>
+ <tr><td>Cost</td><td>High</td><td>Low or free</td></tr>
+ <tr><td>Performance</td><td>Very high, own CPU</td><td>Uses host CPU/RAM</td></tr>
+ <tr><td>Management</td><td>Central</td><td>Each computer separately</td></tr>
+ <tr><td>Example</td><td>Fortinet, Cisco ASA</td><td>Windows Defender Firewall</td></tr></table></div>
+
+ <h3>5. Stateless vs Stateful firewall</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Stateless (packet filter)</th><th>Stateful</th></tr>
+ <tr><td>Memory of connection</td><td>No</td><td>Yes (state table)</td></tr>
+ <tr><td>Checks each packet</td><td>Independently</td><td>In context of the connection</td></tr>
+ <tr><td>Security level</td><td>Basic</td><td>Better</td></tr>
+ <tr><td>Speed</td><td>Faster</td><td>Slightly slower</td></tr>
+ <tr><td>Fake reply packets</td><td>May pass if rule allows</td><td>Dropped (no matching entry)</td></tr>
+ <tr><td>Resource use</td><td>Low</td><td>More memory</td></tr></table></div>
+
+ <h3>6. Signature-based vs Anomaly-based detection</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Signature-based</th><th>Anomaly-based</th></tr>
+ <tr><td>Method</td><td>Matches known attack patterns</td><td>Compares with normal behaviour</td></tr>
+ <tr><td>Known attacks</td><td>Detects very well</td><td>May detect</td></tr>
+ <tr><td>New/zero-day attacks</td><td>Cannot detect</td><td>Can detect</td></tr>
+ <tr><td>False positives</td><td>Low</td><td>High</td></tr>
+ <tr><td>Setup</td><td>Needs signature updates</td><td>Needs learning period (baseline)</td></tr>
+ <tr><td>Analogy</td><td>Police photo of known thief</td><td>Noticing strange behaviour</td></tr></table></div>
+
+ <h3>7. NIDS vs HIDS</h3>
+ <div class="tw"><table><tr><th>Point</th><th>NIDS</th><th>HIDS</th></tr>
+ <tr><td>Location</td><td>On the network</td><td>On a single host</td></tr>
+ <tr><td>Monitors</td><td>Network traffic</td><td>Logs, files, processes</td></tr>
+ <tr><td>Coverage</td><td>Many devices</td><td>Only one device</td></tr>
+ <tr><td>Encrypted data</td><td>Cannot read</td><td>Can read after decryption on host</td></tr>
+ <tr><td>Performance impact</td><td>None on hosts</td><td>Uses host resources</td></tr>
+ <tr><td>Example</td><td>Snort, Suricata</td><td>OSSEC, Tripwire</td></tr></table></div>
+
+ <h3>8. VPN vs VPN Concentrator</h3>
+ <div class="tw"><table><tr><th>Point</th><th>VPN</th><th>VPN Concentrator</th></tr>
+ <tr><td>Meaning</td><td>Technology that makes a secure tunnel</td><td>Device that manages many VPN tunnels</td></tr>
+ <tr><td>Type</td><td>Concept/service</td><td>Dedicated hardware/appliance</td></tr>
+ <tr><td>Users</td><td>One or few</td><td>Hundreds or thousands</td></tr>
+ <tr><td>Performance</td><td>Limited</td><td>Hardware encryption, high speed</td></tr>
+ <tr><td>Use</td><td>Personal and small office</td><td>Large organization</td></tr>
+ <tr><td>Management</td><td>Simple</td><td>Central policy and logging</td></tr></table></div>
+
+ <h3>9. Remote-access VPN vs Site-to-site VPN</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Remote-access VPN</th><th>Site-to-site VPN</th></tr>
+ <tr><td>Connects</td><td>One user to a network</td><td>One network to another network</td></tr>
+ <tr><td>Client software</td><td>Needed on user device</td><td>Not needed on user devices</td></tr>
+ <tr><td>Connection</td><td>On demand, temporary</td><td>Permanent, always on</td></tr>
+ <tr><td>Devices</td><td>Client + concentrator</td><td>Gateway/router at both sites</td></tr>
+ <tr><td>Example</td><td>Teacher from home</td><td>Bank head office to branch</td></tr></table></div>
+
+ <h3>10. Firewall vs UTM vs NGFW</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Firewall (traditional)</th><th>UTM</th><th>NGFW</th></tr>
+ <tr><td>Main idea</td><td>Rule-based traffic filter</td><td>Many security features in one box</td><td>Smart firewall with app/user awareness</td></tr>
+ <tr><td>Features</td><td>Packet/stateful filtering, NAT</td><td>Firewall + IPS + AV + VPN + web/spam filter</td><td>Stateful + DPI + IPS + application control + SSL inspection</td></tr>
+ <tr><td>Application awareness</td><td>No</td><td>Limited</td><td>Yes, strong</td></tr>
+ <tr><td>Best for</td><td>Basic protection</td><td>Small/medium business</td><td>Large enterprises</td></tr>
+ <tr><td>Cost</td><td>Low</td><td>Medium</td><td>High</td></tr>
+ <tr><td>Performance</td><td>High</td><td>Drops if all features on</td><td>High with proper hardware</td></tr></table></div>
+ <p><i>Note: in real products the difference between UTM and NGFW is becoming smaller.</i></p>
+
+ <h3>11. Content Screening Gateway vs Firewall</h3>
+ <div class="tw"><table><tr><th>Point</th><th>Content screening gateway</th><th>Firewall</th></tr>
+ <tr><td>Checks</td><td>What is inside (page, email, file)</td><td>Who and where (IP, port, protocol)</td></tr>
+ <tr><td>OSI layer</td><td>Application layer (7)</td><td>Mostly layers 3-4</td></tr>
+ <tr><td>Main goal</td><td>Block bad content, malware, spam</td><td>Control access to network</td></tr>
+ <tr><td>Features</td><td>URL/web/email/spam filter, antivirus, DLP</td><td>Access rules, NAT, logging</td></tr>
+ <tr><td>Speed</td><td>Slower (deep checking)</td><td>Faster</td></tr>
+ <tr><td>Works with</td><td>Firewall (they complement each other)</td><td>Gateway, IDS/IPS</td></tr></table></div>
+</section>
+
+<section class="topic" id="top10" data-title="top 10 most important exam questions priority answers">
+ <h2>Top 10 Important Exam Questions</h2>
+ <span class="badge exam">EXAM</span>
+ <div class="warn"><b>Honest note:</b> These are based on the syllabus and common diploma-level patterns. They are <b>good practice</b>, but nobody can guarantee which question will come. Study all topics.</div>
+ <p>⭐⭐⭐ = Very Important &nbsp; ⭐⭐ = Important &nbsp; ⭐ = Practice</p>
+
+ <details open><summary>Q1 ⭐⭐⭐ (Long, with diagram) – What is a firewall? Explain types of firewall and draw its diagram.</summary><div class="in">
+ <p><b>Answer:</b> A firewall is a hardware or software security system that monitors network traffic and allows or blocks it using security rules. It is placed between a trusted network (LAN) and an untrusted network (Internet).</p>
+ <p><b>Diagram:</b> Draw: Internet → Firewall → Switch → PCs/Server (see Diagram 1).</p>
+ <p><b>Types:</b></p><ol><li><b>Packet filtering:</b> checks IP, port, protocol of each packet using ACL.</li><li><b>Stateful inspection:</b> keeps a state table of connections and allows only valid replies.</li><li><b>Application/Proxy firewall:</b> works as middleman at application layer and inspects content.</li><li><b>Circuit-level gateway:</b> verifies TCP session setup.</li><li><b>NGFW:</b> adds application awareness, IPS, DPI and user control.</li></ol>
+ <p><b>Advantages:</b> access control, hides internal network, logging. <b>Limitations:</b> cannot stop insider attack, cannot detect malware inside allowed traffic.</p></div></details>
+
+ <details><summary>Q2 ⭐⭐⭐ (Comparison) – Differentiate between IDS and IPS.</summary><div class="in">
+ <p>Write the table:</p>
+ <div class="tw"><table><tr><th>IDS</th><th>IPS</th></tr><tr><td>Detects and alerts</td><td>Detects and blocks</td></tr><tr><td>Passive</td><td>Active</td></tr><tr><td>Out-of-band (gets copy)</td><td>In-line (traffic passes through)</td></tr><tr><td>Network continues if IDS fails</td><td>Network may stop if IPS fails</td></tr><tr><td>Example: Snort (IDS mode)</td><td>Example: Cisco Firepower</td></tr></table></div></div></details>
+
+ <details><summary>Q3 ⭐⭐⭐ (Long) – Explain IDS. Describe NIDS, HIDS, signature-based and anomaly-based detection.</summary><div class="in">
+ <p><b>IDS</b> monitors network or host activity, detects suspicious behaviour and sends alert to admin. It does not block.</p>
+ <ul><li><b>NIDS:</b> placed on network, monitors traffic of many devices (Snort).</li><li><b>HIDS:</b> installed on one host, monitors logs, files, processes (OSSEC).</li><li><b>Signature-based:</b> matches known attack patterns; accurate but cannot detect new attacks.</li><li><b>Anomaly-based:</b> compares with normal baseline; detects new attacks but more false positives.</li></ul>
+ <p>Draw Diagram 3 (IDS gets copy of traffic and sends alert).</p></div></details>
+
+ <details><summary>Q4 ⭐⭐⭐ (Long, diagram) – Explain working of IPS with a neat diagram.</summary><div class="in">
+ <p>Draw Diagram 4. Steps: (1) Traffic passes through IPS. (2) IPS inspects packets. (3) Detects using signature, anomaly, policy. (4) Clean traffic forwarded. (5) Malicious traffic dropped, IP blocked or connection reset. (6) Log and alert. Types: NIPS and HIPS.</p></div></details>
+
+ <details><summary>Q5 ⭐⭐⭐ (Long, diagram) – What is a VPN concentrator? Explain its working with diagram.</summary><div class="in">
+ <p>A VPN concentrator is a dedicated device that creates and manages many encrypted VPN tunnels and authenticates remote users or sites. Draw Diagram 5. Steps: user connects, authenticates (password/certificate/OTP), keys are exchanged, encrypted tunnel is created, data encrypted at client and decrypted at concentrator, policy applied, data forwarded to LAN. Mention IPsec and SSL VPN.</p></div></details>
+
+ <details><summary>Q6 ⭐⭐ (Short) – What is DMZ? Why is it used?</summary><div class="in">
+ <p>DMZ is a separate network zone between the Internet and internal LAN, where public servers like web and mail are placed. It is used to protect the internal network: if a DMZ server is hacked, the attacker still cannot directly access the LAN. Draw Diagram 2.</p></div></details>
+
+ <details><summary>Q7 ⭐⭐ (Long) – Explain content screening gateway and its functions.</summary><div class="in">
+ <p>It is a device between users and the Internet that inspects web, email and file content. Functions: web filtering, URL filtering, email filtering, spam filtering, malware and attachment scanning, content inspection, DLP. Draw Diagram 6. Advantages: blocks malware, enforces policy. Limitations: false positives, cannot inspect HTTPS without SSL inspection.</p></div></details>
+
+ <details><summary>Q8 ⭐⭐ (Comparison) – Differentiate between remote-access VPN and site-to-site VPN. / Differentiate between stateless and stateful firewall.</summary><div class="in">
+ <p>Use Table 9 or Table 5 from the "11 Comparison Tables" section. Write at least 5 points. Add an example for each.</p></div></details>
+
+ <details><summary>Q9 ⭐⭐ (Short) – Write short notes on: (a) Packet filtering firewall (b) Proxy firewall (c) NGFW (d) HIDS</summary><div class="in">
+ <p>Write 4-5 lines each: definition, how it works, one advantage, one disadvantage, example. Use the "Exam answers" and definition boxes in the topic sections.</p></div></details>
+
+ <details><summary>Q10 ⭐ (Practice, diagram) – Draw and explain an integrated network security architecture containing firewall, IDS/IPS, VPN and content gateway.</summary><div class="in">
+ <p>Draw Diagram 7. Explain that the firewall is at the perimeter, IPS behind it, DMZ for public servers, VPN concentrator for remote users, content gateway for web and email, IDS and SIEM for monitoring. Mention defense in depth: if one layer fails, others still protect.</p></div></details>
+</section>
+<section class="topic" id="rev" data-title="quick revision one page notes important definitions key differences compact">
+ <h2>Quick Revision (One-Page Notes)</h2>
+ <span class="badge exam">REVISION</span>
+
+ <h3>Important definitions (copy and memorize)</h3>
+ <div class="def"><b class="t">Firewall</b><p>A hardware or software security system that monitors network traffic and allows or blocks it according to predefined security rules.</p></div>
+ <div class="def"><b class="t">IDS</b><p>A tool that monitors network or host activity, detects suspicious behaviour and sends alerts. It does not block traffic.</p></div>
+ <div class="def"><b class="t">IPS</b><p>An in-line security device that inspects traffic and automatically blocks malicious activity in real time.</p></div>
+ <div class="def"><b class="t">VPN</b><p>A technology that creates a secure encrypted tunnel over a public network such as the Internet.</p></div>
+ <div class="def"><b class="t">VPN Concentrator</b><p>A dedicated device that creates and manages many VPN tunnels at once and handles encryption and authentication of remote users or sites.</p></div>
+ <div class="def"><b class="t">Content Screening Gateway</b><p>A device between users and the Internet that inspects web, email and file content and blocks harmful or unwanted content.</p></div>
+ <div class="def"><b class="t">DMZ</b><p>A separate network zone between the Internet and internal LAN, used for public-facing servers.</p></div>
+
+ <h3>One-page summary</h3>
+ <ul>
+  <li><b>Firewall types:</b> Packet filter, Stateful, Application/Proxy, Circuit-level, NGFW.</li>
+  <li><b>Firewall working:</b> read packet → match rules top to bottom → allow/deny → default deny → log.</li>
+  <li><b>IDS:</b> passive, gets a copy, detects + alerts. Types: NIDS, HIDS. Methods: signature, anomaly.</li>
+  <li><b>IPS:</b> active, in-line, detects + blocks. Types: NIPS, HIPS. Actions: drop, block IP, reset, rate limit.</li>
+  <li><b>VPN concentrator:</b> authenticate → negotiate keys → tunnel → encrypt/decrypt. Types: remote-access, site-to-site. Protocols: IPsec, SSL/TLS.</li>
+  <li><b>Content gateway:</b> web filter, URL filter, email filter, spam filter, malware scan, content inspection, DLP.</li>
+  <li><b>Extra:</b> NGFW, UTM, SWG, Email gateway, WAF, NAC, SIEM, Zero Trust.</li>
+ </ul>
+
+ <h3>Key differences in compact form</h3>
+ <div class="tw"><table>
+  <tr><th>Pair</th><th>Short difference</th></tr>
+  <tr><td>Firewall vs IDS</td><td>Firewall blocks by rules; IDS only alerts.</td></tr>
+  <tr><td>IDS vs IPS</td><td>IDS passive, out-of-band; IPS active, in-line.</td></tr>
+  <tr><td>Stateless vs Stateful</td><td>Stateful remembers connections.</td></tr>
+  <tr><td>Signature vs Anomaly</td><td>Known attacks vs unknown/abnormal behaviour.</td></tr>
+  <tr><td>NIDS vs HIDS</td><td>Network-wide vs single host.</td></tr>
+  <tr><td>Remote-access vs Site-to-site</td><td>One user vs whole network.</td></tr>
+  <tr><td>Firewall vs Content gateway</td><td>Who/where (IP, port) vs what (content).</td></tr>
+  <tr><td>UTM vs NGFW</td><td>All-in-one box vs smart application-aware firewall.</td></tr>
+ </table></div>
+</section>
+
+<section class="topic" id="mnem" data-title="mnemonics memory tricks">
+ <h2>Mnemonics and Memory Tricks</h2>
+ <span class="badge exam">REVISION</span>
+ <div class="tw"><table>
+  <tr><th>Topic</th><th>Trick</th></tr>
+  <tr><td>5 firewall types</td><td><b>"Please Study All Concepts Nicely"</b> = <b>P</b>acket filter, <b>S</b>tateful, <b>A</b>pplication proxy, <b>C</b>ircuit-level, <b>N</b>GFW.</td></tr>
+  <tr><td>Security products as people</td><td><b>Firewall</b> = gate guard • <b>IDS</b> = CCTV alarm • <b>IPS</b> = guard who catches the thief • <b>VPN</b> = private tunnel • <b>Content gateway</b> = airport bag scanner.</td></tr>
+  <tr><td>IDS vs IPS</td><td><b>D</b>etection = <b>D</b>on't stop (IDS). <b>P</b>revention = <b>P</b>ut a stop (IPS).</td></tr>
+  <tr><td>Firewall rule policy</td><td>"<b>Deny first, allow later</b>" = Default Deny.</td></tr>
+  <tr><td>VPN essentials</td><td><b>T-E-A</b>: <b>T</b>unnel, <b>E</b>ncryption, <b>A</b>uthentication.</td></tr>
+  <tr><td>Content gateway functions</td><td><b>"W U E S M C D"</b> = <b>W</b>eb, <b>U</b>RL, <b>E</b>mail, <b>S</b>pam, <b>M</b>alware, <b>C</b>ontent inspection, <b>D</b>LP.</td></tr>
+  <tr><td>IDS placement</td><td>IDS gets a <b>copy</b> (mirror); IPS is <b>in-line</b> (in the line).</td></tr>
+  <tr><td>Detection methods</td><td><b>Signature = Same as known</b>; <b>Anomaly = Abnormal behaviour</b>.</td></tr>
+  <tr><td>Zero Trust</td><td>"<b>Never trust, always verify</b>".</td></tr>
+  <tr><td>DMZ</td><td>"<b>D</b>anger zone for <b>M</b>ail and web <b>Z</b>erver" – public servers live here.</td></tr>
+ </table></div>
+</section>
+
+<section class="topic" id="mcq" data-title="mcq multiple choice questions quiz 20">
+ <h2>20 Multiple Choice Questions (MCQs)</h2>
+ <span class="badge exam">PRACTICE</span>
+ <p>Click an option. You will get instant feedback.</p>
+ <div class="sticky-score" id="mcq-score">Score: 0 / 20</div>
+ <div id="mcq-box"></div>
+ <button class="btn alt" id="mcq-reset">Reset MCQs</button>
+</section>
+
+<section class="topic" id="fib" data-title="fill in the blanks quiz 10">
+ <h2>10 Fill in the Blanks</h2>
+ <span class="badge exam">PRACTICE</span>
+ <p>Type the missing word and press <b>Check</b>.</p>
+ <div class="sticky-score" id="fib-score">Score: 0 / 10</div>
+ <div id="fib-box"></div>
+ <button class="btn alt" id="fib-reset">Reset</button>
+</section>
+
+<section class="topic" id="tf" data-title="true false quiz 10">
+ <h2>10 True / False Questions</h2>
+ <span class="badge exam">PRACTICE</span>
+ <div class="sticky-score" id="tf-score">Score: 0 / 10</div>
+ <div id="tf-box"></div>
+ <button class="btn alt" id="tf-reset">Reset</button>
+</section>
+
+<section class="topic" id="final" data-title="final self assessment quiz score">
+ <h2>Final Self-Assessment Quiz</h2>
+ <span class="badge exam">TEST YOURSELF</span>
+ <p>15 random questions from all MCQ and True/False questions. Answer all, then see your score.</p>
+ <div id="final-box"></div>
+ <button class="btn" id="final-submit">Submit and see score</button>
+ <button class="btn alt" id="final-new">New random test</button>
+ <div class="score" id="final-result"></div>
+ <div class="hing"><b class="t">Hinglish</b><p>Score 12+ aaye to taiyari achhi hai. 8 se kam aaye to Level 2 topics dobara padho aur comparison tables yaad karo. Best of luck, Amrit!</p></div>
+</section>
+
+<p style="text-align:center;color:var(--muted)">End of Unit 4 notes • Prepared for BTEUP Diploma CSE • Always confirm with your official syllabus and teacher notes.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+/* ---------- THEME ---------- */
+var root=document.documentElement,themeBtn=$("#theme");
+function setTheme(t){root.setAttribute("data-theme",t);themeBtn.textContent=t==="dark"?"☀ Light":"🌙 Dark";try{localStorage.setItem("u4theme",t)}catch(e){}}
+var saved=null;try{saved=localStorage.getItem("u4theme")}catch(e){}
+if(!saved){saved=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light"}
+setTheme(saved);
+themeBtn.onclick=function(){setTheme(root.getAttribute("data-theme")==="dark"?"light":"dark")};
+
+/* ---------- MENU (mobile) ---------- */
+var side=$("#side");
+$("#menu").onclick=function(){side.classList.toggle("open")};
+$$("#side a").forEach(function(a){a.addEventListener("click",function(){side.classList.remove("open")})});
+
+/* ---------- EXPAND / COLLAPSE / PRINT ---------- */
+$("#expand").onclick=function(){$$("details").forEach(function(d){d.open=true})};
+$("#collapse").onclick=function(){$$("details").forEach(function(d){d.open=false})};
+$("#print").onclick=function(){$$("details").forEach(function(d){d.open=true});window.print()};
+window.addEventListener("beforeprint",function(){$$("details").forEach(function(d){d.open=true})});
+
+/* ---------- COPY BUTTONS ---------- */
+function copyText(t,btn){
+  function done(){var o=btn.textContent;btn.textContent="Copied ✓";setTimeout(function(){btn.textContent=o},1400)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(done,function(){fallback()})}else{fallback()}
+  function fallback(){var ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(ta);done()}
+}
+$$(".def").forEach(function(d){
+  var b=document.createElement("button");b.className="copy noprint";b.textContent="Copy";
+  b.onclick=function(){var p=$("p",d);copyText(p?p.textContent:d.textContent,b)};
+  d.appendChild(b);
+});
+
+/* ---------- SEARCH ---------- */
+var secs=$$("section.topic"),links=$$("#side a[href^='#']");
+$("#search").addEventListener("input",function(){
+  var q=this.value.trim().toLowerCase(),any=false;
+  secs.forEach(function(s){
+    var hit=!q||((s.getAttribute("data-title")||"")+" "+s.textContent).toLowerCase().indexOf(q)>-1;
+    s.style.display=hit?"":"none";if(hit)any=true;
+    var l=$("#side a[href='#"+s.id+"']");if(l)l.classList.toggle("hide",!hit);
+  });
+  if(q){$$("details").forEach(function(d){if(d.parentNode.style.display!=="none"&&d.textContent.toLowerCase().indexOf(q)>-1)d.open=true})}
+  $("#noresult").style.display=any?"none":"block";
+});
+
+/* ---------- SCROLL SPY ---------- */
+window.addEventListener("scroll",function(){
+  var y=window.scrollY+90,cur=null;
+  secs.forEach(function(s){if(s.style.display!=="none"&&s.offsetTop<=y)cur=s.id});
+  links.forEach(function(l){l.classList.toggle("active",l.getAttribute("href")==="#"+cur)});
+},{passive:true});
+
+/* ---------- QUIZ DATA ---------- */
+var MCQ=[
+{q:"A firewall is normally placed between:",o:["Two printers","A trusted LAN and an untrusted network like the Internet","Keyboard and monitor","Two USB ports"],a:1,e:"Firewall sits at the boundary of trusted LAN and untrusted Internet."},
+{q:"Which firewall keeps a state table of active connections?",o:["Packet filtering firewall","Stateful inspection firewall","Hub","Repeater"],a:1,e:"Stateful inspection tracks connection state."},
+{q:"Which firewall acts as a middleman and inspects application data?",o:["Proxy / application-level firewall","Packet filter","Circuit-level gateway only","Modem"],a:0,e:"Proxy firewall works at the application layer."},
+{q:"DMZ is mainly used to place:",o:["Student marksheets","Public-facing servers such as web and mail","Personal laptops only","Backup tapes"],a:1,e:"DMZ separates public servers from the internal LAN."},
+{q:"The safest default firewall policy is:",o:["Default allow","Default deny","No policy","Allow all outbound and inbound"],a:1,e:"Default deny blocks everything not clearly allowed."},
+{q:"The main function of an IDS is to:",o:["Detect suspicious activity and send alerts","Encrypt files","Create VPN tunnels","Speed up the Internet"],a:0,e:"IDS detects and alerts; it does not block."},
+{q:"An IPS is placed:",o:["Out-of-band on a mirror port","In-line in the traffic path","Only on a printer","Outside the building"],a:1,e:"IPS must be in-line so it can block traffic."},
+{q:"Snort is an example of:",o:["Spreadsheet software","Open-source IDS/IPS","VPN client only","Web browser"],a:1,e:"Snort is a well-known open-source IDS/IPS."},
+{q:"HIDS is installed on:",o:["A single host computer","The Internet backbone","Every router in the world","A monitor"],a:0,e:"Host-based IDS monitors one host."},
+{q:"Which detection method can detect new (zero-day) attacks?",o:["Signature-based","Anomaly-based","Manual typing","Colour-based"],a:1,e:"Anomaly detection flags behaviour different from normal."},
+{q:"A false negative in IDS means:",o:["Harmless traffic flagged","A real attack was missed","IDS turned off","Alert sent twice"],a:1,e:"False negative = real attack not detected."},
+{q:"A VPN concentrator is used to:",o:["Create and manage many encrypted VPN tunnels","Print documents","Store emails","Charge mobile phones"],a:0,e:"It handles many VPN connections together."},
+{q:"A site-to-site VPN connects:",o:["One user and one phone","Two or more complete networks","Keyboard and mouse","Two monitors"],a:1,e:"Gateways connect whole networks permanently."},
+{q:"IPsec mainly works at which layer?",o:["Network layer","Physical layer","Presentation layer only","Cable layer"],a:0,e:"IPsec secures IP packets at the network layer."},
+{q:"URL filtering is used to:",o:["Allow or block websites by address or category","Increase RAM","Compress videos","Format a hard disk"],a:0,e:"URL filtering controls website access."},
+{q:"DLP is used to prevent:",o:["Sensitive data from leaving the organization","Power cuts","Screen flicker","Keyboard errors"],a:0,e:"DLP = Data Loss Prevention."},
+{q:"A WAF protects:",o:["Web applications from attacks like SQL injection and XSS","Only USB drives","Only Wi-Fi passwords","Printers"],a:0,e:"WAF filters HTTP/HTTPS requests to web apps."},
+{q:"UTM is:",o:["An all-in-one security appliance","A type of keyboard","A cable","A database"],a:0,e:"UTM combines firewall, IPS, antivirus, VPN, filtering."},
+{q:"Zero Trust means:",o:["Trust everything inside the network","Never trust, always verify","Trust only the Internet","No security needed"],a:1,e:"Every access request is verified."},
+{q:"A circuit-level gateway mainly checks:",o:["TCP handshake / session validity","Email spelling","Image colours","Video quality"],a:0,e:"It validates sessions, not content."}
+];
+var FIB=[
+{q:"A firewall uses ___ to allow or block traffic.",a:["rules","rule","acl","access control list","security rules"],e:"Firewall rules / ACL decide allow or deny."},
+{q:"A ___ firewall remembers the state of connections.",a:["stateful"],e:"Stateful inspection firewall."},
+{q:"Public servers are placed in the ___ zone.",a:["dmz"],e:"DMZ = Demilitarized Zone."},
+{q:"IDS only ___ and sends alerts.",a:["detects","detect","detection"],e:"IDS detects but does not block."},
+{q:"IPS is placed ___ in the network path.",a:["in-line","inline","in line"],e:"IPS is in-line."},
+{q:"___-based detection compares traffic with known attack patterns.",a:["signature"],e:"Signature-based detection."},
+{q:"A VPN concentrator creates encrypted ___.",a:["tunnels","tunnel"],e:"VPN tunnels."},
+{q:"___ VPN connects two offices permanently.",a:["site-to-site","site to site","sitetosite"],e:"Site-to-site VPN."},
+{q:"___ filtering allows or blocks websites by their address.",a:["url","web"],e:"URL filtering."},
+{q:"DLP stands for Data ___ Prevention.",a:["loss"],e:"Data Loss Prevention."}
+];
+var TF=[
+{q:"A firewall can stop all insider attacks.",a:false,e:"Firewall cannot stop all insider attacks."},
+{q:"IDS automatically blocks attacks.",a:false,e:"IDS only detects and alerts."},
+{q:"IPS is placed in-line in the traffic path.",a:true,e:"Yes, IPS is in-line."},
+{q:"DMZ keeps public servers separate from the internal LAN.",a:true,e:"That is the purpose of DMZ."},
+{q:"Anomaly-based detection can find new attacks.",a:true,e:"It detects deviations from normal."},
+{q:"HIDS monitors the traffic of the whole network.",a:false,e:"HIDS monitors a single host; NIDS monitors the network."},
+{q:"A packet filtering firewall keeps a state table.",a:false,e:"State table belongs to stateful firewall."},
+{q:"A site-to-site VPN connects two networks.",a:true,e:"Correct."},
+{q:"Content screening gateways can scan email attachments.",a:true,e:"Yes, malware and attachment scanning is a function."},
+{q:"Default allow is the safest firewall policy.",a:false,e:"Default deny is safest."}
+];
+
+/* ---------- QUIZ ENGINE ---------- */
+function mcqBlock(box,data,scoreEl,store){
+  box.innerHTML="";store.s=0;store.d=0;scoreEl.textContent="Score: 0 / "+data.length;
+  data.forEach(function(it,i){
+    var w=document.createElement("div");w.className="quiz-q";
+    var h=document.createElement("div");h.innerHTML="<b>Q"+(i+1)+".</b> ";h.appendChild(document.createTextNode(it.q));w.appendChild(h);
+    var fb=document.createElement("div");fb.className="fb";
+    var done=false,btns=[];
+    it.o.forEach(function(t,k){
+      var b=document.createElement("button");b.className="opt";b.textContent=String.fromCharCode(65+k)+". "+t;
+      b.onclick=function(){
+        if(done)return;done=true;store.d++;
+        if(k===it.a){b.classList.add("right");store.s++;fb.innerHTML="✅ Correct! "+it.e}
+        else{b.classList.add("wrong");btns[it.a].classList.add("right");fb.innerHTML="❌ Wrong. Correct answer: <b>"+String.fromCharCode(65+it.a)+"</b>. "+it.e}
+        scoreEl.textContent="Score: "+store.s+" / "+data.length+(store.d===data.length?"  — Finished!":"");
+      };
+      btns.push(b);w.appendChild(b);
+    });
+    w.appendChild(fb);box.appendChild(w);
+  });
+}
+var m1={},f1={},t1={};
+function initMCQ(){mcqBlock($("#mcq-box"),MCQ,$("#mcq-score"),m1)}
+function initTF(){
+  var data=TF.map(function(x){return {q:x.q,o:["True","False"],a:x.a?0:1,e:x.e}});
+  mcqBlock($("#tf-box"),data,$("#tf-score"),t1);
+}
+function initFIB(){
+  var box=$("#fib-box");box.innerHTML="";f1.s=0;f1.d=0;$("#fib-score").textContent="Score: 0 / "+FIB.length;
+  FIB.forEach(function(it,i){
+    var w=document.createElement("div");w.className="quiz-q fib";
+    var parts=it.q.split("___");
+    var p=document.createElement("div");p.innerHTML="<b>Q"+(i+1)+".</b> ";
+    p.appendChild(document.createTextNode(parts[0]));
+    var inp=document.createElement("input");inp.type="text";inp.setAttribute("aria-label","answer "+(i+1));inp.autocomplete="off";
+    p.appendChild(inp);p.appendChild(document.createTextNode(parts[1]||""));w.appendChild(p);
+    var bt=document.createElement("button");bt.className="btn alt";bt.textContent="Check";bt.style.marginTop="6px";
+    var fb=document.createElement("div");fb.className="fb";
+    var done=false;
+    function check(){
+      if(done)return;var v=inp.value.trim().toLowerCase();if(!v){fb.textContent="Type an answer first.";return}
+      done=true;f1.d++;inp.disabled=true;bt.disabled=true;
+      if(it.a.indexOf(v)>-1){f1.s++;fb.innerHTML="✅ Correct! "+it.e}
+      else{fb.innerHTML="❌ Not correct. Answer: <b>"+it.a[0]+"</b>. "+it.e}
+      $("#fib-score").textContent="Score: "+f1.s+" / "+FIB.length+(f1.d===FIB.length?"  — Finished!":"");
+    }
+    bt.onclick=check;inp.addEventListener("keydown",function(e){if(e.key==="Enter")check()});
+    w.appendChild(bt);w.appendChild(fb);box.appendChild(w);
+  });
+}
+var finalSet=[],finalAns=[];
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function initFinal(){
+  var pool=MCQ.map(function(x){return {q:x.q,o:x.o,a:x.a,e:x.e}}).concat(TF.map(function(x){return {q:x.q,o:["True","False"],a:x.a?0:1,e:x.e}}));
+  finalSet=shuffle(pool).slice(0,15);finalAns=new Array(15);
+  var box=$("#final-box");box.innerHTML="";$("#final-result").textContent="";$("#final-submit").disabled=false;
+  finalSet.forEach(function(it,i){
+    var w=document.createElement("div");w.className="quiz-q";
+    var h=document.createElement("div");h.innerHTML="<b>Q"+(i+1)+".</b> ";h.appendChild(document.createTextNode(it.q));w.appendChild(h);
+    var bs=[];
+    it.o.forEach(function(t,k){
+      var b=document.createElement("button");b.className="opt";b.textContent=String.fromCharCode(65+k)+". "+t;
+      b.onclick=function(){if($("#final-submit").disabled)return;finalAns[i]=k;bs.forEach(function(x){x.style.outline=""});b.style.outline="2px solid var(--primary)"};
+      bs.push(b);w.appendChild(b);
+    });
+    var fb=document.createElement("div");fb.className="fb";fb.id="ff"+i;w.appendChild(fb);
+    w._bs=bs;box.appendChild(w);
+  });
+}
+$("#final-submit").onclick=function(){
+  var s=0,un=0;
+  $$("#final-box .quiz-q").forEach(function(w,i){
+    var it=finalSet[i],ans=finalAns[i];
+    if(ans===undefined)un++;
+    w._bs.forEach(function(b){b.style.outline=""});
+    w._bs[it.a].classList.add("right");
+    if(ans===it.a){s++}else{if(ans!==undefined)w._bs[ans].classList.add("wrong");$("#ff"+i).innerHTML="Correct: <b>"+String.fromCharCode(65+it.a)+"</b>. "+it.e}
+  });
+  this.disabled=true;
+  var msg=s>=13?"Excellent! You are well prepared. 🌟":s>=10?"Good. Revise the weak topics once more. 👍":s>=7?"Average. Re-read Level 2 and the comparison tables.":"Needs work. Start again from Level 1 and Level 2.";
+  $("#final-result").textContent="Your score: "+s+" / 15"+(un?" ("+un+" unanswered)":"")+" — "+msg;
+};
+$("#final-new").onclick=initFinal;
+$("#mcq-reset").onclick=initMCQ;$("#tf-reset").onclick=initTF;$("#fib-reset").onclick=initFIB;
+initMCQ();initFIB();initTF();initFinal();
+})();
+</script>
+</body>
+</html>
