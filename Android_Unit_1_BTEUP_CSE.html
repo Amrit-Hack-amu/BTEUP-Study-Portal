@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android Unit 1 – BTEUP CSE Notes</title>
+<style>
+:root{
+  --bg:#f4f6fb;--card:#ffffff;--text:#1d2433;--muted:#5b6578;--pri:#2563eb;--pri2:#1e40af;
+  --side:#0f172a;--sidetext:#cbd5e1;--border:#dbe2ee;--code:#0f172a;--codetext:#e2e8f0;
+  --green:#15803d;--greenbg:#dcfce7;--blue:#1d4ed8;--bluebg:#dbeafe;--orange:#c2410c;--orangebg:#ffedd5;
+  --defbg:#eef4ff;--hinbg:#fff7e6;--notebg:#f0fdf4;--warnbg:#fef2f2;--warn:#b91c1c;--shadow:0 2px 10px rgba(15,23,42,.08);
+}
+[data-theme="dark"]{
+  --bg:#0b1220;--card:#151e30;--text:#e5eaf3;--muted:#9aa7bd;--pri:#60a5fa;--pri2:#93c5fd;
+  --side:#070c17;--sidetext:#b6c2d6;--border:#26324a;--code:#050912;--codetext:#e2e8f0;
+  --green:#4ade80;--greenbg:#12331f;--blue:#93c5fd;--bluebg:#16294d;--orange:#fdba74;--orangebg:#3a2210;
+  --defbg:#16264a;--hinbg:#3a2e12;--notebg:#10301f;--warnbg:#3b1616;--warn:#fca5a5;--shadow:0 2px 10px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.7;font-size:16px;overflow-x:hidden}
+#sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;background:var(--side);color:var(--sidetext);overflow-y:auto;z-index:50;padding:16px 12px 40px;transition:transform .25s}
+#sidebar h2{color:#fff;font-size:17px;margin:4px 8px 2px}
+#sidebar .sub{font-size:12px;margin:0 8px 12px;color:#8fa0ba}
+#sidebar a{display:block;color:var(--sidetext);text-decoration:none;padding:8px 10px;border-radius:8px;font-size:14px;line-height:1.35;margin:2px 0}
+#sidebar a:hover,#sidebar a.active{background:#1e293b;color:#fff}
+#sidebar a .n{display:inline-block;min-width:22px;color:#60a5fa;font-weight:700}
+#sidebar a.done::after{content:" ✔";color:#4ade80}
+.prog{margin:8px;font-size:12px}
+.bar{height:8px;background:#1e293b;border-radius:6px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22c55e,#3b82f6);transition:width .3s}
+#main{margin-left:290px;padding:0 0 60px;min-width:0}
+#topbar{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center;padding:10px 16px;box-shadow:var(--shadow)}
+#topbar button,.btn{background:var(--pri);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:14px;cursor:pointer}
+#topbar button.sec2,.btn.sec2{background:transparent;color:var(--text);border:1px solid var(--border)}
+#menu{display:none}
+#search{flex:1;min-width:0;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:15px}
+.wrap{max-width:980px;margin:0 auto;padding:16px}
+.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb 55%,#0ea5e9);color:#fff;border-radius:16px;padding:26px 22px;margin:8px 0 16px;box-shadow:var(--shadow)}
+.hero h1{margin:0 0 6px;font-size:28px;line-height:1.25}
+.hero p{margin:4px 0;opacity:.95}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.2px;vertical-align:middle;margin:2px 4px 2px 0;white-space:normal;line-height:1.3}
+.badge.g{background:var(--greenbg);color:var(--green);border:1px solid var(--green)}
+.badge.b{background:var(--bluebg);color:var(--blue);border:1px solid var(--blue)}
+.badge.o{background:var(--orangebg);color:var(--orange);border:1px solid var(--orange)}
+details.sec{background:var(--card);border:1px solid var(--border);border-radius:14px;margin:14px 0;box-shadow:var(--shadow);scroll-margin-top:70px}
+details.sec>summary{cursor:pointer;padding:14px 16px;font-size:19px;font-weight:700;list-style:none;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::before{content:"▶";font-size:12px;color:var(--pri);transition:transform .2s;margin-right:4px}
+details.sec[open]>summary::before{transform:rotate(90deg)}
+.sbody{padding:2px 16px 18px}
+details.topic{border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--bg)}
+details.topic>summary{cursor:pointer;padding:11px 14px;font-weight:700;font-size:17px;color:var(--pri2);list-style:none;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+details.topic>summary::-webkit-details-marker{display:none}
+details.topic>summary::before{content:"＋";color:var(--pri)}
+details.topic[open]>summary::before{content:"－"}
+.tb{padding:2px 14px 14px;background:var(--card);border-radius:0 0 12px 12px}
+h3{font-size:18px;margin:20px 0 8px;color:var(--pri2);border-left:4px solid var(--pri);padding-left:10px}
+h4{font-size:15.5px;margin:16px 0 6px;color:var(--pri2)}
+p{margin:8px 0}
+ul,ol{padding-left:22px;margin:6px 0}
+li{margin:4px 0}
+.def{background:var(--defbg);border-left:5px solid var(--pri);padding:10px 12px;border-radius:8px;margin:10px 0}
+.def.hin{background:var(--hinbg);border-left-color:#f59e0b}
+.note{background:var(--notebg);border-left:5px solid var(--green);padding:10px 12px;border-radius:8px;margin:10px 0}
+.warn{background:var(--warnbg);border-left:5px solid var(--warn);padding:10px 12px;border-radius:8px;margin:10px 0}
+.hin::before{content:"Hinglish ▸ ";font-weight:700;color:#d97706}
+.def.hin::before{content:""}
+.kw{background:rgba(250,204,21,.35);padding:0 4px;border-radius:4px;font-weight:600}
+mark.hl{background:#fde047;color:#000;border-radius:3px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--border);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--defbg)}
+pre{background:var(--code);color:var(--codetext);padding:12px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.5;white-space:pre;max-width:100%}
+code{font-family:Consolas,"Courier New",monospace;background:rgba(100,116,139,.2);padding:1px 5px;border-radius:4px;font-size:.92em;word-break:break-word}
+pre code{background:none;padding:0;word-break:normal}
+.diagram{background:var(--card);border:1px dashed var(--pri);border-radius:12px;padding:10px;margin:12px 0;text-align:center}
+.diagram svg{width:100%;height:auto;max-width:640px}
+.diagram .cap{font-size:13px;color:var(--muted);margin-top:4px}
+.d-box{fill:var(--defbg);stroke:var(--pri);stroke-width:1.5}
+.d-box2{fill:var(--notebg);stroke:var(--green);stroke-width:1.5}
+.d-box3{fill:var(--hinbg);stroke:#f59e0b;stroke-width:1.5}
+.d-box4{fill:var(--orangebg);stroke:var(--orange);stroke-width:1.5}
+.d-box5{fill:var(--warnbg);stroke:var(--warn);stroke-width:1.5}
+.d-t{fill:var(--text);font:12px system-ui,Arial,sans-serif}
+.d-tb{fill:var(--text);font:bold 13px system-ui,Arial,sans-serif}
+.d-ts{fill:var(--muted);font:10.5px system-ui,Arial,sans-serif}
+.d-l{stroke:var(--pri);stroke-width:2;fill:none}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin:10px 0}
+.flow span{background:var(--defbg);border:1.5px solid var(--pri);border-radius:8px;padding:6px 10px;font-size:13.5px;text-align:center}
+.flow b{color:var(--pri);font-size:18px}
+.tree{background:var(--code);color:var(--codetext);padding:12px;border-radius:10px;font-family:Consolas,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre}
+.tree .c{color:#7dd3fc}.tree .d{color:#86efac}
+.qa{border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--bg)}
+.qa>summary{cursor:pointer;padding:11px 14px;font-weight:700;list-style:none;display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start}
+.qa>summary::-webkit-details-marker{display:none}
+.qa .ans{padding:2px 14px 14px;background:var(--card);border-radius:0 0 12px 12px}
+.ques{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.mini{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px}
+.phone{width:240px;max-width:100%;margin:12px auto;border:8px solid #111827;border-radius:28px;background:#fff;color:#000;box-shadow:var(--shadow);overflow:hidden;font-family:Roboto,Arial,sans-serif}
+.phone .st{background:#e5e7eb;font-size:11px;padding:3px 10px;display:flex;justify-content:space-between;color:#111}
+.phone .ab{background:#6200ee;color:#fff;padding:12px 14px;font-size:17px}
+.phone .scr{height:240px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.phone .nav{background:#111827;color:#fff;display:flex;justify-content:space-around;padding:6px;font-size:14px}
+.quiz .q{border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:10px 0;background:var(--bg)}
+.quiz label{display:block;padding:5px 8px;margin:3px 0;border-radius:6px;cursor:pointer;border:1px solid transparent}
+.quiz label:hover{background:var(--defbg)}
+.quiz .ok{background:var(--greenbg)!important;border-color:var(--green)!important}
+.quiz .bad{background:var(--warnbg)!important;border-color:var(--warn)!important}
+.quiz input[type=text]{padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);width:min(260px,100%)}
+.fb{font-size:14px;margin-top:4px}
+.score{font-size:18px;font-weight:700;margin:10px 0}
+.donechk{margin-left:auto;font-size:13px;font-weight:600;color:var(--muted);display:flex;gap:6px;align-items:center}
+.donechk input{width:18px;height:18px}
+#totop{position:fixed;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;border:0;background:var(--pri);color:#fff;font-size:20px;cursor:pointer;display:none;z-index:60;box-shadow:var(--shadow)}
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:45}
+.hidden{display:none!important}
+img,svg,video{max-width:100%}
+@media (max-width:900px){
+  #sidebar{transform:translateX(-100%);width:280px}
+  #sidebar.open{transform:none}
+  #overlay.show{display:block}
+  #main{margin-left:0}
+  #menu{display:inline-block}
+  .hero h1{font-size:22px}
+  .wrap{padding:10px}
+  details.sec>summary{font-size:17px}
+  .sbody{padding:2px 10px 14px}
+  #topbar .hide-m{display:none}
+}
+@media print{
+  #sidebar,#topbar,#totop,#overlay,.donechk,.noprint{display:none!important}
+  #main{margin:0}
+  body{background:#fff;color:#000;font-size:12pt}
+  details.sec,details.topic,.qa{box-shadow:none;break-inside:avoid-page}
+  details>*{display:block!important}
+  details.sec>summary::before,details.topic>summary::before{content:""}
+  pre,.tree{white-space:pre-wrap;color:#000;background:#f3f4f6;border:1px solid #999}
+  .hero{background:#fff;color:#000;border:2px solid #000}
+}
+</style>
+</head>
+<body>
+<div id="overlay"></div>
+<nav id="sidebar" aria-label="Table of contents">
+  <h2>📱 Android – Unit 1</h2>
+  <div class="sub">BTEUP Diploma CSE • Exam Notes</div>
+  <div class="prog"><span id="progtxt">Progress: 0%</span><div class="bar"><i id="progbar"></i></div></div>
+  <a href="#intro"><span class="n">★</span>How to use these notes</a>
+  <a href="#s1" data-sec="s1"><span class="n">1</span>Syllabus Topics (8 topics)</a>
+  <a href="#s2" data-sec="s2"><span class="n">2</span>Android Platform</a>
+  <a href="#s3" data-sec="s3"><span class="n">3</span>Android SDK</a>
+  <a href="#s4" data-sec="s4"><span class="n">4</span>Eclipse Installation</a>
+  <a href="#s5" data-sec="s5"><span class="n">5</span>Android Installation</a>
+  <a href="#s6" data-sec="s6"><span class="n">6</span>First Android App</a>
+  <a href="#s7" data-sec="s7"><span class="n">7</span>Anatomy of Android App</a>
+  <a href="#s8" data-sec="s8"><span class="n">8</span>AndroidManifest.xml</a>
+  <a href="#s9" data-sec="s9"><span class="n">9</span>Extra Knowledge (Blue)</a>
+  <a href="#s10" data-sec="s10"><span class="n">10</span>Important Diagrams</a>
+  <a href="#s11" data-sec="s11"><span class="n">11</span>10 Important Questions</a>
+  <a href="#s12" data-sec="s12"><span class="n">12</span>Quick Revision</a>
+  <a href="#s13" data-sec="s13"><span class="n">13</span>Self-Assessment Test</a>
+  <div class="prog" style="margin-top:14px"><button class="btn sec2" id="resetprog" style="color:#cbd5e1;border-color:#334155;font-size:12px">Reset progress</button></div>
+</nav>
+
+<div id="main">
+<div id="topbar">
+  <button id="menu" aria-label="Open menu">☰</button>
+  <input id="search" type="search" placeholder="🔍 Search notes (e.g. ADB, manifest, ART)…" aria-label="Search">
+  <button class="sec2 hide-m" id="expand">Expand all</button>
+  <button class="sec2 hide-m" id="collapse">Collapse all</button>
+  <button class="sec2 hide-m" onclick="window.print()">🖨 Print</button>
+  <button id="theme" class="sec2" aria-label="Toggle dark mode">🌙</button>
+</div>
+<div class="wrap">
+
+<div class="hero" id="top">
+  <h1>Android Application Development – Unit 1</h1>
+  <p>Complete exam-oriented notes • BTEUP Diploma CSE • English + Hinglish</p>
+  <p style="font-size:14px">Works fully offline • Dark/Light mode • Search • Progress tracking • Print-friendly</p>
+</div>
+
+<details class="sec" id="intro" open>
+<summary>★ How to use these notes <span class="badge g">GREEN = IN BTEUP SYLLABUS</span></summary>
+<div class="sbody">
+<h4>Badge meaning</h4>
+<p><span class="badge g">IN BTEUP SYLLABUS</span> Topic is directly in your Unit 1 syllabus – <b>must study for exam</b>.</p>
+<p><span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span> Useful knowledge only – <b>not required</b> for the exam (Section 9 only).</p>
+<p><span class="badge o">5 MARKS – IMPORTANT</span> Likely examination question with a full answer (Section 11).</p>
+<h4>Unit 1 syllabus (8 topics)</h4>
+<ol>
+<li>Introduction to Android</li><li>The Android Platform</li><li>Android SDK</li><li>Eclipse Installation</li><li>Android Installation</li><li>Building Your First Android Application</li><li>Understanding Anatomy of Android Application</li><li>Android Manifest File</li>
+</ol>
+<h4>Best study plan (Hinglish)</h4>
+<div class="def hin">Pehle <b>Section 1</b> padho (har topic ki basic understanding). Phir Sections 2–8 me detail dekho. Uske baad <b>Section 11</b> ke 10 questions yaad karo, <b>Section 12</b> se revise karo, aur <b>Section 13</b> test do. Har section ke end me "Mark as read" tick karo – progress sidebar me dikhega.</div>
+<div class="note"><b>Important:</b> The syllabus mentions <b>Eclipse</b> because it is old. Eclipse + ADT is a <b>legacy (old)</b> setup. Learn it for the exam, but in real life we use <b>Android Studio</b>. Both are explained clearly below.</div>
+</div>
+</details>
+<!-- ============ SECTION 1 ============ -->
+<details class="sec" id="s1">
+<summary>1. Syllabus Topics – Basic to Advanced <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s1"> Mark as read</label></summary>
+<div class="sbody">
+<p>Every topic below follows the same 13-point format: definitions, explanation, examples, features, pros/cons, working steps, keywords, diagram, short notes and 5-mark questions. Tap a topic to open it.</p>
+
+<!-- Topic 1 -->
+<details class="topic"><summary>1.1 Introduction to Android <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> <span class="kw">Android</span> is a free and <span class="kw">open-source</span> mobile operating system based on the <span class="kw">Linux kernel</span>. It is developed by Google and is used in smartphones, tablets, smart TVs, smartwatches and cars.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> Android ek free aur open-source mobile operating system hai jo Linux kernel par bana hai. Isse Google develop karta hai. Hamare mobile, tablet, smart TV aur smartwatch me yahi chalta hai.</div>
+<h4>Detailed explanation (English)</h4>
+<p>An operating system (OS) is the main software that controls the hardware (screen, camera, battery, network) and lets apps run. Android is such an OS for touch-screen devices. It was first created by <b>Android Inc.</b> (2003), bought by <b>Google</b> in 2005, and the first phone with Android was released in <b>2008</b>. Developers write apps mostly in <b>Java</b> or <b>Kotlin</b>, design screens in <b>XML</b>, and publish apps on <b>Google Play Store</b>.</p>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Operating system wo software hota hai jo hardware (screen, camera, battery) ko control karta hai aur apps ko chalne deta hai. Jaise computer me Windows hai, waise mobile me Android hai. Android open-source hai, matlab koi bhi company (Samsung, Xiaomi, Realme) isse use kar sakti hai. Isliye Android phones sasta se mehenge tak sab range me milte hain.</div>
+<h4>Real-life example</h4>
+<p>When you open WhatsApp, tap the camera icon, and take a photo – Android gives WhatsApp permission to use the camera hardware. Android is the "manager" between the app and the phone.</p>
+<h4>Practical example</h4>
+<p>A simple Android app: a "Calculator" app made with Java + XML. The XML draws buttons; Java adds the logic (2 + 3 = 5). Android runs it on any phone.</p>
+<h4>Important features</h4>
+<ul><li>Open-source and free</li><li>Based on Linux kernel</li><li>Touch-screen friendly user interface</li><li>Multitasking and background services</li><li>Huge app store (Google Play)</li><li>Supports Wi-Fi, Bluetooth, GPS, sensors, camera</li></ul>
+<h4>Advantages &amp; Disadvantages</h4>
+<table><tr><th>Advantages</th><th>Disadvantages</th></tr>
+<tr><td>Free and open-source; many device choices; easy app development; large community; customizable</td><td>Many versions (fragmentation); security risks from unknown apps; battery drain by background apps; updates depend on the manufacturer</td></tr></table>
+<h4>Working process (step-by-step)</h4>
+<ol><li>Developer writes the app in Java/Kotlin + XML.</li><li>The code is compiled into an <b>APK</b> file.</li><li>APK is installed on the device.</li><li>Android starts a separate process for the app and runs it using <b>ART</b>.</li><li>The app asks Android for hardware access (camera, internet) through the framework.</li></ol>
+<h4>Important terms</h4>
+<p><span class="kw">OS</span>, <span class="kw">Open Source</span>, <span class="kw">Linux Kernel</span>, <span class="kw">APK</span>, <span class="kw">Google Play</span>, <span class="kw">Java/Kotlin</span>, <span class="kw">OHA</span> (Open Handset Alliance)</p>
+<h4>Diagram</h4>
+<div class="flow"><span>User</span><b>→</b><span>Android App</span><b>→</b><span>Android OS</span><b>→</b><span>Hardware</span></div>
+<div class="note"><b>Exam short note:</b> Android = open-source, Linux-based mobile OS by Google (first phone 2008). Apps written in Java/Kotlin, distributed as APK, sold on Play Store.</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4>
+<ul><li>What is Android? Explain its features.</li><li>Write a short note on the history of Android.</li></ul>
+</div></details>
+
+<!-- Topic 2 -->
+<details class="topic"><summary>1.2 The Android Platform <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> The <span class="kw">Android platform</span> is the complete software stack (a group of layers) that includes the operating system, middleware, libraries, runtime and key applications needed to run Android apps.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> Android platform ka matlab hai Android ka poora software stack – Linux kernel se lekar apps tak sab layers ka group. Isse hi "Android architecture" bhi kehte hain.</div>
+<h4>Detailed explanation (English)</h4>
+<p>The platform is built in <b>layers</b>. Each layer uses the services of the layer below it: (1) Linux Kernel, (2) Hardware Abstraction Layer (HAL), (3) Native C/C++ Libraries and Android Runtime (ART), (4) Java API Framework, (5) System Apps / User Apps. A developer usually works at the top two layers.</p>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Platform ko ek 5-manzil building samjho. Sabse neeche Linux kernel (foundation) hai, upar HAL, phir libraries + ART, phir Framework, aur sabse upar apps. Har upar wali layer neeche wali layer ki service use karti hai.</div>
+<h4>Real-life example</h4>
+<p>Like a building: foundation (Kernel), pipes and wiring (HAL, Libraries), management office (Framework), and flats where people live (Apps).</p>
+<h4>Practical example</h4>
+<p>When an app calls <code>Camera.open()</code>: App → Framework (Camera Service) → HAL (camera module) → Kernel (camera driver) → Camera hardware.</p>
+<h4>Features</h4>
+<ul><li>Layered and modular design</li><li>Open source (AOSP)</li><li>Rich application framework</li><li>Optimised runtime (ART)</li><li>Hardware independent through HAL</li></ul>
+<h4>Advantages &amp; Disadvantages</h4>
+<table><tr><th>Advantages</th><th>Disadvantages</th></tr><tr><td>Easy to update one layer; same app runs on many devices; secure process isolation</td><td>Complex for beginners; layers add some overhead; manufacturer changes cause differences</td></tr></table>
+<h4>Working process</h4>
+<ol><li>Phone boots → Linux kernel loads drivers.</li><li>Android system services start.</li><li>Home screen (launcher app) opens.</li><li>User taps an app → framework starts the app process with ART.</li></ol>
+<h4>Important terms</h4>
+<p><span class="kw">Kernel</span>, <span class="kw">HAL</span>, <span class="kw">ART</span>, <span class="kw">Framework</span>, <span class="kw">AOSP</span>, <span class="kw">Stack</span></p>
+<h4>Diagram</h4>
+<div class="flow"><span>Apps</span><b>↓</b><span>Framework</span><b>↓</b><span>Libraries + ART</span><b>↓</b><span>HAL</span><b>↓</b><span>Linux Kernel</span></div>
+<div class="note"><b>Exam short note:</b> Android platform = 5-layer stack: Applications, Java API Framework, Native Libraries + ART, HAL, Linux Kernel. (Full details in Section 2.)</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4>
+<ul><li>Explain Android architecture with a neat diagram.</li><li>Explain the layers of the Android platform.</li></ul>
+</div></details>
+
+<!-- Topic 3 -->
+<details class="topic"><summary>1.3 Android SDK <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> The <span class="kw">Android SDK (Software Development Kit)</span> is a set of tools, libraries, documentation and an emulator that a developer needs to build, test and debug Android apps.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> Android SDK ek toolbox hai. Isme wo sab tools hote hain jinse hum Android app banate, test karte aur debug karte hain – jaise compiler, emulator, ADB, libraries.</div>
+<h4>Detailed explanation (English)</h4>
+<p>Without the SDK you cannot build an Android app. It provides the Android API libraries (<code>android.jar</code>), <b>Build Tools</b> (to make APK), <b>Platform Tools</b> (ADB), <b>Emulator</b> (virtual phone), <b>SDK Manager</b> (to download versions) and sample code.</p>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Jaise carpenter ko hammer, saw, drill chahiye, waise Android developer ko SDK chahiye. SDK Manager se hum alag-alag Android versions (API levels) download kar sakte hain.</div>
+<h4>Real-life example</h4><p>A mechanic's toolbox: spanner, screwdriver, tester – each tool has a job. SDK is the developer's toolbox.</p>
+<h4>Practical example</h4><p>Command <code>adb devices</code> (from Platform Tools) lists connected phones; <code>adb install app.apk</code> installs your app.</p>
+<h4>Features</h4><ul><li>Contains API libraries for each Android version</li><li>Emulator to test without a phone</li><li>Debugging tools (ADB, Logcat)</li><li>Build tools to create APK</li><li>Free to download</li></ul>
+<h4>Advantages &amp; Disadvantages</h4>
+<table><tr><th>Advantages</th><th>Disadvantages</th></tr><tr><td>Free; all tools in one place; supports many versions; good documentation</td><td>Large download size; needs good RAM/disk; emulator can be slow on weak PCs</td></tr></table>
+<h4>Working process</h4>
+<ol><li>Install SDK (with Android Studio or Eclipse).</li><li>Open SDK Manager and download needed platform (API level).</li><li>Write code; build tools compile it into an APK.</li><li>Run on emulator or device using ADB.</li><li>Debug using Logcat.</li></ol>
+<h4>Important terms</h4><p><span class="kw">SDK</span>, <span class="kw">API Level</span>, <span class="kw">SDK Manager</span>, <span class="kw">ADB</span>, <span class="kw">AVD</span>, <span class="kw">Build Tools</span>, <span class="kw">Platform Tools</span></p>
+<h4>Diagram</h4>
+<div class="flow"><span>SDK Manager</span><b>→</b><span>Platforms + Build Tools</span><b>→</b><span>Emulator / ADB</span><b>→</b><span>APK Running</span></div>
+<div class="note"><b>Exam short note:</b> SDK = tools + libraries + emulator + docs needed to build Android apps. Main parts: SDK Manager, Platform Tools, Build Tools, Emulator, SDK Platforms.</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4>
+<ul><li>What is Android SDK? Explain its components.</li><li>Write a note on ADB and the Emulator.</li></ul>
+</div></details>
+
+<!-- Topic 4 -->
+<details class="topic"><summary>1.4 Eclipse Installation <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> <span class="kw">Eclipse</span> is a free, open-source <span class="kw">IDE (Integrated Development Environment)</span> mainly used for Java. With the <span class="kw">ADT plugin</span> it was the official IDE for Android development until 2014.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> Eclipse ek free IDE hai jisme hum code likhte, run aur debug karte hain. ADT plugin lagane par isme Android apps bhi ban sakte the. Aaj ye purana (legacy) hai.</div>
+<h4>Detailed explanation (English)</h4>
+<p>Before Android Studio (December 2014), developers installed: <b>JDK + Eclipse + Android SDK + ADT plugin</b>. ADT (Android Development Tools) added Android project wizards, a layout editor and emulator support inside Eclipse. Google officially <b>stopped supporting ADT at the end of 2015</b>.</p>
+<div class="warn"><b>Legacy warning:</b> Eclipse + ADT is <b>outdated</b>. It does not support modern Android versions, Gradle-based projects, Kotlin or AndroidX properly. Use it only to understand the syllabus. For real projects use <b>Android Studio</b>.</div>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Pehle Android app banane ke liye 4 cheezein install karte the: JDK, Eclipse, Android SDK aur ADT plugin. 2015 ke baad Google ne ADT support band kar diya. Isliye exam ke liye ye seekho, par practical me Android Studio use karo.</div>
+<h4>Real-life example</h4><p>Eclipse is like an old Nokia phone – it worked well in its time, but today we use smartphones (Android Studio).</p>
+<h4>Practical example</h4><p>Eclipse → File → New → Android Application Project → enter app name → Finish (this wizard came from the ADT plugin).</p>
+<h4>Features</h4><ul><li>Free and open-source</li><li>Code editor with syntax colours</li><li>Plugin-based (ADT, etc.)</li><li>Built-in debugger</li><li>Works on Windows, Linux, macOS</li></ul>
+<h4>Advantages &amp; Disadvantages</h4>
+<table><tr><th>Advantages</th><th>Disadvantages</th></tr><tr><td>Free; lightweight; good for Java; many plugins</td><td>ADT discontinued; no modern Android support; no Gradle by default; manual setup is difficult</td></tr></table>
+<h4>Working process</h4>
+<ol><li>Install JDK.</li><li>Download and extract Eclipse.</li><li>Download Android SDK.</li><li>Install ADT plugin (Help → Install New Software).</li><li>Set SDK path (Window → Preferences → Android).</li><li>Create AVD and a project.</li></ol>
+<h4>Important terms</h4><p><span class="kw">IDE</span>, <span class="kw">Workspace</span>, <span class="kw">Plugin</span>, <span class="kw">ADT</span>, <span class="kw">JDK</span>, <span class="kw">AVD</span></p>
+<h4>Diagram</h4><div class="flow"><span>JDK</span><b>→</b><span>Eclipse</span><b>→</b><span>Android SDK</span><b>→</b><span>ADT Plugin</span><b>→</b><span>Android Project</span></div>
+<div class="note"><b>Exam short note:</b> Eclipse + ADT = old official Android IDE setup (till 2014/15). Replaced by Android Studio.</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4>
+<ul><li>Explain the steps to install Eclipse and configure ADT.</li><li>What is Eclipse IDE? Write its features.</li></ul>
+</div></details>
+
+<!-- Topic 5 -->
+<details class="topic"><summary>1.5 Android Installation <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> Android installation means setting up the <span class="kw">Android development environment</span> on a computer: JDK, IDE (Android Studio/Eclipse), Android SDK and an emulator or device.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> Android installation ka matlab hai apne laptop me wo sab software lagana jinse Android app ban sake: JDK, IDE, SDK aur emulator/phone.</div>
+<h4>Detailed explanation (English)</h4>
+<p>The environment needs: a computer (Windows/Linux/macOS), enough RAM and disk space, Java Development Kit, an IDE, Android SDK with at least one platform, and a test target (emulator or real phone with USB debugging). Modern setup = <b>Android Studio</b> (it bundles the SDK manager, emulator and a JDK runtime).</p>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Android Studio install karte waqt SDK aur emulator bhi saath me aa jate hain, isliye modern setup bahut easy hai. Purane tarike me sab alag-alag install karna padta tha.</div>
+<h4>Real-life example</h4><p>Setting up a workshop before starting work: tools, table, light, power. Installation prepares your "workshop".</p>
+<h4>Practical example</h4><p>Download Android Studio → run installer → Next → Next → Finish → open SDK Manager → install Android 14 (API 34).</p>
+<h4>Features</h4><ul><li>One-time setup</li><li>Supports emulator and real device</li><li>Auto-downloads SDK components</li></ul>
+<h4>Advantages &amp; Disadvantages</h4>
+<table><tr><th>Advantages</th><th>Disadvantages</th></tr><tr><td>Everything integrated; easy updates; official support</td><td>Large downloads (several GB); needs good hardware; internet needed for first setup</td></tr></table>
+<h4>Working process</h4><ol><li>Check requirements.</li><li>Install Android Studio.</li><li>Complete setup wizard (SDK download).</li><li>Create an emulator (AVD).</li><li>Enable USB debugging on a phone (optional).</li><li>Run a test project.</li></ol>
+<h4>Important terms</h4><p><span class="kw">JDK</span>, <span class="kw">Android Studio</span>, <span class="kw">AVD</span>, <span class="kw">HAXM / Hypervisor</span>, <span class="kw">USB Debugging</span>, <span class="kw">ANDROID_HOME</span></p>
+<h4>Diagram</h4><div class="flow"><span>Requirements</span><b>→</b><span>Install IDE</span><b>→</b><span>SDK Setup</span><b>→</b><span>Emulator/Device</span><b>→</b><span>Test App</span></div>
+<div class="note"><b>Exam short note:</b> Android environment = JDK + IDE + SDK + AVD/device. Android Studio is the modern installer.</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4>
+<ul><li>Explain the Android application development environment installation.</li><li>What are the requirements to install Android Studio?</li></ul>
+</div></details>
+
+<!-- Topic 6 -->
+<details class="topic"><summary>1.6 Building Your First Android Application <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> Building the first app means creating a new project, designing a screen in XML, writing Java code in an Activity, and running it on an emulator or device – usually a <span class="kw">"Hello World"</span> app.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> First app banana matlab: naya project create karo, XML me screen design karo, Java me Activity likho aur emulator/phone me run karke "Hello World" dekho.</div>
+<h4>Detailed explanation (English)</h4>
+<p>A "Hello World" app is the first program in every language. In Android it has 3 key files: <code>MainActivity.java</code> (logic), <code>activity_main.xml</code> (design) and <code>AndroidManifest.xml</code> (app identity). Full tutorial is in Section 6.</p>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Hello World app me XML screen banata hai (TextView), Java usko screen par dikhata hai (setContentView), aur Manifest Android ko batata hai ki pehli screen kaun si hai.</div>
+<h4>Real-life example</h4><p>Cooking tea for the first time: take ingredients (project), mix (code), serve (run). Simple but teaches the full process.</p>
+<h4>Practical example</h4><p>TextView showing <i>"Hello, Android!"</i> on an emulator screen.</p>
+<h4>Features</h4><ul><li>Uses templates (Empty Activity)</li><li>Auto-generated starter code</li><li>Instant run on emulator</li></ul>
+<h4>Advantages &amp; Disadvantages</h4><table><tr><th>Advantages</th><th>Disadvantages</th></tr><tr><td>Teaches the full workflow; quick result; builds confidence</td><td>Very simple – real apps need much more (UI design, data, networking)</td></tr></table>
+<h4>Working process</h4><ol><li>New Project → Empty Activity.</li><li>Set name, package, language, Min SDK.</li><li>Edit layout XML.</li><li>Check MainActivity.</li><li>Click Run ▶ and pick device.</li></ol>
+<h4>Important terms</h4><p><span class="kw">Activity</span>, <span class="kw">Layout</span>, <span class="kw">TextView</span>, <span class="kw">setContentView</span>, <span class="kw">R.layout</span>, <span class="kw">Package name</span>, <span class="kw">Min SDK</span></p>
+<h4>Diagram</h4><div class="flow"><span>New Project</span><b>→</b><span>Design XML</span><b>→</b><span>Write Java</span><b>→</b><span>Build (Gradle)</span><b>→</b><span>Run</span></div>
+<div class="note"><b>Exam short note:</b> First app = New project → layout → Activity → Run. Key files: MainActivity, activity_main.xml, AndroidManifest.xml.</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4><ul><li>Explain the steps to create your first Android application.</li><li>Write the code for a Hello World app and explain it.</li></ul>
+</div></details>
+
+<!-- Topic 7 -->
+<details class="topic"><summary>1.7 Understanding Anatomy of Android Application <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> The <span class="kw">anatomy of an Android application</span> means the structure of an Android project – its folders, files and components and the purpose of each.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> Anatomy ka matlab hai Android project ke andar kaun-kaun se folders aur files hote hain aur har ek ka kaam kya hai – jaise insaan ke body parts.</div>
+<h4>Detailed explanation (English)</h4>
+<p>A project has: <b>manifests</b> (AndroidManifest.xml), <b>java</b> (source code), <b>res</b> (resources: layout, drawable, mipmap, values), <b>assets</b> (raw files) and <b>Gradle Scripts</b> (build settings). The four main app components are <b>Activity, Service, Broadcast Receiver, Content Provider</b>.</p>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Jaise ghar me kitchen, bedroom, hall alag-alag kaam ke liye hote hain, waise project me java folder code ke liye, res folder design/images/text ke liye, aur manifest identity ke liye hota hai.</div>
+<h4>Real-life example</h4><p>A human body: brain = Java code (logic), face/skin = XML layout (look), ID card = Manifest, skeleton = Gradle (structure).</p>
+<h4>Practical example</h4><p>Change app name: open <code>res/values/strings.xml</code> and edit <code>app_name</code> – the name on the phone changes.</p>
+<h4>Features</h4><ul><li>Separation of code and design</li><li>Resources are auto-linked via R class</li><li>Supports many screens/languages using resource folders</li></ul>
+<h4>Advantages &amp; Disadvantages</h4><table><tr><th>Advantages</th><th>Disadvantages</th></tr><tr><td>Organised, easy to maintain; reuse resources; multi-language support</td><td>Many files confuse beginners; wrong resource names cause build errors</td></tr></table>
+<h4>Working process</h4><ol><li>Manifest declares components and launcher Activity.</li><li>Android starts MainActivity.</li><li>MainActivity calls <code>setContentView(R.layout.activity_main)</code>.</li><li>Layout XML loads views; strings/colors come from values.</li></ol>
+<h4>Important terms</h4><p><span class="kw">manifests</span>, <span class="kw">res</span>, <span class="kw">R.java</span>, <span class="kw">drawable</span>, <span class="kw">mipmap</span>, <span class="kw">layout</span>, <span class="kw">values</span>, <span class="kw">assets</span>, <span class="kw">Gradle</span></p>
+<h4>Diagram</h4><div class="flow"><span>manifests</span><span>java</span><span>res</span><span>assets</span><span>Gradle Scripts</span></div>
+<div class="note"><b>Exam short note:</b> Anatomy = manifests + java + res (layout, drawable, mipmap, values) + assets + Gradle. (Full tree in Section 7.)</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4><ul><li>Explain the anatomy of an Android application.</li><li>Explain important Android project folders and files.</li></ul>
+</div></details>
+
+<!-- Topic 8 -->
+<details class="topic"><summary>1.8 Android Manifest File <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition (English):</b> <span class="kw">AndroidManifest.xml</span> is a compulsory XML file in every Android app that gives Android essential information about the app: its components, permissions, and launcher screen.</div>
+<div class="def hin"><b>Definition (Hinglish):</b> AndroidManifest.xml app ka "ID card" hai. Isme likha hota hai ki app ka naam kya hai, kaun si Activities/Services hain, kaun si permissions chahiye aur pehli screen kaun si hai.</div>
+<h4>Detailed explanation (English)</h4>
+<p>Android reads the manifest <b>before</b> running any code. The root tag is <code>&lt;manifest&gt;</code>, and inside it are <code>&lt;uses-permission&gt;</code> and <code>&lt;application&gt;</code>, which contains <code>&lt;activity&gt;</code>, <code>&lt;service&gt;</code>, <code>&lt;receiver&gt;</code> and <code>&lt;provider&gt;</code>. An <code>&lt;intent-filter&gt;</code> with MAIN + LAUNCHER marks the first screen.</p>
+<h4>Detailed explanation (Hinglish)</h4>
+<div class="hin">Agar aapne koi nayi Activity banayi lekin Manifest me register nahi ki, to app crash ho jayega. Isi tarah Internet use karna hai to <code>INTERNET</code> permission Manifest me likhni padegi.</div>
+<h4>Real-life example</h4><p>A college admission form/ID card: it tells the college who you are, which courses you take and what facilities you may use.</p>
+<h4>Practical example</h4><p>Adding <code>&lt;uses-permission android:name="android.permission.INTERNET"/&gt;</code> lets the app use the internet.</p>
+<h4>Features</h4><ul><li>Exactly one per app, in the root</li><li>Declares all four components</li><li>Declares permissions and hardware needs</li><li>Names the launcher Activity</li></ul>
+<h4>Advantages &amp; Disadvantages</h4><table><tr><th>Advantages</th><th>Disadvantages</th></tr><tr><td>Central place for app info; improves security (permissions); Play Store reads it for device filtering</td><td>One XML mistake can stop the build; must be updated manually for each new component</td></tr></table>
+<h4>Working process</h4><ol><li>App installed → Android reads manifest.</li><li>Permissions are noted (user approves dangerous ones).</li><li>User taps icon → Android finds the LAUNCHER activity.</li><li>That Activity starts.</li></ol>
+<h4>Important terms</h4><p><span class="kw">&lt;manifest&gt;</span>, <span class="kw">&lt;application&gt;</span>, <span class="kw">&lt;activity&gt;</span>, <span class="kw">Intent Filter</span>, <span class="kw">Permission</span>, <span class="kw">LAUNCHER</span>, <span class="kw">minSdkVersion</span></p>
+<h4>Diagram</h4><div class="flow"><span>&lt;manifest&gt;</span><b>→</b><span>&lt;uses-permission&gt;</span><b>+</b><span>&lt;application&gt;</span><b>→</b><span>&lt;activity&gt; + intent-filter</span></div>
+<div class="note"><b>Exam short note:</b> Manifest = mandatory XML (AndroidManifest.xml) declaring components, permissions and launcher activity.</div>
+<h4>Possible 5-mark questions <span class="badge o">5 MARKS – IMPORTANT</span></h4><ul><li>Explain the structure and importance of AndroidManifest.xml.</li><li>Differentiate between permissions and intent filters.</li></ul>
+</div></details>
+
+</div>
+</details>
+<!-- ============ SECTION 2 ============ -->
+<details class="sec" id="s2">
+<summary>2. The Android Platform <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s2"> Mark as read</label></summary>
+<div class="sbody">
+
+<details class="topic" open><summary>2.1 What is Android? <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition:</b> Android is an open-source, Linux-based operating system for mobile devices, developed by Google and the Open Handset Alliance (OHA).</div>
+<div class="def hin"><b>Hinglish:</b> Android Google ka banaya hua open-source mobile OS hai jo Linux par based hai. Isse Open Handset Alliance (OHA) bhi support karta hai.</div>
+<p>It manages hardware, runs apps, provides security, and offers services like notifications, location, and networking. More than 70% of the world's smartphones run Android.</p>
+</div></details>
+
+<details class="topic"><summary>2.2 History and Evolution of Android <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table>
+<tr><th>Year</th><th>Event</th></tr>
+<tr><td>2003</td><td>Android Inc. founded by Andy Rubin, Rich Miner, Nick Sears and Chris White – originally for digital cameras.</td></tr>
+<tr><td>2005</td><td>Google buys Android Inc.</td></tr>
+<tr><td>2007</td><td>Open Handset Alliance (OHA) formed; Android announced.</td></tr>
+<tr><td>2008</td><td>Android 1.0 released with HTC Dream (T-Mobile G1). First Android Market (Play Store).</td></tr>
+<tr><td>2009–2013</td><td>Dessert-named versions: Cupcake, Donut, Eclair, Froyo, Gingerbread, Honeycomb (tablets), Ice Cream Sandwich, Jelly Bean.</td></tr>
+<tr><td>2013–2014</td><td>KitKat (4.4); Android Studio announced (2013), stable in Dec 2014.</td></tr>
+<tr><td>2014</td><td>Lollipop (5.0): ART replaces Dalvik; Material Design introduced.</td></tr>
+<tr><td>2015–2018</td><td>Marshmallow (runtime permissions), Nougat, Oreo, Pie.</td></tr>
+<tr><td>2019 onwards</td><td>Dessert names dropped; versions numbered Android 10, 11, 12 … a new version each year. Kotlin becomes preferred language (2019).</td></tr>
+</table>
+<div class="def hin">Hinglish: Pehle Android digital camera ke liye socha gaya tha, phir Google ne kharid kar mobile OS bana diya. 2008 me pehla phone aaya, aur aaj ye duniya ka sabse bada mobile OS hai.</div>
+</div></details>
+
+<details class="topic"><summary>2.3 Features of Android <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Feature</th><th>Meaning (Hinglish)</th></tr>
+<tr><td><b>Open Source</b></td><td>Source code free hai (AOSP); koi bhi use/modify kar sakta hai.</td></tr>
+<tr><td><b>Multitasking</b></td><td>Ek saath kai apps chal sakte hain.</td></tr>
+<tr><td><b>Rich UI</b></td><td>Touch, gestures, widgets, themes, Material Design.</td></tr>
+<tr><td><b>Connectivity</b></td><td>Wi-Fi, Bluetooth, GSM, 4G/5G, NFC, USB support.</td></tr>
+<tr><td><b>Storage</b></td><td>SQLite database, SharedPreferences, files.</td></tr>
+<tr><td><b>Multimedia</b></td><td>Audio, video, camera, image formats support.</td></tr>
+<tr><td><b>Sensors &amp; Location</b></td><td>GPS, accelerometer, gyroscope, light sensor.</td></tr>
+<tr><td><b>Google Services</b></td><td>Play Store, Maps, Gmail, Firebase integration.</td></tr>
+<tr><td><b>Notifications &amp; Widgets</b></td><td>Home screen widgets and status bar alerts.</td></tr>
+<tr><td><b>Security</b></td><td>App sandboxing, permissions, encryption.</td></tr>
+<tr><td><b>Customizable</b></td><td>Manufacturers add their own skin (One UI, MIUI).</td></tr>
+</table></div></details>
+
+<details class="topic"><summary>2.4 Android Versions and Their Development <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p>API level = a number that identifies the Android version for developers. Higher API = newer features.</p>
+<table>
+<tr><th>Version</th><th>Code name</th><th>API</th><th>Year</th><th>Important feature</th></tr>
+<tr><td>1.5</td><td>Cupcake</td><td>3</td><td>2009</td><td>On-screen keyboard, widgets</td></tr>
+<tr><td>1.6</td><td>Donut</td><td>4</td><td>2009</td><td>Voice search, multiple screen sizes</td></tr>
+<tr><td>2.0–2.1</td><td>Eclair</td><td>5–7</td><td>2009</td><td>Google Maps Navigation</td></tr>
+<tr><td>2.2</td><td>Froyo</td><td>8</td><td>2010</td><td>Wi-Fi hotspot, Flash</td></tr>
+<tr><td>2.3</td><td>Gingerbread</td><td>9–10</td><td>2010</td><td>NFC support, better battery</td></tr>
+<tr><td>3.x</td><td>Honeycomb</td><td>11–13</td><td>2011</td><td>Tablet-only, Fragments</td></tr>
+<tr><td>4.0</td><td>Ice Cream Sandwich</td><td>14–15</td><td>2011</td><td>Phone + tablet unified UI</td></tr>
+<tr><td>4.1–4.3</td><td>Jelly Bean</td><td>16–18</td><td>2012</td><td>Google Now, Project Butter</td></tr>
+<tr><td>4.4</td><td>KitKat</td><td>19</td><td>2013</td><td>Low-RAM support</td></tr>
+<tr><td>5.0–5.1</td><td>Lollipop</td><td>21–22</td><td>2014</td><td>ART runtime, Material Design</td></tr>
+<tr><td>6.0</td><td>Marshmallow</td><td>23</td><td>2015</td><td>Runtime permissions, Doze</td></tr>
+<tr><td>7.0–7.1</td><td>Nougat</td><td>24–25</td><td>2016</td><td>Split-screen</td></tr>
+<tr><td>8.0–8.1</td><td>Oreo</td><td>26–27</td><td>2017</td><td>Notification channels</td></tr>
+<tr><td>9</td><td>Pie</td><td>28</td><td>2018</td><td>Gesture navigation</td></tr>
+<tr><td>10</td><td>–</td><td>29</td><td>2019</td><td>System-wide dark theme</td></tr>
+<tr><td>11 / 12 / 13 / 14 / 15</td><td>–</td><td>30 / 31 / 33 / 34 / 35</td><td>2020–2024</td><td>Privacy, Material You, themed icons, and more</td></tr>
+</table>
+<div class="note"><b>Remember:</b> Old exam answers often stop at Android 9/10. Newer versions come yearly; check the Android Developers website for the latest.</div>
+</div></details>
+
+<details class="topic" open><summary>2.5 Android Architecture (with labelled diagram) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p>Android architecture is a <b>stack of 5 layers</b>. (Hinglish: Android ki structure 5 layers ki stack hai, neeche se upar tak.)</p>
+<div class="diagram">
+<svg viewBox="0 0 420 450" role="img" aria-label="Android architecture diagram">
+<rect class="d-box4" x="10" y="8" width="400" height="62" rx="8"/>
+<text class="d-tb" x="210" y="26" text-anchor="middle">5. ANDROID APPLICATIONS</text>
+<text class="d-t" x="210" y="44" text-anchor="middle">System Apps: Phone • Contacts • Browser • Camera</text>
+<text class="d-t" x="210" y="60" text-anchor="middle">User Apps: WhatsApp • Games • Your App</text>
+<rect class="d-box3" x="10" y="80" width="400" height="104" rx="8"/>
+<text class="d-tb" x="210" y="98" text-anchor="middle">4. JAVA API / APPLICATION FRAMEWORK</text>
+<text class="d-t" x="210" y="118" text-anchor="middle">Activity Manager • Window Manager</text>
+<text class="d-t" x="210" y="134" text-anchor="middle">Content Providers • View System</text>
+<text class="d-t" x="210" y="150" text-anchor="middle">Package Manager • Telephony Manager</text>
+<text class="d-t" x="210" y="166" text-anchor="middle">Resource • Location • Notification Manager</text>
+<rect class="d-box2" x="10" y="194" width="196" height="96" rx="8"/>
+<text class="d-tb" x="108" y="212" text-anchor="middle">3a. NATIVE LIBRARIES</text>
+<text class="d-t" x="108" y="231" text-anchor="middle">C/C++: libc, SQLite</text>
+<text class="d-t" x="108" y="247" text-anchor="middle">OpenGL ES, WebKit</text>
+<text class="d-t" x="108" y="263" text-anchor="middle">Media Framework, SSL</text>
+<rect class="d-box2" x="214" y="194" width="196" height="96" rx="8"/>
+<text class="d-tb" x="312" y="212" text-anchor="middle">3b. ANDROID RUNTIME</text>
+<text class="d-t" x="312" y="231" text-anchor="middle">ART (runs app code)</text>
+<text class="d-t" x="312" y="247" text-anchor="middle">Core Java Libraries</text>
+<text class="d-ts" x="312" y="263" text-anchor="middle">(earlier: Dalvik VM)</text>
+<rect class="d-box" x="10" y="300" width="400" height="60" rx="8"/>
+<text class="d-tb" x="210" y="319" text-anchor="middle">2. HARDWARE ABSTRACTION LAYER (HAL)</text>
+<text class="d-t" x="210" y="337" text-anchor="middle">Camera • Audio • Bluetooth • Sensors</text>
+<text class="d-ts" x="210" y="351" text-anchor="middle">Standard interfaces to hardware drivers</text>
+<rect class="d-box5" x="10" y="370" width="400" height="70" rx="8"/>
+<text class="d-tb" x="210" y="388" text-anchor="middle">1. LINUX KERNEL</text>
+<text class="d-t" x="210" y="406" text-anchor="middle">Display • Camera • Audio • WiFi • USB drivers</text>
+<text class="d-t" x="210" y="422" text-anchor="middle">Binder IPC • Memory • Power • Process Mgmt</text>
+<text class="d-ts" x="210" y="436" text-anchor="middle">▲ upper layers use lower layers ▲</text>
+</svg>
+<div class="cap">Figure: Android Architecture (bottom = Linux Kernel, top = Applications)</div></div>
+
+<h4>Layer-by-layer explanation</h4>
+<h4>1. Linux Kernel</h4>
+<p>The foundation. It handles <b>process management, memory management, security, power management, networking</b> and contains <b>device drivers</b> (display, camera, Wi-Fi, Bluetooth, audio). The special <b>Binder IPC</b> driver lets apps and services talk to each other.</p>
+<div class="def hin">Hinglish: Kernel hardware se seedha baat karta hai – memory, battery, drivers sab yahi sambhalta hai. Android ki "neev" (foundation).</div>
+<h4>2. Hardware Abstraction Layer (HAL)</h4>
+<p>HAL gives <b>standard interfaces</b> to the upper layers so they can use hardware without knowing its details. It has separate library modules for camera, audio, Bluetooth, sensors, etc. Because of HAL, one Android framework works with hardware from many companies.</p>
+<div class="def hin">Hinglish: HAL ek "translator" hai. Framework bolta hai "photo kheencho", HAL us company ke camera driver ko samajh kar kaam karwata hai.</div>
+<h4>3a. Native Libraries</h4>
+<p>Written in <b>C/C++</b> for speed: <b>libc</b> (standard C), <b>SQLite</b> (database), <b>OpenGL ES</b> (2D/3D graphics), <b>WebKit/Chromium</b> (browser engine), <b>Media Framework</b> (audio/video), <b>SSL</b> (security), <b>Surface Manager</b>. Apps use them through the Java framework.</p>
+<h4>3b. Android Runtime (ART)</h4>
+<p>ART is the engine that <b>runs the app's code</b>. App code is compiled into <b>DEX (Dalvik Executable)</b> bytecode; ART compiles it to native machine code using <b>AOT (Ahead-of-Time)</b> (plus JIT and profile-guided compilation in newer versions). Each app runs in its own process with its own ART instance. ART replaced the older <b>Dalvik VM</b> in Android 5.0 (Lollipop) and gives faster apps, better battery and improved garbage collection. It also contains the <b>core Java libraries</b>.</p>
+<div class="def hin">Hinglish: ART app ke code ko mobile ki language me convert karke chalata hai. Pehle Dalvik tha, ab ART hai jo zyada fast hai.</div>
+<h4>4. Java API Framework (Application Framework)</h4>
+<p>The set of Java/Kotlin APIs that developers use. Main managers:</p>
+<ul>
+<li><b>Activity Manager</b> – controls activity lifecycle and navigation.</li>
+<li><b>Content Providers</b> – share data between apps (e.g., contacts).</li>
+<li><b>View System</b> – buttons, lists, text boxes for the UI.</li>
+<li><b>Package Manager</b> – knows installed apps.</li>
+<li><b>Telephony Manager</b> – calls and SMS info.</li>
+<li><b>Resource Manager</b> – strings, images, layouts.</li>
+<li><b>Location Manager</b> – GPS data.</li>
+<li><b>Notification Manager</b> – status bar alerts.</li>
+</ul>
+<h4>5. Android Applications</h4>
+<p>The top layer which the user sees. <b>System apps</b> (Phone, SMS, Camera, Browser, Email) come preinstalled; <b>user apps</b> are installed from Play Store or APK. A developer's app sits here and uses the Framework below.</p>
+<div class="note"><b>Exam tip:</b> Draw the diagram with 5 layers and write 2–3 lines on each. Memorise: <b>"Kernel – HAL – Libraries/ART – Framework – Apps"</b>.</div>
+</div></details>
+
+</div>
+</details>
+
+<!-- ============ SECTION 3 ============ -->
+<details class="sec" id="s3">
+<summary>3. Android SDK <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s3"> Mark as read</label></summary>
+<div class="sbody">
+
+<details class="topic" open><summary>3.1 What is Android SDK and why is it required? <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition:</b> Android SDK is a collection of software development tools (libraries, APIs, compiler tools, debugger, emulator, documentation) used to create Android applications.</div>
+<div class="def hin"><b>Hinglish:</b> SDK = Software Development Kit. Android app banane ka poora toolbox.</div>
+<h4>Why is it required?</h4>
+<ol><li>It contains the <b>Android API libraries</b> (the classes like Activity, TextView) your code uses.</li><li>It has <b>build tools</b> that convert your code into an APK.</li><li>It includes the <b>emulator</b> to test without a phone.</li><li>It has <b>ADB and debugging tools</b> to find errors.</li><li>It lets you <b>target different Android versions</b>.</li></ol>
+<div class="def hin">Hinglish: SDK ke bina compiler ko pata hi nahi chalega ki "Activity" ya "Button" kya hota hai. Isliye SDK compulsory hai.</div>
+</div></details>
+
+<details class="topic" open><summary>3.2 Components of Android SDK <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="diagram">
+<svg viewBox="0 0 420 330" role="img" aria-label="Android SDK components diagram">
+<rect class="d-box5" x="110" y="8" width="200" height="44" rx="10"/>
+<text class="d-tb" x="210" y="35" text-anchor="middle">ANDROID SDK</text>
+<path class="d-l" d="M210 52V72M60 72H360M60 72V92M135 72V92M210 72V92M285 72V92M360 72V92"/>
+<rect class="d-box" x="8" y="92" width="96" height="56" rx="8"/><text class="d-tb" x="56" y="116" text-anchor="middle">SDK</text><text class="d-tb" x="56" y="132" text-anchor="middle">Manager</text>
+<rect class="d-box2" x="112" y="92" width="96" height="56" rx="8"/><text class="d-tb" x="160" y="116" text-anchor="middle">Platform</text><text class="d-tb" x="160" y="132" text-anchor="middle">Tools</text>
+<rect class="d-box3" x="216" y="92" width="96" height="56" rx="8"/><text class="d-tb" x="264" y="116" text-anchor="middle">Build</text><text class="d-tb" x="264" y="132" text-anchor="middle">Tools</text>
+<rect class="d-box4" x="316" y="92" width="96" height="56" rx="8"/><text class="d-tb" x="364" y="116" text-anchor="middle">SDK</text><text class="d-tb" x="364" y="132" text-anchor="middle">Platforms</text>
+<path class="d-l" d="M160 148V170M364 148V170M264 148V170"/>
+<rect class="d-box" x="8" y="170" width="130" height="70" rx="8"/><text class="d-tb" x="73" y="192" text-anchor="middle">ADB</text><text class="d-ts" x="73" y="210" text-anchor="middle">install, logcat,</text><text class="d-ts" x="73" y="224" text-anchor="middle">shell commands</text>
+<rect class="d-box2" x="146" y="170" width="130" height="70" rx="8"/><text class="d-tb" x="211" y="192" text-anchor="middle">Emulator</text><text class="d-ts" x="211" y="210" text-anchor="middle">virtual phone</text><text class="d-ts" x="211" y="224" text-anchor="middle">(AVD)</text>
+<rect class="d-box3" x="284" y="170" width="128" height="70" rx="8"/><text class="d-tb" x="348" y="192" text-anchor="middle">Docs + Samples</text><text class="d-ts" x="348" y="210" text-anchor="middle">system images,</text><text class="d-ts" x="348" y="224" text-anchor="middle">API libraries</text>
+<rect class="d-box" x="8" y="258" width="404" height="60" rx="8"/><text class="d-tb" x="210" y="280" text-anchor="middle">Flow: Code → Build Tools → APK → ADB → Emulator / Device</text><text class="d-ts" x="210" y="300" text-anchor="middle">SDK Manager downloads the platforms and tools you need</text>
+</svg>
+<div class="cap">Figure: Components of Android SDK</div></div>
+<table>
+<tr><th>Component</th><th>Purpose</th></tr>
+<tr><td><b>SDK Manager</b></td><td>GUI/command tool to download and update SDK platforms, tools, system images.</td></tr>
+<tr><td><b>SDK Platform Tools</b></td><td>Tools that talk to the device: <code>adb</code>, <code>fastboot</code>. Updated with every Android release.</td></tr>
+<tr><td><b>Build Tools</b></td><td><code>aapt2</code>, <code>d8</code>/<code>dx</code>, <code>zipalign</code>, <code>apksigner</code> – build, optimise and sign APK.</td></tr>
+<tr><td><b>SDK Platforms</b></td><td>One per API level (e.g., Android 14 = API 34); contains <code>android.jar</code> library.</td></tr>
+<tr><td><b>Emulator</b></td><td>Virtual device (AVD) that behaves like a real phone.</td></tr>
+<tr><td><b>System Images</b></td><td>Android OS images used by the emulator.</td></tr>
+<tr><td><b>Documentation &amp; Samples</b></td><td>Offline help and example code.</td></tr>
+</table>
+</div></details>
+
+<details class="topic"><summary>3.3 SDK Manager <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p>The SDK Manager lets you choose what to install: <b>SDK Platforms</b> tab (Android versions), <b>SDK Tools</b> tab (Build Tools, Platform Tools, Emulator).</p>
+<p><b>Practical:</b> In Android Studio → <b>Tools → SDK Manager</b> → tick Android 14.0 (API 34) → Apply → OK.</p>
+<div class="def hin">Hinglish: SDK Manager ek "app store" jaisa hai – jo version chahiye uspe tick karo aur download kar lo.</div>
+</div></details>
+
+<details class="topic"><summary>3.4 Platform Tools, Build Tools &amp; ADB <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<h4>Platform Tools</h4><p>Tools used to communicate with Android devices: mainly <b>ADB</b> and <b>Fastboot</b>.</p>
+<h4>Build Tools</h4><p>Convert your Java/Kotlin code + resources into an installable <b>APK</b>: compile resources (aapt2), convert classes to DEX (d8), align (zipalign) and sign (apksigner).</p>
+<h4>Android Debug Bridge (ADB)</h4>
+<div class="def"><b>Definition:</b> ADB is a command-line tool that lets your computer communicate with an emulator or connected Android device. It has three parts: <b>client</b> (your command), <b>daemon adbd</b> (runs on the device) and <b>server</b> (runs on the computer).</div>
+<div class="def hin"><b>Hinglish:</b> ADB computer aur phone ke beech ka "pul (bridge)" hai. Isse app install, file copy, log dekhna sab ho jata hai.</div>
+<table><tr><th>Command</th><th>Use</th></tr>
+<tr><td><code>adb devices</code></td><td>List connected devices/emulators</td></tr>
+<tr><td><code>adb install app.apk</code></td><td>Install an APK</td></tr>
+<tr><td><code>adb uninstall com.example.app</code></td><td>Remove an app</td></tr>
+<tr><td><code>adb logcat</code></td><td>See system and app logs (debugging)</td></tr>
+<tr><td><code>adb shell</code></td><td>Open a command shell on the device</td></tr>
+<tr><td><code>adb push / pull</code></td><td>Copy files to / from the device</td></tr>
+</table>
+<div class="flow"><span>Computer (adb client + server)</span><b>⇄ USB / Wi-Fi ⇄</b><span>Device (adbd daemon)</span></div>
+</div></details>
+
+<details class="topic"><summary>3.5 Emulator &amp; SDK Platforms <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p><b>Emulator:</b> A virtual Android phone running on your PC, created using an <b>AVD (Android Virtual Device)</b>. You can choose screen size, Android version and RAM. <b>Advantage:</b> test on many devices without buying them. <b>Disadvantage:</b> uses a lot of RAM and CPU.</p>
+<p><b>SDK Platforms:</b> Each Android version has a platform package. When you set <code>compileSdk</code> / target version, the SDK uses that platform's <code>android.jar</code>.</p>
+</div></details>
+
+<details class="topic"><summary>3.6 How Android SDK Works (step-by-step) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ol>
+<li>You write Java/Kotlin code and XML layouts.</li>
+<li>Compiler uses <b>android.jar</b> (from SDK Platform) to check your code.</li>
+<li>Build tools compile code into <b>.class</b> files, then <b>.dex</b>.</li>
+<li>Resources are packed by <b>aapt2</b>.</li>
+<li>Everything is bundled into an <b>APK</b> and signed.</li>
+<li><b>ADB</b> installs the APK on the emulator/device.</li>
+<li>The app runs; <b>Logcat</b> shows messages for debugging.</li>
+</ol>
+<div class="flow"><span>Java/XML</span><b>→</b><span>.class</span><b>→</b><span>.dex</span><b>→</b><span>APK</span><b>→</b><span>ADB install</span><b>→</b><span>Run</span></div>
+<p><b>Practical example:</b> You click ▶ Run in Android Studio. Behind the scenes Gradle calls build tools, then ADB installs the APK on the emulator and starts MainActivity.</p>
+</div></details>
+
+</div>
+</details>
+
+<!-- ============ SECTION 4 ============ -->
+<details class="sec" id="s4">
+<summary>4. Eclipse Installation <span class="badge g">IN BTEUP SYLLABUS</span> <span class="badge o">LEGACY SETUP</span><label class="donechk"><input type="checkbox" data-done="s4"> Mark as read</label></summary>
+<div class="sbody">
+<div class="warn"><b>⚠ Legacy (old) technology:</b> Eclipse + ADT was the official Android setup from 2009 to 2014. Google announced the end of ADT support in 2015 and recommends <b>Android Studio</b>. Eclipse/ADT does <b>not</b> support modern Gradle-based projects, AndroidX, Kotlin or recent Android versions, and the old ADT download sites no longer work reliably. <b>Learn this section for your exam; do not use it for real projects.</b> For practical work follow Section 5.</div>
+
+<details class="topic" open><summary>4.1 What is Eclipse IDE? <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition:</b> Eclipse is a free, open-source Integrated Development Environment (IDE) written in Java, used to write, compile, run and debug programs.</div>
+<div class="def hin"><b>Hinglish:</b> Eclipse ek software hai jisme code likhna, run karna aur error dhundna – sab ek jagah hota hai.</div>
+<h4>Features of Eclipse</h4>
+<ul><li>Free, open-source, platform independent</li><li>Syntax highlighting and code completion</li><li>Plugin architecture (ADT, Maven, etc.)</li><li>Built-in debugger with breakpoints</li><li>Project/Workspace management</li><li>Refactoring tools</li></ul>
+</div></details>
+
+<details class="topic" open><summary>4.2 System Requirements (older setup) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Item</th><th>Requirement (approx., historical)</th></tr>
+<tr><td>OS</td><td>Windows XP/Vista/7/8, Linux, macOS</td></tr>
+<tr><td>RAM</td><td>2 GB minimum (4 GB recommended)</td></tr>
+<tr><td>Disk</td><td>About 2–4 GB free</td></tr>
+<tr><td>Java</td><td>JDK 6 or 7 (matching the ADT version)</td></tr>
+<tr><td>Software</td><td>Eclipse IDE for Java Developers (Indigo/Juno/Kepler), Android SDK, ADT plugin</td></tr></table>
+<div class="note">Exact versions differ by book. Write "JDK + Eclipse + Android SDK + ADT" in the exam.</div>
+</div></details>
+
+<details class="topic" open><summary>4.3 Installation Process &amp; Configuration <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ol>
+<li><b>Install JDK.</b> Download from Oracle, run installer, set <code>JAVA_HOME</code> and add <code>bin</code> to PATH. Check with <code>java -version</code>.</li>
+<li><b>Download Eclipse</b> (Eclipse IDE for Java Developers) as a ZIP and extract it (e.g., <code>C:\eclipse</code>). No installer needed – run <code>eclipse.exe</code>.</li>
+<li><b>Choose a workspace</b> (folder where projects are saved).</li>
+<li><b>Download Android SDK</b> (SDK Manager / "SDK Tools only") and extract (e.g., <code>C:\android-sdk</code>).</li>
+<li><b>Install ADT plugin:</b> Eclipse → <b>Help → Install New Software → Add</b> → enter the ADT repository URL → select <i>Developer Tools</i> → Next → accept license → Finish → restart Eclipse.</li>
+<li><b>Link SDK:</b> <b>Window → Preferences → Android</b> → Browse to SDK folder → Apply.</li>
+<li><b>Open SDK Manager</b> (Window → Android SDK Manager) → install Platform Tools and at least one Android platform.</li>
+<li><b>Create an AVD:</b> Window → AVD Manager → New → choose device and API level → Create.</li>
+</ol>
+<div class="diagram"><div class="flow"><span>1 JDK</span><b>→</b><span>2 Eclipse</span><b>→</b><span>3 Android SDK</span><b>→</b><span>4 ADT Plugin</span><b>→</b><span>5 Set SDK Path</span><b>→</b><span>6 AVD</span></div><div class="cap">Eclipse + ADT setup order</div></div>
+<div class="def hin">Hinglish: Order yaad rakho – pehle JDK, phir Eclipse, phir SDK, phir ADT plugin, phir path set karo, phir emulator banao.</div>
+</div></details>
+
+<details class="topic"><summary>4.4 ADT Plugin &amp; SDK Integration <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p><b>ADT (Android Development Tools)</b> is an Eclipse plugin that adds: Android project wizard, graphical XML layout editor, AVD/SDK manager buttons, DDMS (debug monitor), Logcat view, and APK export/signing wizard.</p>
+<p><b>SDK integration:</b> ADT needs to know where the SDK is. This is set in <i>Window → Preferences → Android → SDK Location</i>. Without it Eclipse shows "SDK location not set" errors.</p>
+</div></details>
+
+<details class="topic"><summary>4.5 Creating an Android Project in Eclipse <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ol><li><b>File → New → Android Application Project</b>.</li><li>Enter <b>Application Name</b> (e.g., HelloWorld), <b>Project Name</b>, <b>Package Name</b> (com.example.helloworld).</li><li>Select <b>Minimum Required SDK</b> and <b>Target SDK</b>.</li><li>Next → choose launcher icon → Next → choose <b>Blank Activity</b>.</li><li>Enter Activity name (MainActivity) and layout name (activity_main) → <b>Finish</b>.</li><li>Right-click project → <b>Run As → Android Application</b>; choose emulator.</li></ol>
+</div></details>
+
+<details class="topic"><summary>4.6 Common Installation Errors &amp; Solutions <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Error</th><th>Cause</th><th>Solution</th></tr>
+<tr><td>"Java was started but returned exit code=13"</td><td>32-bit/64-bit mismatch of JDK and Eclipse</td><td>Install matching versions (both 64-bit or both 32-bit)</td></tr>
+<tr><td>"No Java virtual machine found"</td><td>JDK not installed / PATH wrong</td><td>Install JDK, set JAVA_HOME and PATH</td></tr>
+<tr><td>"SDK location not set"</td><td>Path not given in Preferences</td><td>Window → Preferences → Android → set SDK path</td></tr>
+<tr><td>ADT install fails / "Unable to read repository"</td><td>No internet, wrong URL, or old ADT site unavailable</td><td>Check connection; use offline ZIP of ADT (if available) – or switch to Android Studio</td></tr>
+<tr><td>"R cannot be resolved"</td><td>Error in resource XML; R.java not generated</td><td>Fix XML errors, then Project → Clean</td></tr>
+<tr><td>Emulator very slow / not starting</td><td>Low RAM; no hardware acceleration</td><td>Lower AVD RAM; enable virtualization in BIOS; use a real device</td></tr>
+<tr><td>"adb server didn't ACK"</td><td>Port 5037 used by another program</td><td>Run <code>adb kill-server</code> then <code>adb start-server</code></td></tr></table>
+</div></details>
+
+<details class="topic"><summary>4.7 Historical Relevance &amp; Compatibility Limitations <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ul>
+<li><b>Historical relevance:</b> Eclipse + ADT trained millions of the first Android developers (2009–2014).</li>
+<li><b>Replaced by:</b> Android Studio (built on IntelliJ IDEA) – announced 2013, stable December 2014.</li>
+<li><b>Limitations today:</b> no official support, no Gradle-first workflow, no Kotlin/AndroidX/Jetpack support, cannot target new API levels, Play Store requires recent target SDKs, and modern JDKs break old Eclipse/ADT versions.</li>
+<li><b>Recommendation:</b> Use Eclipse knowledge for theory/exams; use Android Studio for projects.</li>
+</ul>
+<table><tr><th>Eclipse + ADT (Legacy)</th><th>Android Studio (Modern)</th></tr>
+<tr><td>Plugin based; manual setup</td><td>All-in-one installer</td></tr>
+<tr><td>Ant build system</td><td>Gradle build system</td></tr>
+<tr><td>Basic layout editor</td><td>Advanced layout editor, previews, profilers</td></tr>
+<tr><td>Support ended 2015</td><td>Actively updated by Google</td></tr></table>
+</div></details>
+
+</div>
+</details>
+<!-- ============ SECTION 5 ============ -->
+<details class="sec" id="s5">
+<summary>5. Android Installation <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s5"> Mark as read</label></summary>
+<div class="sbody">
+
+<h3>A. Syllabus-related installation concepts <span class="badge g">IN BTEUP SYLLABUS</span></h3>
+
+<details class="topic" open><summary>5.1 Requirements &amp; Development Environment <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Android development environment</b> = all hardware and software needed to build, run and test Android apps: a computer, JDK, IDE, Android SDK, and an emulator or physical device.</div>
+<div class="def hin"><b>Hinglish:</b> Environment matlab wo poora setup jisme aap app bana sakein – laptop + JDK + IDE + SDK + emulator/phone.</div>
+<table><tr><th>Requirement</th><th>Minimum</th><th>Recommended</th></tr>
+<tr><td>OS</td><td>Windows 10 (64-bit)</td><td>Windows 10/11 (64-bit)</td></tr>
+<tr><td>RAM</td><td>8 GB</td><td>16 GB</td></tr>
+<tr><td>Disk space</td><td>About 8 GB free</td><td>SSD with 20 GB+ free</td></tr>
+<tr><td>Screen</td><td>1280 × 800</td><td>Full HD</td></tr>
+<tr><td>CPU</td><td>64-bit CPU with virtualization support</td><td>Modern multi-core CPU</td></tr>
+<tr><td>Internet</td><td>Needed for downloads</td><td>Stable broadband</td></tr></table>
+<div class="note">Figures are approximate – the official Android Studio page lists current requirements. On a 4 GB laptop the emulator will be very slow; use a real phone instead.</div>
+<h4>Components of the environment</h4>
+<div class="flow"><span>Computer</span><b>+</b><span>JDK</span><b>+</b><span>IDE</span><b>+</b><span>Android SDK</span><b>+</b><span>Emulator / Phone</span></div>
+</div></details>
+
+<details class="topic"><summary>5.2 JDK Requirements &amp; Compatibility <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p><b>JDK (Java Development Kit)</b> = Java compiler + tools. Android code written in Java is compiled by it.</p>
+<table><tr><th>Setup</th><th>JDK needed</th></tr>
+<tr><td>Eclipse + ADT (old)</td><td>JDK 6 or 7 (old versions only)</td></tr>
+<tr><td>Android Studio (modern)</td><td>Bundled JDK called <b>JetBrains Runtime (JBR)</b> – you normally do not install JDK separately</td></tr>
+<tr><td>Modern Android Gradle Plugin (AGP 8.x)</td><td>JDK 17 required</td></tr></table>
+<div class="def hin">Hinglish: Android Studio apna JDK saath laata hai, isliye alag se JDK ki tension nahi. Bas "JDK 17 ya naya" yaad rakho – purane projects ke liye kabhi-kabhi JDK 8/11 chahiye hota hai. Eclipse wale zamane me JDK 6/7 chalta tha.</div>
+<p>Check Java: open Command Prompt and type <code>java -version</code>.</p>
+</div></details>
+
+<details class="topic"><summary>5.3 Environment Configuration (JAVA_HOME, ANDROID_HOME) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p><b>Environment variables</b> tell Windows where tools are located.</p>
+<ol>
+<li>Press <b>Windows key</b> → type "Environment Variables" → open <b>Edit the system environment variables</b>.</li>
+<li>Click <b>Environment Variables…</b> → <b>New</b> (under System variables).</li>
+<li>Variable name: <code>JAVA_HOME</code> → value: path of JDK folder (e.g., <code>C:\Program Files\Java\jdk-17</code>).</li>
+<li>New → <code>ANDROID_HOME</code> → value: SDK folder (default: <code>C:\Users\&lt;YourName&gt;\AppData\Local\Android\Sdk</code>).</li>
+<li>Select <b>Path</b> → Edit → New → add <code>%JAVA_HOME%\bin</code>, <code>%ANDROID_HOME%\platform-tools</code>.</li>
+<li>OK on all windows; reopen Command Prompt and test <code>adb version</code>.</li>
+</ol>
+</div></details>
+
+<h3>B. Modern Android Studio Setup (Windows) <span class="badge b">EXTRA – PRACTICAL / MODERN</span></h3>
+<div class="note">This part is the <b>modern practical way</b>. It helps you build real apps, but exam answers are mainly based on part A and Eclipse.</div>
+
+<details class="topic" open><summary>5.4 Android Studio Installation – Step by Step <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<ol>
+<li>Open the official Android Developers website and download <b>Android Studio</b> for Windows (64-bit).</li>
+<li>Double-click the downloaded <code>.exe</code> file. Allow <b>Yes</b> in the permission box.</li>
+<li>In the setup wizard click <b>Next</b>. Keep <b>Android Virtual Device</b> ticked on the components page.</li>
+<li>Choose install location (default is fine; needs enough space) → <b>Next → Install → Finish</b>.</li>
+<li>Start Android Studio. Choose <b>Do not import settings</b> (first time).</li>
+<li><b>Setup Wizard</b> → choose <b>Standard</b> installation → select a theme → <b>Next</b>.</li>
+<li>Wait while the wizard downloads <b>SDK, Platform Tools, Emulator</b> (several GB; needs internet).</li>
+<li>Click <b>Finish</b>. You will see the <b>Welcome screen</b> – installation done.</li>
+</ol>
+<div class="def hin">Hinglish: Download karo → installer chalao → Next-Next → Standard setup → SDK download hone do → Finish. Bas! Pehli baar me thoda time lagta hai.</div>
+</div></details>
+
+<details class="topic"><summary>5.5 SDK Setup <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<ol><li>Open <b>More Actions → SDK Manager</b> (or <b>Tools → SDK Manager</b> inside a project).</li><li><b>SDK Platforms</b> tab: tick one recent Android version (e.g., Android 14, API 34).</li><li><b>SDK Tools</b> tab: ensure <b>Android SDK Build-Tools</b>, <b>Platform-Tools</b>, <b>Emulator</b> are ticked.</li><li>Click <b>Apply → OK</b> and accept licences.</li></ol>
+</div></details>
+
+<details class="topic"><summary>5.6 Emulator Setup (AVD) <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<ol>
+<li><b>Tools → Device Manager → Create Device</b>.</li>
+<li>Select hardware (e.g., <b>Pixel 6</b>) → Next.</li>
+<li>Select a <b>system image</b> (e.g., API 34). Click <b>Download</b> if it is not installed → Next.</li>
+<li>Give a name → <b>Finish</b>.</li>
+<li>Press the ▶ button to start the emulator.</li>
+</ol>
+<p><b>Speed tip:</b> Turn on <b>virtualization (Intel VT-x / AMD-V)</b> in BIOS. On Windows enable <b>Windows Hypervisor Platform</b> if the emulator says "hardware acceleration not available".</p>
+</div></details>
+
+<details class="topic"><summary>5.7 Physical Android Device Setup <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<ol>
+<li>On the phone: <b>Settings → About phone</b> → tap <b>Build number</b> 7 times → "You are now a developer".</li>
+<li><b>Settings → System → Developer options</b> → turn on <b>USB debugging</b>.</li>
+<li>Connect the phone to PC with a good <b>data</b> USB cable.</li>
+<li>Choose <b>File transfer (MTP)</b> mode if asked.</li>
+<li>Accept <b>"Allow USB debugging?"</b> on the phone.</li>
+<li>In Android Studio the phone name appears in the device drop-down; click ▶ Run.</li>
+</ol>
+<p>Check: <code>adb devices</code> should show your device as <code>device</code>. If it shows <code>unauthorized</code>, accept the prompt on the phone.</p>
+<div class="def hin">Hinglish: Real phone par test karna emulator se tez hota hai, kyunki emulator laptop ki RAM kha jata hai.</div>
+</div></details>
+
+<details class="topic"><summary>5.8 Common Installation Problems &amp; Solutions <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Problem</th><th>Solution</th></tr>
+<tr><td>Emulator not starting / "HAXM / hypervisor not installed"</td><td>Enable virtualization in BIOS; enable Windows Hypervisor Platform; update the Emulator in SDK Manager</td></tr>
+<tr><td>Laptop hangs when emulator runs</td><td>Lower AVD RAM; close other apps; use a real phone</td></tr>
+<tr><td>Gradle sync failed / download errors</td><td>Check internet; File → Sync Project with Gradle Files; try again later or use a different network</td></tr>
+<tr><td>"SDK location not found"</td><td>Set SDK path in File → Settings → Languages &amp; Frameworks → Android SDK</td></tr>
+<tr><td>Device not detected</td><td>Use a data cable; install the phone's USB driver; enable USB debugging; run <code>adb kill-server</code> then <code>adb start-server</code></td></tr>
+<tr><td>"Unsupported class file major version" / JDK error</td><td>Use JDK 17 (Gradle JDK setting) as required by the Android Gradle Plugin</td></tr>
+<tr><td>Low disk space</td><td>Free space or install SDK on another drive</td></tr></table>
+</div></details>
+</div>
+</details>
+
+<!-- ============ SECTION 6 ============ -->
+<details class="sec" id="s6">
+<summary>6. Building Your First Android Application <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s6"> Mark as read</label></summary>
+<div class="sbody">
+<p>We will create a <b>Hello World</b> app using Android Studio (menu names may differ slightly between versions).</p>
+
+<details class="topic" open><summary>6.1 Creating the project (step by step) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ol>
+<li><b>File → New → New Project</b> (or "New Project" on Welcome screen).</li>
+<li><b>Select a template:</b> choose <b>Empty Views Activity</b> (called "Empty Activity" in older versions). A <b>template</b> is ready-made starter code.</li>
+<li><b>Name:</b> <code>My First App</code> – the application name shown under the icon on the phone.</li>
+<li><b>Package name:</b> <code>com.example.myfirstapp</code> – the <b>unique ID</b> of your app (reverse of your website: com.company.app). Play Store identifies your app by it.</li>
+<li><b>Save location:</b> folder for the project.</li>
+<li><b>Language:</b> Java.</li>
+<li><b>Minimum SDK:</b> e.g., API 24 (Android 7.0) – the oldest Android version your app supports. Lower = more devices, but fewer new features.</li>
+<li>Click <b>Finish</b>. Wait for <b>Gradle build</b> to complete (bottom bar).</li>
+</ol>
+<div class="def hin">Hinglish: Package name unique hona chahiye, jaise Aadhaar number. Minimum SDK jitna kam, utne purane phones par app chalega.</div>
+<table><tr><th>Field</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>Name</td><td>App's display name</td><td>My First App</td></tr>
+<tr><td>Package name</td><td>Unique app identifier</td><td>com.example.myfirstapp</td></tr>
+<tr><td>Language</td><td>Java or Kotlin</td><td>Java</td></tr>
+<tr><td>Minimum SDK</td><td>Lowest supported Android version</td><td>API 24</td></tr></table>
+<div class="diagram"><div class="flow"><span>New Project</span><b>→</b><span>Template</span><b>→</b><span>Name / Package / Min SDK</span><b>→</b><span>Finish + Gradle Sync</span></div><div class="cap">Project creation flow</div></div>
+</div></details>
+
+<details class="topic" open><summary>6.2 Project structure (overview) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p>After creation, the <b>Project</b> panel (Android view) shows: <b>app → manifests, java, res</b> and <b>Gradle Scripts</b>. The full explanation is in Section 7.</p>
+<p>Two files open automatically: <code>MainActivity.java</code> and <code>activity_main.xml</code> (Activity creation and Layout creation are done by the template).</p>
+</div></details>
+
+<details class="topic" open><summary>6.3 Layout file – activity_main.xml <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p>Location: <code>app/src/main/res/layout/activity_main.xml</code></p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+
+    &lt;TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, Android!"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" /&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
+<h4>Line-by-line explanation</h4>
+<table><tr><th>Line</th><th>English</th><th>Hinglish</th></tr>
+<tr><td><code>&lt;?xml ...?&gt;</code></td><td>Declares this is an XML file (version, encoding).</td><td>Batata hai ki ye XML file hai.</td></tr>
+<tr><td><code>ConstraintLayout</code></td><td>The parent layout (container) that positions views using constraints.</td><td>Screen ka main container jo views ko jagah deta hai.</td></tr>
+<tr><td><code>xmlns:android=...</code></td><td>Namespace; allows attributes starting with <code>android:</code>.</td><td>Android ke attributes use karne ki permission.</td></tr>
+<tr><td><code>layout_width="match_parent"</code></td><td>Fill the full width of the parent.</td><td>Poori width le lo.</td></tr>
+<tr><td><code>layout_height="match_parent"</code></td><td>Fill the full height.</td><td>Poori height le lo.</td></tr>
+<tr><td><code>&lt;TextView&gt;</code></td><td>A view that displays text.</td><td>Text dikhane wala element.</td></tr>
+<tr><td><code>wrap_content</code></td><td>Size only as big as the content.</td><td>Content jitna hi size.</td></tr>
+<tr><td><code>android:text</code></td><td>The text to show.</td><td>Screen par kya likha dikhna hai.</td></tr>
+<tr><td><code>android:textSize="24sp"</code></td><td>Font size in <b>sp</b> (scale-independent pixels).</td><td>Text ka size (sp unit).</td></tr>
+<tr><td><code>app:layout_constraint...</code></td><td>Pins the TextView to all four edges → it appears in the centre.</td><td>Chaaron taraf se baandh diya, isliye text beech me aata hai.</td></tr></table>
+<div class="note"><b>Better practice:</b> Put text in <code>strings.xml</code> and use <code>android:text="@string/hello"</code>. Hard-coded text works but Android Studio warns about it.</div>
+</div></details>
+
+<details class="topic" open><summary>6.4 Activity – MainActivity.java <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<pre><code>package com.example.myfirstapp;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}</code></pre>
+<table><tr><th>Line</th><th>English</th><th>Hinglish</th></tr>
+<tr><td><code>package com.example.myfirstapp;</code></td><td>The package (folder name) of this class; must match the app's package.</td><td>Class kis package ki hai.</td></tr>
+<tr><td><code>import android.os.Bundle;</code></td><td>Imports <code>Bundle</code>, used to save/restore activity data.</td><td>Bundle class ko use karne ke liye import.</td></tr>
+<tr><td><code>import ...AppCompatActivity;</code></td><td>Imports the base Activity class that works on old and new Android versions.</td><td>Base class import – purane phones par bhi chalti hai.</td></tr>
+<tr><td><code>public class MainActivity extends AppCompatActivity</code></td><td>Our screen class; it <b>inherits</b> all Activity features.</td><td>Hamari screen; Activity ke saare features inherit karti hai.</td></tr>
+<tr><td><code>@Override</code></td><td>We are replacing a method of the parent class.</td><td>Parent ka method apne tarike se likh rahe hain.</td></tr>
+<tr><td><code>protected void onCreate(Bundle savedInstanceState)</code></td><td>Lifecycle method called <b>once when the Activity is created</b>. Put start-up code here.</td><td>Activity banate hi pehle ye method chalta hai.</td></tr>
+<tr><td><code>super.onCreate(savedInstanceState);</code></td><td>Calls the parent's onCreate so Android can do its basic setup. Must be first.</td><td>Parent ka kaam pehle karwana zaroori hai.</td></tr>
+<tr><td><code>setContentView(R.layout.activity_main);</code></td><td>Sets the screen design from <code>activity_main.xml</code>. <code>R</code> is an auto-generated class holding resource IDs.</td><td>XML design ko is Activity ki screen bana do.</td></tr></table>
+</div></details>
+
+<details class="topic" open><summary>6.5 Manifest entry for the Activity <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<pre><code>&lt;activity android:name=".MainActivity" android:exported="true"&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name="android.intent.action.MAIN" /&gt;
+        &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;</code></pre>
+<p>This makes <code>MainActivity</code> the <b>first screen</b> that opens when the user taps the app icon (details in Section 8).</p>
+</div></details>
+
+<details class="topic" open><summary>6.6 Running &amp; testing the app <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<h4>On the emulator</h4>
+<ol><li>Create/select an AVD in the device drop-down (top toolbar).</li><li>Click the green <b>Run ▶</b> button (or Shift + F10).</li><li>Gradle builds the APK → emulator starts → app installs and opens.</li></ol>
+<h4>On a physical device</h4>
+<ol><li>Enable Developer options and USB debugging (Section 5.7).</li><li>Connect by USB and allow debugging.</li><li>Select your phone in the drop-down → click Run ▶.</li></ol>
+<h4>What happens when you press Run (flow)</h4>
+<div class="flow"><span>Gradle build</span><b>→</b><span>APK created</span><b>→</b><span>ADB installs APK</span><b>→</b><span>Manifest read</span><b>→</b><span>MainActivity.onCreate()</span><b>→</b><span>Layout shown</span></div>
+<h4>Understanding the output</h4>
+<p>You will see a white screen with a title bar ("My First App") and the text <b>"Hello, Android!"</b> in the centre:</p>
+<div class="phone">
+<div class="st"><span>10:30</span><span>▲ ▮▮▮</span></div>
+<div class="ab">My First App</div>
+<div class="scr">Hello, Android!</div>
+<div class="nav"><span>◀</span><span>●</span><span>■</span></div>
+</div>
+<p style="text-align:center" class="note">Figure: Expected output on the emulator (illustration drawn with HTML/CSS).</p>
+<p><b>Where to see errors:</b> the <b>Build</b> tab (build errors) and the <b>Logcat</b> tab (runtime errors/messages).</p>
+</div></details>
+
+<details class="topic"><summary>6.7 Common mistakes of beginners <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ul><li>Layout file name must be lowercase, with underscores, no spaces (<code>activity_main.xml</code>).</li><li>Forgetting <code>setContentView</code> → blank screen.</li><li>Not registering a new Activity in the Manifest → app crashes ("ActivityNotFoundException").</li><li>Package name mismatch between files.</li><li>Not waiting for Gradle sync to finish before Run.</li></ul>
+</div></details>
+</div>
+</details>
+
+<!-- ============ SECTION 7 ============ -->
+<details class="sec" id="s7">
+<summary>7. Anatomy of Android Application <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s7"> Mark as read</label></summary>
+<div class="sbody">
+<details class="topic" open><summary>7.1 Project directory tree <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p>Real folder structure (Project view):</p>
+<div class="tree"><span class="c">MyFirstApp/</span>
+├── <span class="c">app/</span>
+│   ├── <span class="c">src/main/</span>
+│   │   ├── <span class="c">AndroidManifest.xml</span>        <span class="d">← app identity, components, permissions</span>
+│   │   ├── <span class="c">java/com/example/myfirstapp/</span>
+│   │   │   └── MainActivity.java       <span class="d">← logic (Java code)</span>
+│   │   ├── <span class="c">res/</span>                         <span class="d">← all resources</span>
+│   │   │   ├── drawable/               <span class="d">← images, shapes, vectors</span>
+│   │   │   ├── layout/
+│   │   │   │   └── activity_main.xml   <span class="d">← screen design</span>
+│   │   │   ├── mipmap-hdpi/ ... xxxhdpi/ <span class="d">← launcher icons</span>
+│   │   │   └── values/
+│   │   │       ├── strings.xml         <span class="d">← text</span>
+│   │   │       ├── colors.xml          <span class="d">← colours</span>
+│   │   │       └── themes.xml          <span class="d">← look and feel</span>
+│   │   └── <span class="c">assets/</span>                      <span class="d">← raw files (fonts, json, html)</span>
+│   ├── build.gradle(.kts)              <span class="d">← module settings (SDK, dependencies)</span>
+│   └── proguard-rules.pro
+├── build.gradle(.kts)                  <span class="d">← project-level settings</span>
+├── settings.gradle(.kts)               <span class="d">← which modules exist</span>
+├── gradle.properties                   <span class="d">← global Gradle options</span>
+└── gradle/wrapper/                     <span class="d">← Gradle version files</span></div>
+<p>In the <b>Android view</b> of Android Studio you see a simplified tree: <b>app → manifests / java / res</b> and <b>Gradle Scripts</b>.</p>
+</div></details>
+
+<details class="topic" open><summary>7.2 Labelled diagram of project parts <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="diagram">
+<svg viewBox="0 0 420 380" role="img" aria-label="Android project structure diagram">
+<rect class="d-box5" x="110" y="6" width="200" height="38" rx="8"/><text class="d-tb" x="210" y="30" text-anchor="middle">ANDROID PROJECT (app)</text>
+<path class="d-l" d="M210 44V60M52 60H368M52 60V76M136 60V76M220 60V76M304 60V76M368 60V76"/>
+<rect class="d-box" x="4" y="76" width="96" height="60" rx="8"/><text class="d-tb" x="52" y="98" text-anchor="middle">manifests</text><text class="d-ts" x="52" y="114" text-anchor="middle">AndroidManifest</text><text class="d-ts" x="52" y="126" text-anchor="middle">.xml</text>
+<rect class="d-box2" x="104" y="76" width="64" height="60" rx="8"/><text class="d-tb" x="136" y="98" text-anchor="middle">java</text><text class="d-ts" x="136" y="114" text-anchor="middle">Main</text><text class="d-ts" x="136" y="126" text-anchor="middle">Activity</text>
+<rect class="d-box3" x="172" y="76" width="96" height="60" rx="8"/><text class="d-tb" x="220" y="98" text-anchor="middle">res</text><text class="d-ts" x="220" y="114" text-anchor="middle">layout, values,</text><text class="d-ts" x="220" y="126" text-anchor="middle">drawable, mipmap</text>
+<rect class="d-box4" x="272" y="76" width="64" height="60" rx="8"/><text class="d-tb" x="304" y="98" text-anchor="middle">assets</text><text class="d-ts" x="304" y="114" text-anchor="middle">raw files</text>
+<rect class="d-box" x="340" y="76" width="76" height="60" rx="8"/><text class="d-tb" x="378" y="98" text-anchor="middle">Gradle</text><text class="d-ts" x="378" y="114" text-anchor="middle">build</text><text class="d-ts" x="378" y="126" text-anchor="middle">scripts</text>
+<path class="d-l" d="M220 136V156M120 156H320M120 156V172M220 156V172M320 156V172"/>
+<rect class="d-box2" x="40" y="172" width="160" height="46" rx="8"/><text class="d-tb" x="120" y="192" text-anchor="middle">layout/</text><text class="d-ts" x="120" y="208" text-anchor="middle">activity_main.xml</text>
+<rect class="d-box3" x="150" y="228" width="120" height="46" rx="8"/><text class="d-tb" x="210" y="248" text-anchor="middle">values/</text><text class="d-ts" x="210" y="264" text-anchor="middle">strings, colors, themes</text>
+<rect class="d-box4" x="230" y="172" width="180" height="46" rx="8"/><text class="d-tb" x="320" y="192" text-anchor="middle">drawable/ + mipmap/</text><text class="d-ts" x="320" y="208" text-anchor="middle">images and app icons</text>
+<path class="d-l" d="M120 218V240H150M320 218V240H270"/>
+<rect class="d-box" x="8" y="296" width="404" height="74" rx="8"/>
+<text class="d-tb" x="210" y="316" text-anchor="middle">How they work together</text>
+<text class="d-ts" x="210" y="334" text-anchor="middle">Manifest names the launcher Activity → Activity (java) runs</text>
+<text class="d-ts" x="210" y="348" text-anchor="middle">setContentView(layout) → layout reads strings/colors/images from res</text>
+<text class="d-ts" x="210" y="362" text-anchor="middle">Gradle builds everything into an APK</text>
+</svg>
+<div class="cap">Figure: Android project structure</div></div>
+</div></details>
+
+<details class="topic" open><summary>7.3 Purpose of every important folder/file <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table>
+<tr><th>Folder / File</th><th>Purpose (English)</th><th>Hinglish</th></tr>
+<tr><td><b>manifests/AndroidManifest.xml</b></td><td>Declares package, components, permissions, launcher Activity.</td><td>App ka ID card.</td></tr>
+<tr><td><b>java/</b></td><td>Contains all Java/Kotlin source code (Activities, classes).</td><td>App ka dimaag – logic yahan.</td></tr>
+<tr><td><b>MainActivity</b></td><td>Main/first screen class; controls what happens on that screen.</td><td>Pehli screen ka code.</td></tr>
+<tr><td><b>res/</b></td><td>All non-code resources: layouts, images, strings, colours.</td><td>Design aur data files.</td></tr>
+<tr><td><b>res/layout/</b></td><td>XML files that design screens (e.g., activity_main.xml).</td><td>Screen ka design.</td></tr>
+<tr><td><b>res/drawable/</b></td><td>Images (PNG, JPG), vector icons, shapes, backgrounds.</td><td>Pictures aur shapes.</td></tr>
+<tr><td><b>res/mipmap-*/</b></td><td>Launcher icons in several densities (hdpi, xhdpi, xxhdpi…).</td><td>App ka icon (alag-alag screen sizes ke liye).</td></tr>
+<tr><td><b>res/values/</b></td><td>Simple value files: strings, colours, themes, dimensions.</td><td>Text, color, style ki list.</td></tr>
+<tr><td><b>strings.xml</b></td><td>All text used in the app (<code>app_name</code>, labels). Helps translation to other languages.</td><td>App ka saara text ek jagah.</td></tr>
+<tr><td><b>colors.xml</b></td><td>Named colours, e.g., <code>&lt;color name="purple_500"&gt;#6200EE&lt;/color&gt;</code>.</td><td>Colors ke naam.</td></tr>
+<tr><td><b>themes.xml</b></td><td>App's overall style (colours, fonts, action bar). Applied via <code>android:theme</code> in Manifest.</td><td>App ka look and feel.</td></tr>
+<tr><td><b>assets/</b></td><td>Raw files kept as-is (fonts, JSON, HTML, sounds). Read in code using <code>AssetManager</code>; no resource ID is created.</td><td>Aisi files jo jaisi hain waisi rakhni hain.</td></tr>
+<tr><td><b>Gradle Scripts</b></td><td><code>build.gradle</code> (project and module), <code>settings.gradle</code>, <code>gradle.properties</code> – build settings.</td><td>Build ke rules.</td></tr>
+<tr><td><b>R class</b></td><td>Auto-generated; gives an integer ID to every resource (e.g., <code>R.layout.activity_main</code>). Do not edit.</td><td>Resource ki ID list – khud nahi badalni.</td></tr>
+</table>
+</div></details>
+
+<details class="topic"><summary>7.4 Important files in detail (with code) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<h4>strings.xml</h4>
+<pre><code>&lt;resources&gt;
+    &lt;string name="app_name"&gt;My First App&lt;/string&gt;
+    &lt;string name="hello"&gt;Hello, Android!&lt;/string&gt;
+&lt;/resources&gt;</code></pre>
+<p>Use in XML: <code>@string/hello</code> • Use in Java: <code>getString(R.string.hello)</code>.</p>
+<h4>colors.xml</h4>
+<pre><code>&lt;resources&gt;
+    &lt;color name="purple_500"&gt;#FF6200EE&lt;/color&gt;
+    &lt;color name="white"&gt;#FFFFFFFF&lt;/color&gt;
+&lt;/resources&gt;</code></pre>
+<h4>themes.xml (simplified)</h4>
+<pre><code>&lt;resources&gt;
+    &lt;style name="Theme.MyFirstApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar"&gt;
+        &lt;item name="colorPrimary"&gt;@color/purple_500&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;</code></pre>
+<h4>build.gradle (module: app) – key parts (Groovy syntax)</h4>
+<pre><code>android {
+    namespace 'com.example.myfirstapp'
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.example.myfirstapp"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+}
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+}</code></pre>
+<table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>applicationId</td><td>Unique ID of the app on the device/Play Store</td></tr>
+<tr><td>minSdk</td><td>Lowest Android API supported</td></tr>
+<tr><td>targetSdk</td><td>API level the app is designed/tested for</td></tr>
+<tr><td>compileSdk</td><td>API level used to compile</td></tr>
+<tr><td>versionCode / versionName</td><td>Internal version number / version shown to users</td></tr>
+<tr><td>dependencies</td><td>External libraries the app uses</td></tr></table>
+<p class="note">Version numbers (34, 1.6.1) change over time; Android Studio generates current values for you.</p>
+</div></details>
+
+<details class="topic" open><summary>7.5 How all files work together when the app runs <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ol>
+<li><b>Build time:</b> Gradle reads build.gradle, compiles Java, packs resources, and creates the <b>APK</b>.</li>
+<li><b>Install:</b> APK is installed; Android reads <b>AndroidManifest.xml</b>.</li>
+<li>User taps the icon (from <b>mipmap</b>) with the app name (from <b>strings.xml</b>).</li>
+<li>Android finds the <b>LAUNCHER</b> Activity in the Manifest and creates a process.</li>
+<li><b>MainActivity.onCreate()</b> runs.</li>
+<li><code>setContentView(R.layout.activity_main)</code> inflates the XML layout into View objects.</li>
+<li>Views take text, colours, images from <b>res/values</b> and <b>drawable</b>; theme from <b>themes.xml</b>.</li>
+<li>Screen is displayed; user interacts; Java code responds.</li>
+</ol>
+<div class="flow"><span>Gradle</span><b>→</b><span>APK</span><b>→</b><span>Manifest</span><b>→</b><span>MainActivity</span><b>→</b><span>Layout XML</span><b>→</b><span>res values / images</span><b>→</b><span>Screen</span></div>
+<div class="def hin">Hinglish: Manifest batata hai "kaun si screen pehle kholni hai"; MainActivity us screen ko chalati hai; Layout XML design deta hai; res folder text, color aur images deta hai.</div>
+<h4>Four main app components (introduction)</h4>
+<table><tr><th>Component</th><th>Purpose</th><th>Example</th></tr>
+<tr><td>Activity</td><td>One screen with UI</td><td>Login screen</td></tr>
+<tr><td>Service</td><td>Background work without UI</td><td>Music playing in background</td></tr>
+<tr><td>Broadcast Receiver</td><td>Responds to system/app messages</td><td>Battery low alert</td></tr>
+<tr><td>Content Provider</td><td>Shares data between apps</td><td>Contacts data</td></tr></table>
+</div></details>
+</div>
+</details>
+<!-- ============ SECTION 8 ============ -->
+<details class="sec" id="s8">
+<summary>8. Android Manifest File <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s8"> Mark as read</label></summary>
+<div class="sbody">
+
+<details class="topic" open><summary>8.1 What is AndroidManifest.xml &amp; why is it required? <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="def"><b>Definition:</b> AndroidManifest.xml is a mandatory XML file placed in the root of every Android app. It describes the app to the Android system: its package name, components (Activities, Services, Receivers, Providers), required permissions, hardware/software needs and the launcher Activity.</div>
+<div class="def hin"><b>Hinglish:</b> Manifest file app ka introduction-form hai jo Android system ko bataata hai ki "mera app kya hai, kya-kya use karega aur kahan se shuru hoga".</div>
+<h4>Why is it required?</h4>
+<ol><li>Android must know the <b>components</b> of the app before running any code.</li><li>It declares <b>permissions</b> the app needs (Internet, Camera…).</li><li>It marks the <b>launcher Activity</b> (entry point).</li><li>It gives the <b>app name, icon and theme</b>.</li><li>Google Play uses it to decide which devices can install the app.</li></ol>
+</div></details>
+
+<details class="topic" open><summary>8.2 Structure of the manifest file <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<div class="diagram">
+<svg viewBox="0 0 420 400" role="img" aria-label="Android manifest structure diagram">
+<rect class="d-box5" x="6" y="6" width="408" height="388" rx="10"/>
+<text class="d-tb" x="16" y="26">&lt;manifest&gt;</text>
+<rect class="d-box" x="24" y="38" width="372" height="30" rx="6"/><text class="d-t" x="34" y="58">&lt;uses-permission&gt; – INTERNET, CAMERA …</text>
+<rect class="d-box" x="24" y="76" width="372" height="30" rx="6"/><text class="d-t" x="34" y="96">&lt;uses-feature&gt; / &lt;uses-sdk&gt; – hardware, SDK info</text>
+<rect class="d-box3" x="24" y="114" width="372" height="272" rx="8"/>
+<text class="d-tb" x="34" y="134">&lt;application&gt; (icon, label, theme…)</text>
+<rect class="d-box2" x="40" y="146" width="340" height="94" rx="6"/>
+<text class="d-tb" x="50" y="164">&lt;activity&gt; (MainActivity)</text>
+<rect class="d-box4" x="56" y="172" width="308" height="60" rx="6"/>
+<text class="d-t" x="66" y="190">&lt;intent-filter&gt;</text>
+<text class="d-ts" x="82" y="205">&lt;action android:name="…MAIN"/&gt;</text>
+<text class="d-ts" x="82" y="220">&lt;category android:name="…LAUNCHER"/&gt;</text>
+<rect class="d-box2" x="40" y="250" width="340" height="30" rx="6"/><text class="d-t" x="50" y="270">&lt;service&gt; – background tasks</text>
+<rect class="d-box2" x="40" y="288" width="340" height="30" rx="6"/><text class="d-t" x="50" y="308">&lt;receiver&gt; – Broadcast Receiver</text>
+<rect class="d-box2" x="40" y="326" width="340" height="30" rx="6"/><text class="d-t" x="50" y="346">&lt;provider&gt; – Content Provider</text>
+<text class="d-ts" x="210" y="376" text-anchor="middle">Everything inside &lt;application&gt; is an app component</text>
+</svg>
+<div class="cap">Figure: Structure of AndroidManifest.xml</div></div>
+</div></details>
+
+<details class="topic" open><summary>8.3 Complete simple AndroidManifest.xml example <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myfirstapp"&gt;
+
+    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+    &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
+    &lt;uses-feature android:name="android.hardware.camera" android:required="false" /&gt;
+    &lt;uses-sdk android:minSdkVersion="24" android:targetSdkVersion="34" /&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.MyFirstApp"&gt;
+
+        &lt;activity
+            android:name=".MainActivity"
+            android:exported="true"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+        &lt;activity android:name=".SecondActivity" android:exported="false" /&gt;
+
+        &lt;service android:name=".MyService" android:exported="false" /&gt;
+
+        &lt;receiver android:name=".MyReceiver" android:exported="false" /&gt;
+
+        &lt;provider
+            android:name=".MyProvider"
+            android:authorities="com.example.myfirstapp.provider"
+            android:exported="false" /&gt;
+
+    &lt;/application&gt;
+&lt;/manifest&gt;</code></pre>
+<div class="note"><b>Modern note:</b> In new Android Studio projects the <code>package</code> attribute and <code>&lt;uses-sdk&gt;</code> values are not written in the manifest; they are set in <code>build.gradle</code> (<code>namespace</code>, <code>minSdk</code>, <code>targetSdk</code>). Older books and exams show them in the manifest, so know both.</div>
+</div></details>
+
+<details class="topic" open><summary>8.4 Line-by-line explanation (English + Hinglish) <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table>
+<tr><th>Line</th><th>English</th><th>Hinglish</th></tr>
+<tr><td><code>&lt;manifest ... package="..."&gt;</code></td><td>Root element. <code>package</code> = unique app identity.</td><td>Root tag; package = app ka unique naam.</td></tr>
+<tr><td><code>xmlns:android</code></td><td>Namespace that allows <code>android:</code> attributes.</td><td>Android attributes use karne ke liye.</td></tr>
+<tr><td><code>&lt;uses-permission ... INTERNET&gt;</code></td><td>Asks permission to use the internet.</td><td>Internet use karne ki permission.</td></tr>
+<tr><td><code>&lt;uses-permission ... CAMERA&gt;</code></td><td>Asks permission to use the camera (dangerous: user must allow at runtime).</td><td>Camera ki permission; user se poochhi jati hai.</td></tr>
+<tr><td><code>&lt;uses-feature ... required="false"&gt;</code></td><td>Says app uses a camera but can work without it.</td><td>Camera ho to use karega, na ho to bhi app chalega.</td></tr>
+<tr><td><code>&lt;uses-sdk minSdkVersion / targetSdkVersion&gt;</code></td><td>Lowest Android API supported and API targeted.</td><td>Kam se kam aur target Android version.</td></tr>
+<tr><td><code>&lt;application&gt;</code></td><td>Container for all components and app-level settings.</td><td>Saare components ka dabba.</td></tr>
+<tr><td><code>android:allowBackup="true"</code></td><td>Allows app data backup.</td><td>Backup ki permission.</td></tr>
+<tr><td><code>android:icon</code></td><td>App icon from mipmap folder.</td><td>App ka icon.</td></tr>
+<tr><td><code>android:label</code></td><td>App name shown to user (from strings.xml).</td><td>App ka naam.</td></tr>
+<tr><td><code>android:theme</code></td><td>Style/theme for the whole app.</td><td>App ka look.</td></tr>
+<tr><td><code>&lt;activity android:name=".MainActivity"&gt;</code></td><td>Registers an Activity class (dot = app package).</td><td>Activity ko register karna.</td></tr>
+<tr><td><code>android:exported="true"</code></td><td>Other apps/system can start this Activity. Required (true/false) for components with intent-filters on Android 12+.</td><td>Bahar ki apps isse khol sakti hain ya nahi.</td></tr>
+<tr><td><code>&lt;intent-filter&gt;</code></td><td>Tells which Intents this component can respond to.</td><td>Ye component kaun-si requests handle karega.</td></tr>
+<tr><td><code>action MAIN</code></td><td>Main entry point of the app.</td><td>App ki starting entry.</td></tr>
+<tr><td><code>category LAUNCHER</code></td><td>Show this Activity as an icon in the launcher/home screen.</td><td>Icon home screen par dikhao.</td></tr>
+<tr><td><code>&lt;service&gt;</code></td><td>Registers a Service (background work).</td><td>Background kaam ka component.</td></tr>
+<tr><td><code>&lt;receiver&gt;</code></td><td>Registers a Broadcast Receiver.</td><td>System messages sunne wala component.</td></tr>
+<tr><td><code>&lt;provider ... authorities&gt;</code></td><td>Registers a Content Provider; <code>authorities</code> is its unique data address.</td><td>Data share karne wala component; authority uska address.</td></tr>
+</table>
+</div></details>
+
+<details class="topic"><summary>8.5 The four components, permissions, intent filters &amp; launcher activity <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<h4>The four app components</h4>
+<table><tr><th>Component</th><th>Class</th><th>Use</th><th>Real-life example</th></tr>
+<tr><td><b>Activity</b></td><td><code>extends AppCompatActivity</code></td><td>One screen with a user interface</td><td>Login page, home page</td></tr>
+<tr><td><b>Service</b></td><td><code>extends Service</code></td><td>Long-running work in the background (no UI)</td><td>Music player, file download</td></tr>
+<tr><td><b>Broadcast Receiver</b></td><td><code>extends BroadcastReceiver</code></td><td>Receives system-wide or app messages</td><td>Battery low, SMS received, boot completed</td></tr>
+<tr><td><b>Content Provider</b></td><td><code>extends ContentProvider</code></td><td>Shares structured data between apps</td><td>Contacts, Gallery data</td></tr></table>
+<h4>Permissions</h4>
+<p><b>Definition:</b> A permission is a <b>restriction/approval</b> that protects sensitive data or features. An app must declare it with <code>&lt;uses-permission&gt;</code>.</p>
+<ul><li><b>Normal permissions</b> (e.g., INTERNET) – granted automatically at install.</li><li><b>Dangerous permissions</b> (CAMERA, LOCATION, CONTACTS, MICROPHONE) – user must allow at <b>runtime</b> (from Android 6.0).</li></ul>
+<div class="def hin">Hinglish: Permission = "kya aapka app ye kaam kar sakta hai?" Jaise colony ka guard puchhta hai "andar jaane ki ijaazat hai?"</div>
+<h4>Intent Filters</h4>
+<p><b>Definition:</b> An intent filter declares which <b>Intents</b> (messages/requests) a component can handle. It contains <code>action</code>, <code>category</code> and optionally <code>data</code>.</p>
+<div class="def hin">Hinglish: Intent filter = "main kaun sa kaam kar sakta hun" ka board. Jaise dukaan par likha ho "yahan photocopy hoti hai".</div>
+<h4>Launcher Activity</h4>
+<p>The Activity with <b>MAIN + LAUNCHER</b> intent filter. Only this Activity gets an icon on the home screen and is the entry point. An app normally has exactly one launcher Activity.</p>
+<h4>Application attributes</h4>
+<p><code>icon</code>, <code>roundIcon</code>, <code>label</code>, <code>theme</code>, <code>allowBackup</code>, <code>supportsRtl</code>, <code>name</code> (custom Application class), <code>usesCleartextTraffic</code>, etc.</p>
+<h4>Uses-SDK information</h4>
+<p><b>minSdkVersion</b> – oldest Android supported; <b>targetSdkVersion</b> – version app is tested for; <b>maxSdkVersion</b> – (rarely used, not recommended). Google Play uses these to filter devices.</p>
+</div></details>
+
+<details class="topic" open><summary>8.6 Difference between Permissions and Intent Filters <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table>
+<tr><th>Point</th><th>Permissions</th><th>Intent Filters</th></tr>
+<tr><td>Purpose</td><td>Controls <b>access</b> to protected data/features</td><td>Declares <b>which requests</b> a component can handle</td></tr>
+<tr><td>Tag</td><td><code>&lt;uses-permission&gt;</code> (outside application)</td><td><code>&lt;intent-filter&gt;</code> (inside a component)</td></tr>
+<tr><td>Who decides</td><td>System/user grants or denies</td><td>Android matches Intent with filter</td></tr>
+<tr><td>Direction</td><td>App asks "may I use X?"</td><td>App says "I can do Y for others"</td></tr>
+<tr><td>Example</td><td>CAMERA, INTERNET, READ_CONTACTS</td><td>MAIN/LAUNCHER, ACTION_VIEW, ACTION_SEND</td></tr>
+<tr><td>Security role</td><td>Protects user's privacy</td><td>Routes messages (not a security tool by itself)</td></tr>
+<tr><td>Location</td><td>Direct child of &lt;manifest&gt;</td><td>Child of activity/service/receiver</td></tr>
+</table>
+</div></details>
+</div>
+</details>
+
+<!-- ============ SECTION 9 ============ -->
+<details class="sec" id="s9">
+<summary>9. Additional Knowledge <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s9"> Mark as read</label></summary>
+<div class="sbody">
+<div class="warn"><b>Do not worry:</b> Everything in this section is <b>extra</b>. It is not asked directly in Unit 1 exams. Read it only after finishing the green sections. It will help you in real-life development, interviews and later units.</div>
+
+<details class="topic"><summary>9.1 Android Studio vs Eclipse <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Feature</th><th>Android Studio</th><th>Eclipse + ADT</th></tr>
+<tr><td>Status</td><td>Official, active</td><td>Discontinued (2015)</td></tr>
+<tr><td>Based on</td><td>IntelliJ IDEA</td><td>Eclipse platform</td></tr>
+<tr><td>Build system</td><td>Gradle</td><td>Ant</td></tr>
+<tr><td>Languages</td><td>Java, Kotlin</td><td>Java</td></tr>
+<tr><td>Emulator &amp; tools</td><td>Built-in, advanced</td><td>Basic</td></tr>
+<tr><td>Setup</td><td>All-in-one</td><td>Manual plugins</td></tr></table></div></details>
+
+<details class="topic"><summary>9.2 Android Studio vs VS Code <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<p>VS Code is a light code editor; for native Android, <b>Android Studio</b> is far better because it has the layout editor, emulator, Gradle integration and profilers built in. VS Code is good for Flutter/React Native/web projects (with extensions), but you still need the Android SDK.</p>
+<table><tr><th>Point</th><th>Android Studio</th><th>VS Code</th></tr>
+<tr><td>Type</td><td>Full IDE</td><td>Code editor</td></tr>
+<tr><td>Native Android</td><td>Best support</td><td>Limited</td></tr>
+<tr><td>RAM use</td><td>High</td><td>Low</td></tr>
+<tr><td>Best for</td><td>Android apps</td><td>Web, Flutter, general coding</td></tr></table></div></details>
+
+<details class="topic"><summary>9.3 Java vs Kotlin <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Point</th><th>Java</th><th>Kotlin</th></tr>
+<tr><td>Android support</td><td>Original language</td><td>Google's preferred language since 2019</td></tr>
+<tr><td>Code length</td><td>More lines</td><td>Short and clean</td></tr>
+<tr><td>Null safety</td><td>NullPointerException possible</td><td>Built-in null safety</td></tr>
+<tr><td>Learning</td><td>Many college books use it</td><td>Easy after Java</td></tr></table>
+<pre><code>// Kotlin version of onCreate
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}</code></pre>
+<p>Your exam syllabus uses <b>Java</b>.</p></div></details>
+
+<details class="topic"><summary>9.4 Android Emulator (extra details) <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<p>Runs a virtual device using system images. Features: rotate screen, set GPS location, simulate battery/network, take screenshots, snapshots for quick boot. Needs hardware acceleration (virtualization). Tip: give it 2 GB RAM or less on weak PCs.</p></div></details>
+
+<details class="topic"><summary>9.5 APK and AAB <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Point</th><th>APK</th><th>AAB (Android App Bundle)</th></tr>
+<tr><td>Full form</td><td>Android Package Kit</td><td>Android App Bundle</td></tr>
+<tr><td>Use</td><td>Install directly on a device</td><td>Upload to Google Play</td></tr>
+<tr><td>Installable?</td><td>Yes</td><td>No (Play creates optimised APKs)</td></tr>
+<tr><td>Size</td><td>Includes all resources</td><td>Users download smaller, device-specific APKs</td></tr></table>
+<p>An APK is a ZIP containing <code>classes.dex</code>, <code>resources.arsc</code>, <code>AndroidManifest.xml</code>, <code>res/</code> and <code>META-INF/</code>.</p></div></details>
+
+<details class="topic"><summary>9.6 Android Application Lifecycle (basic introduction) <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<p>An Activity moves through states. Important callback methods:</p>
+<div class="flow"><span>onCreate()</span><b>→</b><span>onStart()</span><b>→</b><span>onResume()</span><b>→</b><span>(Running)</span><b>→</b><span>onPause()</span><b>→</b><span>onStop()</span><b>→</b><span>onDestroy()</span></div>
+<table><tr><th>Method</th><th>When called</th></tr>
+<tr><td>onCreate</td><td>Activity is created (set layout here)</td></tr>
+<tr><td>onStart</td><td>Activity becomes visible</td></tr>
+<tr><td>onResume</td><td>User can interact</td></tr>
+<tr><td>onPause</td><td>Another screen comes in front</td></tr>
+<tr><td>onStop</td><td>Activity no longer visible</td></tr>
+<tr><td>onDestroy</td><td>Activity is removed</td></tr></table></div></details>
+
+<details class="topic"><summary>9.7 Gradle basics <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<p>Gradle is the <b>build automation tool</b>. It downloads libraries (dependencies), compiles code, packs resources and creates APK/AAB. Settings are in <code>build.gradle</code> files. "Gradle sync" reads those files and updates the project. Common commands: <code>gradlew assembleDebug</code> (build debug APK), <code>gradlew clean</code>.</p></div></details>
+
+<details class="topic"><summary>9.8 Android Debugging <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<ul><li><b>Logcat:</b> shows logs. In code: <code>Log.d("TAG", "message");</code></li><li><b>Breakpoints:</b> pause code at a line; run with the Debug 🐞 button.</li><li><b>Toast:</b> quick on-screen message: <code>Toast.makeText(this, "Hi", Toast.LENGTH_SHORT).show();</code></li><li>Read the <b>stack trace</b>: first line shows the error; look for your package name in the trace.</li></ul></div></details>
+
+<details class="topic"><summary>9.9 Modern Android Development overview <span class="badge b">EXTRA – NOT DIRECTLY IN SYLLABUS</span></summary><div class="tb">
+<ul><li><b>Kotlin</b> as the main language</li><li><b>Jetpack Compose</b> – modern declarative UI toolkit (replaces XML)</li><li><b>Jetpack libraries</b> – ViewModel, LiveData, Room (database), Navigation, WorkManager</li><li><b>Material Design 3</b></li><li><b>Firebase</b> for login, database, notifications</li><li><b>Gradle with Kotlin DSL</b> (.kts)</li></ul>
+<p>Your exam uses classic Java + XML, which is still the base for understanding all of the above.</p></div></details>
+</div>
+</details>
+
+<!-- ============ SECTION 10 ============ -->
+<details class="sec" id="s10">
+<summary>10. Important Diagrams <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s10"> Mark as read</label></summary>
+<div class="sbody">
+<p>All six diagrams are important for the exam. Practise drawing them in your answer sheet with boxes and arrows.</p>
+
+<h3>Diagram 1: Android Architecture</h3>
+<div class="diagram">
+<svg viewBox="0 0 420 330" role="img" aria-label="Simplified Android architecture">
+<rect class="d-box4" x="30" y="8" width="360" height="44" rx="8"/><text class="d-tb" x="210" y="35" text-anchor="middle">APPLICATIONS (System + User Apps)</text>
+<path class="d-l" d="M210 52V64"/>
+<rect class="d-box3" x="30" y="64" width="360" height="52" rx="8"/><text class="d-tb" x="210" y="86" text-anchor="middle">APPLICATION FRAMEWORK</text><text class="d-ts" x="210" y="104" text-anchor="middle">Activity Mgr • Content Providers • View System</text>
+<path class="d-l" d="M120 116V128M300 116V128"/>
+<rect class="d-box2" x="30" y="128" width="170" height="52" rx="8"/><text class="d-tb" x="115" y="150" text-anchor="middle">NATIVE LIBRARIES</text><text class="d-ts" x="115" y="167" text-anchor="middle">SQLite • OpenGL • libc</text>
+<rect class="d-box2" x="220" y="128" width="170" height="52" rx="8"/><text class="d-tb" x="305" y="150" text-anchor="middle">ANDROID RUNTIME</text><text class="d-ts" x="305" y="167" text-anchor="middle">ART + Core Libraries</text>
+<path class="d-l" d="M210 180V194"/>
+<rect class="d-box" x="30" y="194" width="360" height="44" rx="8"/><text class="d-tb" x="210" y="221" text-anchor="middle">HARDWARE ABSTRACTION LAYER (HAL)</text>
+<path class="d-l" d="M210 238V252"/>
+<rect class="d-box5" x="30" y="252" width="360" height="60" rx="8"/><text class="d-tb" x="210" y="276" text-anchor="middle">LINUX KERNEL</text><text class="d-ts" x="210" y="296" text-anchor="middle">Drivers • Memory • Process • Power</text>
+</svg><div class="cap">Android architecture (detailed version in Section 2.5)</div></div>
+
+<h3>Diagram 2: Android Application Development Process</h3>
+<div class="diagram">
+<svg viewBox="0 0 420 330" role="img" aria-label="Development process">
+<rect class="d-box" x="130" y="6" width="160" height="34" rx="17"/><text class="d-tb" x="210" y="28" text-anchor="middle">1. Idea / Requirement</text>
+<path class="d-l" d="M210 40V54"/>
+<rect class="d-box2" x="130" y="54" width="160" height="34" rx="17"/><text class="d-tb" x="210" y="76" text-anchor="middle">2. Design UI (XML)</text>
+<path class="d-l" d="M210 88V102"/>
+<rect class="d-box3" x="130" y="102" width="160" height="34" rx="17"/><text class="d-tb" x="210" y="124" text-anchor="middle">3. Write Code (Java)</text>
+<path class="d-l" d="M210 136V150"/>
+<rect class="d-box4" x="130" y="150" width="160" height="34" rx="17"/><text class="d-tb" x="210" y="172" text-anchor="middle">4. Build (Gradle → APK)</text>
+<path class="d-l" d="M210 184V198"/>
+<rect class="d-box" x="130" y="198" width="160" height="34" rx="17"/><text class="d-tb" x="210" y="220" text-anchor="middle">5. Test (Emulator/Device)</text>
+<path class="d-l" d="M210 232V246"/>
+<rect class="d-box2" x="130" y="246" width="160" height="34" rx="17"/><text class="d-tb" x="210" y="268" text-anchor="middle">6. Debug &amp; Fix</text>
+<path class="d-l" d="M290 263H370V23H290"/>
+<text class="d-ts" x="378" y="150" text-anchor="start" transform="rotate(90 378 150)">repeat if errors</text>
+<path class="d-l" d="M210 280V296"/>
+<rect class="d-box5" x="110" y="296" width="200" height="28" rx="14"/><text class="d-tb" x="210" y="315" text-anchor="middle">7. Sign + Publish (Play Store)</text>
+</svg><div class="cap">Development process: design → code → build → test → publish</div></div>
+
+<h3>Diagram 3: Android Project Structure</h3>
+<p>See the labelled diagram and directory tree in <a href="#s7">Section 7</a> (7.1 and 7.2).</p>
+<div class="flow"><span>manifests</span><span>java</span><span>res (layout, drawable, mipmap, values)</span><span>assets</span><span>Gradle Scripts</span></div>
+
+<h3>Diagram 4: Android SDK Components</h3>
+<p>See the labelled diagram in <a href="#s3">Section 3.2</a>.</p>
+<div class="flow"><span>SDK Manager</span><span>Platform Tools (ADB)</span><span>Build Tools</span><span>SDK Platforms</span><span>Emulator</span></div>
+
+<h3>Diagram 5: Android Manifest Structure</h3>
+<p>See the nested diagram in <a href="#s8">Section 8.2</a>.</p>
+<div class="flow"><span>&lt;manifest&gt;</span><b>→</b><span>&lt;uses-permission&gt;</span><b>→</b><span>&lt;application&gt;</span><b>→</b><span>activity | service | receiver | provider</span></div>
+
+<h3>Diagram 6: Android Application Execution Flow</h3>
+<div class="diagram">
+<svg viewBox="0 0 420 380" role="img" aria-label="Application execution flow">
+<rect class="d-box4" x="110" y="6" width="200" height="34" rx="8"/><text class="d-tb" x="210" y="28" text-anchor="middle">User taps app icon</text>
+<path class="d-l" d="M210 40V54"/>
+<rect class="d-box" x="110" y="54" width="200" height="40" rx="8"/><text class="d-tb" x="210" y="72" text-anchor="middle">Android reads</text><text class="d-tb" x="210" y="88" text-anchor="middle">AndroidManifest.xml</text>
+<path class="d-l" d="M210 94V108"/>
+<rect class="d-box3" x="110" y="108" width="200" height="40" rx="8"/><text class="d-tb" x="210" y="126" text-anchor="middle">Finds LAUNCHER Activity</text><text class="d-ts" x="210" y="141" text-anchor="middle">(MAIN + LAUNCHER filter)</text>
+<path class="d-l" d="M210 148V162"/>
+<rect class="d-box2" x="110" y="162" width="200" height="40" rx="8"/><text class="d-tb" x="210" y="180" text-anchor="middle">New process + ART starts</text><text class="d-ts" x="210" y="195" text-anchor="middle">MainActivity object created</text>
+<path class="d-l" d="M210 202V216"/>
+<rect class="d-box" x="110" y="216" width="200" height="40" rx="8"/><text class="d-tb" x="210" y="234" text-anchor="middle">onCreate() runs</text><text class="d-ts" x="210" y="249" text-anchor="middle">setContentView(R.layout...)</text>
+<path class="d-l" d="M210 256V270"/>
+<rect class="d-box3" x="110" y="270" width="200" height="40" rx="8"/><text class="d-tb" x="210" y="288" text-anchor="middle">Layout XML inflated</text><text class="d-ts" x="210" y="303" text-anchor="middle">uses res: strings, colors, images</text>
+<path class="d-l" d="M210 310V324"/>
+<rect class="d-box5" x="110" y="324" width="200" height="40" rx="8"/><text class="d-tb" x="210" y="342" text-anchor="middle">onStart → onResume</text><text class="d-ts" x="210" y="357" text-anchor="middle">Screen visible, user interacts</text>
+</svg><div class="cap">Execution flow of an Android app</div></div>
+</div>
+</details>
+<!-- ============ SECTION 11 ============ -->
+<details class="sec" id="s11">
+<summary>11. Important Exam Questions with Answers <span class="badge o">5 MARKS – IMPORTANT</span><label class="donechk"><input type="checkbox" data-done="s11"> Mark as read</label></summary>
+<div class="sbody">
+<p>Each answer is written in exam format (about 150–250 words). Tap a question to open the answer. Learn the <span class="kw">highlighted keywords</span> and draw the diagram where given.</p>
+
+<!-- Q1 -->
+<details class="qa"><summary>Q1. Explain Android architecture with a neat labelled diagram. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Definition:</b> <span class="kw">Android architecture</span> is the layered software stack of Android, in which each upper layer uses the services of the layer below it. It has five layers.</p>
+<div class="diagram">
+<svg viewBox="0 0 420 330" role="img" aria-label="Android architecture">
+<rect class="d-box4" x="30" y="8" width="360" height="44" rx="8"/><text class="d-tb" x="210" y="35" text-anchor="middle">5. APPLICATIONS</text>
+<rect class="d-box3" x="30" y="62" width="360" height="52" rx="8"/><text class="d-tb" x="210" y="84" text-anchor="middle">4. APPLICATION FRAMEWORK</text><text class="d-ts" x="210" y="102" text-anchor="middle">Activity Mgr • Content Providers • View System</text>
+<rect class="d-box2" x="30" y="124" width="170" height="52" rx="8"/><text class="d-tb" x="115" y="146" text-anchor="middle">3a. NATIVE LIBRARIES</text><text class="d-ts" x="115" y="163" text-anchor="middle">SQLite • OpenGL • libc</text>
+<rect class="d-box2" x="220" y="124" width="170" height="52" rx="8"/><text class="d-tb" x="305" y="146" text-anchor="middle">3b. ANDROID RUNTIME</text><text class="d-ts" x="305" y="163" text-anchor="middle">ART + Core Libraries</text>
+<rect class="d-box" x="30" y="186" width="360" height="44" rx="8"/><text class="d-tb" x="210" y="213" text-anchor="middle">2. HARDWARE ABSTRACTION LAYER (HAL)</text>
+<rect class="d-box5" x="30" y="240" width="360" height="62" rx="8"/><text class="d-tb" x="210" y="264" text-anchor="middle">1. LINUX KERNEL</text><text class="d-ts" x="210" y="284" text-anchor="middle">Display, Camera, WiFi drivers • Memory • Power</text>
+</svg></div>
+<p><b>Explanation of layers:</b></p>
+<ol>
+<li><b>Linux Kernel:</b> Bottom layer. Manages <span class="kw">memory, processes, power, security</span> and contains device drivers (display, camera, Wi-Fi, Bluetooth). Binder IPC allows communication between processes.</li>
+<li><b>Hardware Abstraction Layer (HAL):</b> Gives standard interfaces so the framework can use hardware (camera, audio, sensors) without knowing hardware details.</li>
+<li><b>Native Libraries:</b> C/C++ libraries such as <span class="kw">SQLite</span> (database), <span class="kw">OpenGL ES</span> (graphics), WebKit (browser), libc, Media framework.</li>
+<li><b>Android Runtime (ART):</b> Runs app code (DEX bytecode) using <span class="kw">AOT compilation</span>; each app runs in its own process. Replaced Dalvik in Android 5.0. Contains core Java libraries.</li>
+<li><b>Application Framework:</b> Java APIs used by developers: Activity Manager, Content Providers, View System, Package Manager, Notification Manager, Location Manager, Resource Manager.</li>
+<li><b>Applications:</b> Top layer. System apps (Phone, Contacts, Browser) and user-installed apps.</li>
+</ol>
+<p><b>Conclusion:</b> This layered design makes Android secure, modular and hardware independent.</p>
+</div></details>
+
+<!-- Q2 -->
+<details class="qa"><summary>Q2. What is Android SDK? Explain its components. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Definition:</b> The <span class="kw">Android SDK (Software Development Kit)</span> is a collection of tools, libraries, an emulator and documentation required to design, build, test and debug Android applications.</p>
+<p><b>Why needed:</b> It supplies the Android API libraries, build tools to create an APK, an emulator for testing, and debugging tools.</p>
+<p><b>Components:</b></p>
+<ol>
+<li><b>SDK Manager:</b> Tool to download and update SDK platforms, tools and system images.</li>
+<li><b>SDK Platforms:</b> A package for each Android version (API level) containing <code>android.jar</code> library.</li>
+<li><b>Platform Tools:</b> Tools that communicate with devices, mainly <span class="kw">ADB</span> (Android Debug Bridge) and Fastboot.</li>
+<li><b>Build Tools:</b> Tools like <code>aapt2</code>, <code>d8</code>, <code>zipalign</code> and <code>apksigner</code> to compile, align and sign the APK.</li>
+<li><b>Emulator (AVD):</b> A virtual Android device used to test apps without a real phone.</li>
+<li><b>System Images:</b> Android OS images used by the emulator.</li>
+<li><b>Documentation and Samples:</b> Help files and example code.</li>
+</ol>
+<div class="flow"><span>SDK</span><b>→</b><span>Manager | Platform Tools | Build Tools | Platforms | Emulator</span></div>
+<p><b>Working:</b> Code is compiled using SDK libraries → build tools create APK → ADB installs it on emulator/device → Logcat helps debugging.</p>
+<p><b>Conclusion:</b> Without the SDK no Android application can be developed.</p>
+</div></details>
+
+<!-- Q3 -->
+<details class="qa"><summary>Q3. Explain the features of the Android platform. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Introduction:</b> Android is a free, open-source, Linux-based mobile operating system developed by Google. Its platform provides many features which made it the most popular mobile OS.</p>
+<p><b>Main features:</b></p>
+<ol>
+<li><b>Open source:</b> The source code (AOSP) is free; manufacturers and developers can modify it.</li>
+<li><b>Multitasking:</b> Many apps can run together; background services are supported.</li>
+<li><b>Rich user interface:</b> Touch screen, gestures, widgets, themes and Material Design.</li>
+<li><b>Connectivity:</b> Supports Wi-Fi, Bluetooth, GSM/4G/5G, NFC and USB.</li>
+<li><b>Storage:</b> <span class="kw">SQLite</span> database, shared preferences and file storage.</li>
+<li><b>Multimedia support:</b> Audio, video and image formats; camera access.</li>
+<li><b>Sensors and location:</b> GPS, accelerometer, gyroscope, proximity sensor.</li>
+<li><b>Google services integration:</b> Play Store, Maps, Gmail, Firebase.</li>
+<li><b>Security:</b> Each app runs in its own sandbox with a permission system.</li>
+<li><b>Customisable and scalable:</b> Works on phones, tablets, TVs, watches and cars; manufacturers add custom skins.</li>
+<li><b>Hardware independence:</b> Because of HAL one app runs on many devices.</li>
+</ol>
+<p><b>Conclusion:</b> These features make Android flexible, powerful and developer-friendly.</p>
+</div></details>
+
+<!-- Q4 -->
+<details class="qa"><summary>Q4. Explain the steps to install Eclipse and configure Android Development Tools (ADT). <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Introduction:</b> <span class="kw">Eclipse</span> is a free Java IDE. With the <span class="kw">ADT plugin</span> it was the official Android IDE until 2014. (Note: it is now a <i>legacy</i> setup replaced by Android Studio.)</p>
+<p><b>Requirements:</b> JDK, Eclipse IDE for Java Developers, Android SDK, ADT plugin, internet connection.</p>
+<p><b>Steps:</b></p>
+<ol>
+<li><b>Install JDK</b> and set <code>JAVA_HOME</code> and PATH. Verify using <code>java -version</code>.</li>
+<li><b>Download Eclipse</b> ZIP, extract it and run <code>eclipse.exe</code>. Select a <b>workspace</b> folder.</li>
+<li><b>Download and extract the Android SDK</b>.</li>
+<li><b>Install ADT:</b> Help → Install New Software → Add → enter ADT repository URL → select Developer Tools → Next → accept licence → Finish → restart Eclipse.</li>
+<li><b>Configure SDK path:</b> Window → Preferences → Android → browse SDK folder → Apply.</li>
+<li><b>Install platforms:</b> Open Android SDK Manager → select Platform Tools and one API level → Install.</li>
+<li><b>Create AVD:</b> Window → AVD Manager → New → choose device and API → Create.</li>
+<li><b>Test:</b> File → New → Android Application Project, then Run As → Android Application.</li>
+</ol>
+<div class="flow"><span>JDK</span><b>→</b><span>Eclipse</span><b>→</b><span>SDK</span><b>→</b><span>ADT</span><b>→</b><span>SDK Path</span><b>→</b><span>AVD</span></div>
+<p><b>Conclusion:</b> Eclipse + ADT is historically important but today Android Studio is recommended.</p>
+</div></details>
+
+<!-- Q5 -->
+<details class="qa"><summary>Q5. Explain the Android application development environment installation. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Introduction:</b> The <span class="kw">Android development environment</span> is the set of hardware and software required to create Android apps: computer, JDK, IDE, Android SDK and emulator/device.</p>
+<p><b>Requirements:</b> 64-bit Windows/Linux/macOS, minimum 8 GB RAM, several GB of disk space, virtualization support, internet.</p>
+<p><b>Steps (Android Studio):</b></p>
+<ol>
+<li>Download <b>Android Studio</b> from the official Android Developers site.</li>
+<li>Run the installer and click Next; keep <b>Android Virtual Device</b> selected; click Install and Finish.</li>
+<li>Start Android Studio and run the <b>Setup Wizard</b> (Standard installation). It downloads the <span class="kw">SDK, Platform Tools and Emulator</span>.</li>
+<li><b>JDK:</b> Android Studio includes its own JDK (JetBrains Runtime). Use JDK 17 for modern Gradle projects.</li>
+<li>Open <b>SDK Manager</b> and install the required Android platform (API level).</li>
+<li>Create an <b>AVD</b> from Device Manager for the emulator.</li>
+<li>For a real phone: enable <b>Developer options → USB debugging</b> and connect using USB.</li>
+<li>Optionally set <code>JAVA_HOME</code> and <code>ANDROID_HOME</code> environment variables.</li>
+</ol>
+<p><b>Common problems:</b> emulator not starting (enable virtualization), Gradle sync failure (check internet), device not detected (use data cable, install driver).</p>
+<p><b>Conclusion:</b> After this setup a developer can create, run and debug Android apps.</p>
+</div></details>
+
+<!-- Q6 -->
+<details class="qa"><summary>Q6. Explain the steps to create your first Android application. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Introduction:</b> The first application is usually <span class="kw">"Hello World"</span>, which displays a text message on the screen.</p>
+<p><b>Steps:</b></p>
+<ol>
+<li><b>Create project:</b> File → New → New Project → select <b>Empty Activity</b> template.</li>
+<li><b>Configure:</b> Enter application name (My First App), <span class="kw">package name</span> (com.example.myfirstapp), save location, language (Java) and <span class="kw">minimum SDK</span> (e.g., API 24). Click Finish and wait for Gradle build.</li>
+<li><b>Design layout</b> in <code>res/layout/activity_main.xml</code> using a TextView with text "Hello, Android!".</li>
+<li><b>Write Activity</b> in <code>MainActivity.java</code>:</li>
+</ol>
+<pre><code>public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}</code></pre>
+<ol start="5">
+<li><b>Check manifest:</b> MainActivity is registered with MAIN and LAUNCHER intent filter.</li>
+<li><b>Run:</b> Click Run ▶ and select an emulator (AVD) or a USB-connected phone.</li>
+<li><b>Output:</b> The text "Hello, Android!" appears at the centre of the screen.</li>
+</ol>
+<p><b>Explanation:</b> <code>setContentView()</code> connects the Java Activity with the XML layout; <code>R.layout.activity_main</code> is the resource ID of the layout.</p>
+</div></details>
+
+<!-- Q7 -->
+<details class="qa"><summary>Q7. Explain the anatomy of an Android application. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Definition:</b> The <span class="kw">anatomy of an Android application</span> is the structure of an Android project: the folders and files and the role of each.</p>
+<div class="tree"><span class="c">app/</span>
+├── manifests/AndroidManifest.xml
+├── java/com.example.app/MainActivity
+├── res/
+│   ├── drawable/   (images)
+│   ├── layout/     (activity_main.xml)
+│   ├── mipmap/     (launcher icons)
+│   └── values/     (strings, colors, themes)
+├── assets/         (raw files)
+└── Gradle Scripts  (build.gradle)</div>
+<ol>
+<li><b>manifests:</b> contains <span class="kw">AndroidManifest.xml</span> – app information, components, permissions.</li>
+<li><b>java:</b> contains source code, e.g., <b>MainActivity</b>, which controls the screen.</li>
+<li><b>res:</b> resources: <b>layout</b> (UI in XML), <b>drawable</b> (images, shapes), <b>mipmap</b> (launcher icons), <b>values</b> (<code>strings.xml</code> text, <code>colors.xml</code>, <code>themes.xml</code>).</li>
+<li><b>assets:</b> raw files such as fonts, JSON, HTML, accessed by AssetManager.</li>
+<li><b>Gradle scripts:</b> <code>build.gradle</code> defines SDK versions, application ID and dependencies.</li>
+<li><b>R class:</b> auto-generated class that holds IDs of all resources.</li>
+</ol>
+<p><b>Working together:</b> Manifest identifies launcher Activity → Activity runs <code>setContentView()</code> → layout XML loads → resources supply text, colours and images → Gradle builds all into APK.</p>
+</div></details>
+
+<!-- Q8 -->
+<details class="qa"><summary>Q8. Explain the structure and importance of AndroidManifest.xml. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Definition:</b> <span class="kw">AndroidManifest.xml</span> is a compulsory XML file in the root of every Android app. It gives the Android system essential information about the application.</p>
+<p><b>Structure:</b></p>
+<pre><code>&lt;manifest package="com.example.myfirstapp"&gt;
+  &lt;uses-permission android:name="android.permission.INTERNET"/&gt;
+  &lt;application android:icon="@mipmap/ic_launcher"
+               android:label="@string/app_name"
+               android:theme="@style/AppTheme"&gt;
+    &lt;activity android:name=".MainActivity" android:exported="true"&gt;
+      &lt;intent-filter&gt;
+        &lt;action android:name="android.intent.action.MAIN"/&gt;
+        &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
+      &lt;/intent-filter&gt;
+    &lt;/activity&gt;
+    &lt;service android:name=".MyService"/&gt;
+    &lt;receiver android:name=".MyReceiver"/&gt;
+    &lt;provider android:name=".MyProvider" android:authorities="com.example.provider"/&gt;
+  &lt;/application&gt;
+&lt;/manifest&gt;</code></pre>
+<p><b>Importance:</b></p>
+<ol>
+<li>Declares the <span class="kw">package name</span> – unique identity of the app.</li>
+<li>Registers all <b>components</b>: Activity, Service, Broadcast Receiver, Content Provider. An unregistered Activity causes a crash.</li>
+<li>Declares <span class="kw">permissions</span> (Internet, Camera) needed by the app.</li>
+<li>Defines the <b>launcher Activity</b> through the MAIN/LAUNCHER intent filter.</li>
+<li>Specifies app icon, label and theme, and minimum/target SDK.</li>
+<li>Google Play uses it to filter devices.</li>
+</ol>
+</div></details>
+
+<!-- Q9 -->
+<details class="qa"><summary>Q9. Explain important Android project folders and files. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Introduction:</b> An Android Studio project contains several folders and files, each with a fixed purpose.</p>
+<table>
+<tr><th>Folder / File</th><th>Purpose</th></tr>
+<tr><td><b>manifests / AndroidManifest.xml</b></td><td>Declares components, permissions, launcher Activity.</td></tr>
+<tr><td><b>java / MainActivity.java</b></td><td>Application logic; first screen class.</td></tr>
+<tr><td><b>res / layout</b></td><td>XML files for screen design, e.g., activity_main.xml.</td></tr>
+<tr><td><b>res / drawable</b></td><td>Images, icons, shapes and backgrounds.</td></tr>
+<tr><td><b>res / mipmap</b></td><td>Launcher icons for different screen densities.</td></tr>
+<tr><td><b>res / values / strings.xml</b></td><td>Stores all text; helps in multi-language apps.</td></tr>
+<tr><td><b>res / values / colors.xml</b></td><td>Defines colour names and codes.</td></tr>
+<tr><td><b>res / values / themes.xml</b></td><td>Defines the look and style of the app.</td></tr>
+<tr><td><b>assets</b></td><td>Raw files like fonts, JSON, HTML.</td></tr>
+<tr><td><b>build.gradle</b></td><td>Build configuration: compileSdk, minSdk, applicationId, dependencies.</td></tr>
+<tr><td><b>settings.gradle</b></td><td>Lists the modules in the project.</td></tr>
+<tr><td><b>R.java (R class)</b></td><td>Auto-generated; maps resource names to integer IDs.</td></tr>
+</table>
+<p><b>Example:</b> To change the app name, edit <code>app_name</code> in <code>strings.xml</code>. To add an image, copy it into <code>drawable</code> and use <code>@drawable/name</code> in XML.</p>
+<p><b>Conclusion:</b> Separating code, design and resources makes apps organised and easy to maintain.</p>
+</div></details>
+
+<!-- Q10 -->
+<details class="qa"><summary>Q10. Explain the role of different Android application components. <span class="badge o">5 MARKS – IMPORTANT</span></summary><div class="ans">
+<p><b>Introduction:</b> <span class="kw">Application components</span> are the essential building blocks of an Android app. Each component has its own purpose and lifecycle and must be declared in the manifest. There are four main components.</p>
+<ol>
+<li><b>Activity:</b> Represents a <span class="kw">single screen with a user interface</span>. Example: login screen. It is a subclass of <code>AppCompatActivity</code>; lifecycle methods are onCreate(), onStart(), onResume(), onPause(), onStop(), onDestroy().</li>
+<li><b>Service:</b> Runs <span class="kw">long-running tasks in the background</span> without UI. Example: playing music, downloading a file. Subclass of <code>Service</code>.</li>
+<li><b>Broadcast Receiver:</b> Responds to <span class="kw">system-wide or app announcements</span> (broadcasts). Example: battery low, SMS received, device boot completed. Subclass of <code>BroadcastReceiver</code> (method <code>onReceive()</code>).</li>
+<li><b>Content Provider:</b> <span class="kw">Shares structured data between apps</span> through a common interface. Example: Contacts and Media data. Subclass of <code>ContentProvider</code>.</li>
+</ol>
+<table><tr><th>Component</th><th>UI?</th><th>Example</th></tr>
+<tr><td>Activity</td><td>Yes</td><td>Login page</td></tr><tr><td>Service</td><td>No</td><td>Music player</td></tr><tr><td>Broadcast Receiver</td><td>No</td><td>Battery alert</td></tr><tr><td>Content Provider</td><td>No</td><td>Contacts</td></tr></table>
+<p><b>Intents</b> are used to start components (e.g., Activity or Service). <b>Conclusion:</b> Together the components make a complete, interactive Android application.</p>
+</div></details>
+
+</div>
+</details>
+
+<!-- ============ SECTION 12 ============ -->
+<details class="sec" id="s12">
+<summary>12. Quick Revision Notes <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s12"> Mark as read</label></summary>
+<div class="sbody">
+
+<details class="topic" open><summary>12.1 One-page unit summary <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ul>
+<li><b>Android</b> = open-source, Linux-based mobile OS by Google (first phone 2008).</li>
+<li><b>Platform / Architecture</b> (bottom → top): Linux Kernel → HAL → Native Libraries + ART → Application Framework → Applications.</li>
+<li><b>SDK</b> = SDK Manager + Platform Tools (ADB) + Build Tools + SDK Platforms + Emulator.</li>
+<li><b>Eclipse + ADT</b> = legacy IDE setup (ended 2015); <b>Android Studio</b> is modern.</li>
+<li><b>Installation:</b> JDK + IDE + SDK + AVD/device; set JAVA_HOME / ANDROID_HOME.</li>
+<li><b>First app:</b> New Project → Empty Activity → layout XML → MainActivity (setContentView) → Run.</li>
+<li><b>Anatomy:</b> manifests, java, res (layout, drawable, mipmap, values), assets, Gradle.</li>
+<li><b>Manifest:</b> declares package, components, permissions, launcher Activity (MAIN + LAUNCHER), SDK versions.</li>
+<li><b>Components:</b> Activity, Service, Broadcast Receiver, Content Provider.</li>
+</ul></div></details>
+
+<details class="topic" open><summary>12.2 Important definitions &amp; keywords <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Android</td><td>Open-source Linux-based mobile OS</td></tr>
+<tr><td>APK</td><td>Android Package – installable app file</td></tr>
+<tr><td>SDK</td><td>Software Development Kit – tools to build apps</td></tr>
+<tr><td>ADB</td><td>Android Debug Bridge – PC ⇄ device command tool</td></tr>
+<tr><td>AVD</td><td>Android Virtual Device (emulator)</td></tr>
+<tr><td>ART</td><td>Android Runtime – runs app code</td></tr>
+<tr><td>DEX</td><td>Dalvik Executable – compiled bytecode format</td></tr>
+<tr><td>HAL</td><td>Hardware Abstraction Layer</td></tr>
+<tr><td>Activity</td><td>A single screen with UI</td></tr>
+<tr><td>Intent</td><td>Message used to start components</td></tr>
+<tr><td>Manifest</td><td>XML file describing the app</td></tr>
+<tr><td>Gradle</td><td>Build automation tool</td></tr>
+<tr><td>R class</td><td>Auto-generated resource ID class</td></tr>
+<tr><td>minSdk</td><td>Lowest supported Android API level</td></tr>
+<tr><td>Logcat</td><td>Log viewer for debugging</td></tr>
+<tr><td>ADT</td><td>Android Development Tools plugin for Eclipse</td></tr></table></div></details>
+
+<details class="topic"><summary>12.3 Short-answer questions <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ul><li>Who developed Android? – Google (originally Android Inc.).</li><li>Which kernel does Android use? – Linux kernel.</li><li>Name the languages for Android apps. – Java and Kotlin.</li><li>What is the extension of an Android app file? – .apk</li><li>What replaced Dalvik? – ART (Android 5.0).</li><li>Name the file that contains permissions. – AndroidManifest.xml</li><li>Where are layouts stored? – res/layout</li><li>Which method sets the layout? – setContentView()</li></ul></div></details>
+
+<details class="topic" open><summary>12.4 Differences between important concepts <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<table><tr><th>Concept A</th><th>Concept B</th><th>Key difference</th></tr>
+<tr><td>Dalvik</td><td>ART</td><td>Dalvik uses JIT (slower); ART uses AOT (faster, better battery)</td></tr>
+<tr><td>Emulator</td><td>Physical device</td><td>Emulator is virtual, slower, uses PC RAM; device is real and faster</td></tr>
+<tr><td>Eclipse + ADT</td><td>Android Studio</td><td>Legacy/plugin-based vs modern/Gradle all-in-one</td></tr>
+<tr><td>Permission</td><td>Intent filter</td><td>Access control vs which Intents a component handles</td></tr>
+<tr><td>Activity</td><td>Service</td><td>Has UI vs background, no UI</td></tr>
+<tr><td>drawable</td><td>mipmap</td><td>General images vs launcher icons</td></tr>
+<tr><td>Platform Tools</td><td>Build Tools</td><td>Talk to device (ADB) vs build and sign the APK</td></tr>
+<tr><td>SDK</td><td>JDK</td><td>Android tools vs Java compiler tools</td></tr>
+<tr><td>APK</td><td>AAB</td><td>Installable file vs publishing format for Play Store</td></tr></table></div></details>
+
+<details class="topic"><summary>12.5 Important diagrams for last-minute revision <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<p>Practise these 6 diagrams (Section 10): (1) Architecture – 5 layers, (2) Development process, (3) Project structure, (4) SDK components, (5) Manifest structure, (6) Execution flow.</p>
+<div class="flow"><span>Apps</span><b>↑</b><span>Framework</span><b>↑</b><span>Libraries | ART</span><b>↑</b><span>HAL</span><b>↑</b><span>Kernel</span></div>
+<div class="flow"><span>Manifest</span><b>→</b><span>Launcher Activity</span><b>→</b><span>onCreate</span><b>→</b><span>Layout</span></div></div></details>
+
+<details class="topic" open><summary>12.6 20 quick revision questions with answers <span class="badge g">IN BTEUP SYLLABUS</span></summary><div class="tb">
+<ol>
+<li><b>What is Android?</b> Open-source Linux-based mobile OS by Google.</li>
+<li><b>Who owns Android?</b> Google (bought Android Inc. in 2005).</li>
+<li><b>When was the first Android phone released?</b> 2008 (HTC Dream).</li>
+<li><b>Name the layers of Android architecture.</b> Linux Kernel, HAL, Libraries + ART, Framework, Applications.</li>
+<li><b>What is HAL?</b> Layer giving standard interfaces to hardware drivers.</li>
+<li><b>What is ART?</b> Android Runtime that runs app code using AOT compilation.</li>
+<li><b>Which runtime was before ART?</b> Dalvik Virtual Machine.</li>
+<li><b>What is the Android SDK?</b> Toolkit with libraries, tools, emulator for app development.</li>
+<li><b>What is ADB?</b> Command-line tool to communicate with emulator/device.</li>
+<li><b>Name command to list devices.</b> <code>adb devices</code>.</li>
+<li><b>What is AVD?</b> Android Virtual Device used by the emulator.</li>
+<li><b>What is Eclipse?</b> Free Java IDE; with ADT it was used for Android.</li>
+<li><b>What is ADT?</b> Android Development Tools plugin for Eclipse.</li>
+<li><b>Which IDE replaced Eclipse for Android?</b> Android Studio.</li>
+<li><b>What is the package name?</b> Unique ID of the app, like com.example.myapp.</li>
+<li><b>What is the minimum SDK?</b> Oldest Android API level the app supports.</li>
+<li><b>Which method links Activity with layout?</b> <code>setContentView()</code>.</li>
+<li><b>Where is strings.xml located?</b> res/values/strings.xml.</li>
+<li><b>What are the four app components?</b> Activity, Service, Broadcast Receiver, Content Provider.</li>
+<li><b>Which intent filter makes an Activity the launcher?</b> Action MAIN + Category LAUNCHER.</li>
+</ol></div></details>
+</div>
+</details>
+<!-- ============ SECTION 13 ============ -->
+<div id="nores" class="warn hidden">No matching notes found. Try another keyword (e.g. "manifest", "ADB", "SDK").</div>
+<details class="sec" id="s13">
+<summary>13. Self-Assessment Test <span class="badge g">IN BTEUP SYLLABUS</span><label class="donechk"><input type="checkbox" data-done="s13"> Mark as done</label></summary>
+<div class="sbody quiz">
+<p>Answer all questions, then press <b>Check All &amp; Show Score</b>. You can also check MCQ and True/False questions instantly by clicking an option.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+<button class="btn" id="checkall">✔ Check All &amp; Show Score</button>
+<button class="btn sec2" id="resetquiz">↺ Reset Test</button>
+</div>
+<div class="score" id="score">Score: –</div>
+<div id="bestscore" style="font-size:14px;color:var(--muted)"></div>
+<h3>A. 15 Multiple Choice Questions (1 mark each)</h3><div id="mcq"></div>
+<h3>B. 10 Fill in the Blanks</h3><div id="fill"></div>
+<h3>C. 10 True / False</h3><div id="tf"></div>
+<h3>D. 5 Short-Answer Questions (self-check)</h3><div id="short"></div>
+</div>
+</details>
+
+<p style="text-align:center;color:var(--muted);font-size:13px;margin-top:24px">Android Application Development – Unit 1 • BTEUP Diploma CSE • Best of luck for your exam! 🎓</p>
+</div><!-- /wrap -->
+</div><!-- /main -->
+<button id="totop" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+"use strict";
+/* ---------- storage helpers ---------- */
+function sget(k,d){try{var v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;}}
+function sset(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+
+/* ---------- theme ---------- */
+var root=document.documentElement,themeBtn=document.getElementById('theme');
+function applyTheme(t){root.setAttribute('data-theme',t);themeBtn.textContent=t==='dark'?'☀️':'🌙';}
+var saved=sget('andu1_theme',null);
+if(!saved){saved=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+applyTheme(saved);
+themeBtn.addEventListener('click',function(){var t=root.getAttribute('data-theme')==='dark'?'light':'dark';applyTheme(t);sset('andu1_theme',t);});
+
+/* ---------- sidebar ---------- */
+var sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay');
+function openSide(o){sidebar.classList.toggle('open',o);overlay.classList.toggle('show',o);}
+document.getElementById('menu').addEventListener('click',function(){openSide(!sidebar.classList.contains('open'));});
+overlay.addEventListener('click',function(){openSide(false);});
+document.querySelectorAll('#sidebar a').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var id=a.getAttribute('href').slice(1),t=document.getElementById(id);
+    if(t){if(t.tagName==='DETAILS')t.open=true;}
+    openSide(false);
+  });
+});
+document.querySelectorAll('a[href^="#s"]').forEach(function(a){
+  if(a.closest('#sidebar'))return;
+  a.addEventListener('click',function(){var t=document.getElementById(a.getAttribute('href').slice(1));if(t&&t.tagName==='DETAILS')t.open=true;});
+});
+
+/* ---------- progress ---------- */
+var boxes=document.querySelectorAll('input[data-done]');
+var done={};
+try{done=JSON.parse(sget('andu1_done','{}'))||{};}catch(e){done={};}
+function updateProgress(){
+  var n=0;
+  boxes.forEach(function(b){
+    var id=b.getAttribute('data-done');b.checked=!!done[id];if(done[id])n++;
+    var link=document.querySelector('#sidebar a[data-sec="'+id+'"]');if(link)link.classList.toggle('done',!!done[id]);
+  });
+  var pct=Math.round(n*100/boxes.length);
+  document.getElementById('progbar').style.width=pct+'%';
+  document.getElementById('progtxt').textContent='Progress: '+pct+'% ('+n+'/'+boxes.length+' sections)';
+}
+boxes.forEach(function(b){
+  b.addEventListener('click',function(e){e.stopPropagation();});
+  b.addEventListener('change',function(){done[b.getAttribute('data-done')]=b.checked;sset('andu1_done',JSON.stringify(done));updateProgress();});
+});
+document.querySelectorAll('.donechk').forEach(function(l){l.addEventListener('click',function(e){e.stopPropagation();});});
+document.getElementById('resetprog').addEventListener('click',function(){if(confirm('Reset all progress?')){done={};sset('andu1_done','{}');updateProgress();}});
+updateProgress();
+
+/* ---------- expand / collapse ---------- */
+document.getElementById('expand').addEventListener('click',function(){document.querySelectorAll('details').forEach(function(d){d.open=true;});});
+document.getElementById('collapse').addEventListener('click',function(){document.querySelectorAll('details').forEach(function(d){d.open=false;});});
+
+/* ---------- search ---------- */
+var sInput=document.getElementById('search'),timer=null;
+function doSearch(){
+  var q=sInput.value.trim().toLowerCase(),shown=0;
+  document.querySelectorAll('details.sec').forEach(function(sec){
+    var items=sec.querySelectorAll('details.topic,details.qa');
+    if(!q){sec.classList.remove('hidden');items.forEach(function(i){i.classList.remove('hidden');});shown++;return;}
+    if(items.length){
+      var any=false;
+      items.forEach(function(i){var m=i.textContent.toLowerCase().indexOf(q)>-1;i.classList.toggle('hidden',!m);if(m){any=true;i.open=true;}});
+      sec.classList.toggle('hidden',!any);if(any){sec.open=true;shown++;}
+    }else{
+      var m2=sec.textContent.toLowerCase().indexOf(q)>-1;sec.classList.toggle('hidden',!m2);if(m2){sec.open=true;shown++;}
+    }
+  });
+  document.getElementById('nores').classList.toggle('hidden',shown>0||!q);
+}
+sInput.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(doSearch,200);});
+
+/* ---------- back to top + scrollspy ---------- */
+var totop=document.getElementById('totop');
+totop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+var links=[].slice.call(document.querySelectorAll('#sidebar a[data-sec]'));
+window.addEventListener('scroll',function(){
+  totop.style.display=window.scrollY>400?'block':'none';
+  var cur=null;
+  links.forEach(function(a){var el=document.getElementById(a.getAttribute('data-sec'));if(el&&el.getBoundingClientRect().top<120)cur=a;});
+  links.forEach(function(a){a.classList.toggle('active',a===cur);});
+},{passive:true});
+
+/* ---------- print: open everything ---------- */
+var prevState=[];
+window.addEventListener('beforeprint',function(){prevState=[];document.querySelectorAll('details').forEach(function(d){prevState.push(d.open);d.open=true;});});
+window.addEventListener('afterprint',function(){document.querySelectorAll('details').forEach(function(d,i){d.open=!!prevState[i];});});
+
+/* ---------- quiz data ---------- */
+var MCQ=[
+{q:"Android is based on which kernel?",o:["Windows NT","Linux","Darwin","Solaris"],a:1,e:"Android uses the Linux kernel."},
+{q:"Android was developed and is maintained mainly by:",o:["Apple","Microsoft","Google","IBM"],a:2,e:"Google (earlier Android Inc., bought in 2005)."},
+{q:"Which runtime replaced Dalvik from Android 5.0?",o:["JVM","ART","CLR","HAL"],a:1,e:"ART (Android Runtime) replaced Dalvik."},
+{q:"Which layer gives standard interfaces to hardware drivers?",o:["Content Provider","HAL","ADB","AVD"],a:1,e:"Hardware Abstraction Layer (HAL)."},
+{q:"Which tool connects your PC with an Android device or emulator?",o:["ADB","AVD","ART","APK"],a:0,e:"ADB = Android Debug Bridge."},
+{q:"Which of these is NOT a component of the Android SDK?",o:["SDK Manager","Platform Tools","Build Tools","Photoshop"],a:3,e:"Photoshop is image-editing software, not part of the SDK."},
+{q:"Which plugin enabled Android development in Eclipse?",o:["ADT","JDT","Maven","GIT"],a:0,e:"ADT = Android Development Tools."},
+{q:"The official modern IDE for Android is:",o:["Eclipse","NetBeans","Android Studio","Notepad++"],a:2,e:"Android Studio replaced Eclipse + ADT."},
+{q:"An installable Android app file has the extension:",o:[".exe",".apk",".jar",".zip"],a:1,e:".apk = Android Package."},
+{q:"Which file lists the permissions and components of an app?",o:["MainActivity.java","strings.xml","AndroidManifest.xml","build.gradle"],a:2,e:"The manifest file declares them."},
+{q:"Where are XML layout files stored?",o:["res/layout","res/values","assets","java"],a:0,e:"Layouts live in res/layout."},
+{q:"Which method attaches an XML layout to an Activity?",o:["onStart()","setContentView()","findView()","startActivity()"],a:1,e:"setContentView(R.layout.activity_main)."},
+{q:"Which intent-filter category makes an Activity appear as a home-screen icon?",o:["DEFAULT","BROWSABLE","LAUNCHER","INFO"],a:2,e:"MAIN action + LAUNCHER category."},
+{q:"Which component runs in the background without a user interface?",o:["Activity","Service","Layout","Intent filter"],a:1,e:"A Service does background work."},
+{q:"Which folder stores launcher icons of different densities?",o:["layout","values","mipmap","assets"],a:2,e:"mipmap-hdpi, xhdpi, xxhdpi …"}
+];
+var FILL=[
+{q:"Android is based on the ______ kernel.",a:["linux"],e:"Linux"},
+{q:"The extension of an Android app package is ______ .",a:["apk",".apk"],e:"apk"},
+{q:"______ is the command-line tool used to communicate with an Android device.",a:["adb","android debug bridge"],e:"ADB"},
+{q:"The abbreviation of Android Runtime is ______ .",a:["art"],e:"ART"},
+{q:"The file ______ contains permissions and component declarations of an app.",a:["androidmanifest.xml","androidmanifest","manifest","manifest.xml"],e:"AndroidManifest.xml"},
+{q:"All text strings of an app are stored in ______ .",a:["strings.xml","strings"],e:"strings.xml"},
+{q:"The method ______ links an Activity with its XML layout.",a:["setcontentview","setcontentview()"],e:"setContentView()"},
+{q:"______ is the build automation tool used by Android Studio.",a:["gradle"],e:"Gradle"},
+{q:"The four components are Activity, Service, Broadcast Receiver and ______ .",a:["content provider","contentprovider"],e:"Content Provider"},
+{q:"The plugin used with Eclipse for Android development is ______ .",a:["adt","android development tools"],e:"ADT"}
+];
+var TF=[
+{q:"Android is a closed-source operating system.",a:false,e:"Android is open source (AOSP)."},
+{q:"Eclipse + ADT is the recommended modern Android setup.",a:false,e:"It is legacy; Android Studio is recommended."},
+{q:"HAL provides standard interfaces to hardware.",a:true,e:"Yes, HAL abstracts hardware."},
+{q:"ART replaced Dalvik in Android 5.0 (Lollipop).",a:true,e:"Correct."},
+{q:"Every Android app must have an AndroidManifest.xml file.",a:true,e:"It is mandatory."},
+{q:"The mipmap folder is meant for launcher icons.",a:true,e:"Correct."},
+{q:"A Service has a user interface.",a:false,e:"A Service has no UI; an Activity has."},
+{q:"ADB can be used to install an APK on a device.",a:true,e:"adb install app.apk"},
+{q:"The package name of an app should be unique.",a:true,e:"It identifies the app, e.g. on Play Store."},
+{q:"Permissions and intent filters are the same thing.",a:false,e:"Permissions control access; intent filters declare which Intents a component handles."}
+];
+var SHORT=[
+{q:"What is Android?",a:"Android is a free, open-source, Linux-based mobile operating system developed by Google. Apps are written mainly in Java/Kotlin and distributed as APK files through Google Play."},
+{q:"Name the five layers of the Android architecture.",a:"From bottom to top: Linux Kernel, Hardware Abstraction Layer (HAL), Native Libraries with Android Runtime (ART), Application Framework, and Applications."},
+{q:"What is the purpose of AndroidManifest.xml?",a:"It is the app's description file: it declares the package name, components (Activity, Service, Receiver, Provider), permissions, SDK versions and the launcher Activity."},
+{q:"Give two differences between an emulator and a physical device.",a:"1) An emulator is a virtual device on the PC (uses PC RAM/CPU, slower); a physical device is real hardware and usually faster. 2) An emulator can simulate many device types/versions without buying them; a physical device tests real sensors, battery and performance."},
+{q:"What is the use of the res folder?",a:"The res folder stores all non-code resources: layouts (UI), drawables (images), mipmaps (launcher icons) and values (strings, colors, themes). Resources get IDs in the R class and can be reused and translated easily."}
+];
+
+/* ---------- quiz render ---------- */
+function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
+var answered={};
+function renderMCQ(){
+  var c=document.getElementById('mcq');c.innerHTML='';
+  MCQ.forEach(function(m,i){
+    var h='<div class="q" id="mq'+i+'"><b>'+(i+1)+'. '+m.q+'</b>';
+    m.o.forEach(function(o,j){h+='<label><input type="radio" name="m'+i+'" value="'+j+'"> '+String.fromCharCode(65+j)+') '+o+'</label>';});
+    h+='<div class="fb" id="mf'+i+'"></div></div>';
+    c.appendChild(el(h));
+  });
+  MCQ.forEach(function(m,i){
+    document.querySelectorAll('input[name="m'+i+'"]').forEach(function(r){r.addEventListener('change',function(){checkMCQ(i);});});
+  });
+}
+function checkMCQ(i){
+  var m=MCQ[i],sel=document.querySelector('input[name="m'+i+'"]:checked'),fb=document.getElementById('mf'+i);
+  var labels=document.querySelectorAll('#mq'+i+' label');
+  labels.forEach(function(l){l.classList.remove('ok','bad');});
+  if(!sel){fb.textContent='Not answered. Correct answer: '+String.fromCharCode(65+m.a)+') '+m.o[m.a];return false;}
+  var v=parseInt(sel.value,10);
+  if(v===m.a){sel.parentNode.classList.add('ok');fb.textContent='✔ Correct. '+m.e;return true;}
+  sel.parentNode.classList.add('bad');labels[m.a].classList.add('ok');
+  fb.textContent='✘ Wrong. Correct answer: '+String.fromCharCode(65+m.a)+') '+m.o[m.a]+'. '+m.e;return false;
+}
+function renderFill(){
+  var c=document.getElementById('fill');c.innerHTML='';
+  FILL.forEach(function(f,i){
+    c.appendChild(el('<div class="q"><b>'+(i+1)+'. '+f.q+'</b><br><input type="text" id="fi'+i+'" autocomplete="off" aria-label="Answer '+(i+1)+'"> <button class="btn sec2" data-f="'+i+'">Check</button><div class="fb" id="ff'+i+'"></div></div>'));
+  });
+  c.querySelectorAll('button[data-f]').forEach(function(b){b.addEventListener('click',function(){checkFill(parseInt(b.getAttribute('data-f'),10));});});
+}
+function checkFill(i){
+  var inp=document.getElementById('fi'+i),fb=document.getElementById('ff'+i),v=inp.value.trim().toLowerCase();
+  inp.classList.remove('ok','bad');
+  if(!v){fb.textContent='Not answered. Answer: '+FILL[i].e;return false;}
+  if(FILL[i].a.indexOf(v)>-1){fb.textContent='✔ Correct.';fb.style.color='var(--green)';return true;}
+  fb.textContent='✘ Wrong. Answer: '+FILL[i].e;fb.style.color='var(--warn)';return false;
+}
+function renderTF(){
+  var c=document.getElementById('tf');c.innerHTML='';
+  TF.forEach(function(t,i){
+    c.appendChild(el('<div class="q" id="tq'+i+'"><b>'+(i+1)+'. '+t.q+'</b><label><input type="radio" name="t'+i+'" value="1"> True</label><label><input type="radio" name="t'+i+'" value="0"> False</label><div class="fb" id="tf'+i+'"></div></div>'));
+  });
+  TF.forEach(function(t,i){document.querySelectorAll('input[name="t'+i+'"]').forEach(function(r){r.addEventListener('change',function(){checkTF(i);});});});
+}
+function checkTF(i){
+  var sel=document.querySelector('input[name="t'+i+'"]:checked'),fb=document.getElementById('tf'+i),t=TF[i];
+  var labels=document.querySelectorAll('#tq'+i+' label');labels.forEach(function(l){l.classList.remove('ok','bad');});
+  if(!sel){fb.textContent='Not answered. Answer: '+(t.a?'True':'False')+'. '+t.e;return false;}
+  var v=sel.value==='1';
+  if(v===t.a){sel.parentNode.classList.add('ok');fb.textContent='✔ Correct. '+t.e;return true;}
+  sel.parentNode.classList.add('bad');fb.textContent='✘ Wrong. Answer: '+(t.a?'True':'False')+'. '+t.e;return false;
+}
+function renderShort(){
+  var c=document.getElementById('short');c.innerHTML='';
+  SHORT.forEach(function(s,i){
+    c.appendChild(el('<div class="q"><b>'+(i+1)+'. '+s.q+'</b><br><textarea rows="2" style="width:100%;margin-top:6px;padding:6px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text)" placeholder="Write your answer here, then compare…"></textarea><button class="btn sec2" data-s="'+i+'">Show model answer</button><div class="fb" id="sf'+i+'" style="display:none"></div></div>'));
+  });
+  c.querySelectorAll('button[data-s]').forEach(function(b){b.addEventListener('click',function(){
+    var i=parseInt(b.getAttribute('data-s'),10),d=document.getElementById('sf'+i);
+    d.style.display=d.style.display==='none'?'block':'none';d.innerHTML='<b>Model answer:</b> '+SHORT[i].a;
+  });});
+}
+function renderAll(){renderMCQ();renderFill();renderTF();renderShort();document.getElementById('score').textContent='Score: –';}
+renderAll();
+var best=sget('andu1_best',null);
+if(best){document.getElementById('bestscore').textContent='Your best score: '+best;}
+document.getElementById('checkall').addEventListener('click',function(){
+  var s=0,total=MCQ.length+FILL.length+TF.length;
+  MCQ.forEach(function(m,i){if(checkMCQ(i))s++;});
+  FILL.forEach(function(f,i){if(checkFill(i))s++;});
+  TF.forEach(function(t,i){if(checkTF(i))s++;});
+  var pct=Math.round(s*100/total),msg=pct>=80?'Excellent! 🎉':pct>=50?'Good, revise weak topics.':'Needs more practice – re-read the notes.';
+  document.getElementById('score').textContent='Score: '+s+' / '+total+' ('+pct+'%) – '+msg;
+  var b=parseInt(sget('andu1_bestnum','-1'),10);
+  if(s>b){sset('andu1_bestnum',String(s));sset('andu1_best',s+' / '+total);document.getElementById('bestscore').textContent='Your best score: '+s+' / '+total;}
+});
+document.getElementById('resetquiz').addEventListener('click',renderAll);
+})();
+</script>
+</body>
+</html>
