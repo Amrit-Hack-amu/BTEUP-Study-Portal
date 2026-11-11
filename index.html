@@ -38,8 +38,132 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow-x: hidden;
     }
 
+    /* =========================================
+       CUSTOM PRELOADER ANIMATION
+       ========================================= */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: #090d16;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+    }
+
+    #preloader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-stage {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 140px;
+    }
+
+    /* Phase 1: Bounce Wave of 3 Dots */
+    .dots-box {
+      display: flex;
+      align-items: center;
+      gap: 24px; /* Pehle 16px tha */
+      transition: opacity 0.4s ease;
+    }
+
+    .dot {
+      width: 32px;  /* Pehle 22px tha */
+      height: 32px; /* Pehle 22px tha */
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 24px rgba(56, 189, 248, 0.9), 0 0 45px rgba(56, 189, 248, 0.5);
+      animation: bounceWave 1.1s infinite ease-in-out;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: 0.18s;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: 0.36s;
+    }
+
+    @keyframes bounceWave {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-26px);
+      }
+    }
+
+    /* Phase 2: Dot + Minus Transition (. -) */
+    .dots-box.morphing .dot {
+      animation: none;
+    }
+
+    .dots-box.morphing .dot:nth-child(2) {
+      width: 80px;  /* Pehle 58px tha */
+      height: 20px; /* Pehle 14px tha */
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      box-shadow: 0 0 28px rgba(129, 140, 248, 0.95);
+      transform: translateX(8px);
+    }
+
+    .dots-box.morphing .dot:nth-child(3) {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+      transform: translateX(-15px);
+    }
+
+    /* Phase 3: Logo Reveal */
+    .loader-logo-wrapper {
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.65);
+      transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .loader-logo-wrapper.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .loader-logo-img {
+      width: 160px;  /* Pehle 110px tha */
+      height: 160px; /* Pehle 110px tha */
+      border-radius: 32px;
+      box-shadow: 0 0 45px rgba(56, 189, 248, 0.75), 0 0 80px rgba(129, 140, 248, 0.45);
+      object-fit: cover;
+    }
+
+    .loader-tagline {
+      margin-top: 18px;
+      font-size: 1.25rem; /* Pehle 0.95rem tha */
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    /* =========================================
+       MAIN PORTAL LAYOUT
+       ========================================= */
     .container {
       width: 100%;
       max-width: 1100px;
@@ -100,7 +224,6 @@
       margin: 0 auto 1.5rem;
     }
 
-    /* Filters Bar */
     .filter-bar {
       display: flex;
       gap: 0.75rem;
@@ -218,7 +341,6 @@
       color: var(--practical-accent);
     }
 
-    /* In-Browser Document Viewer Modal */
     .viewer-overlay {
       display: none;
       position: fixed;
@@ -248,7 +370,6 @@
       border-radius: 0 0 12px 12px;
     }
 
-    /* Admin Modal */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -414,6 +535,21 @@
 </head>
 <body>
 
+  <!-- Dynamic Animated Preloader -->
+  <div id="preloader">
+    <div class="loader-stage">
+      <div class="dots-box" id="dotsBox">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="loader-logo-wrapper" id="loaderLogo">
+        <img src="logo.png" alt="BTEUP Logo" class="loader-logo-img">
+        <span class="loader-tagline">BTEUP Portal</span>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <div class="top-bar">
       <button class="admin-btn" onclick="openAdminModal()">⚙ Portal Admin</button>
@@ -436,8 +572,8 @@
         </select>
 
         <select id="semFilter" class="filter-select" onchange="applyFilters()">
-          <option value="all">All Semesters</option>
-          <option value="5th Sem" selected>5th Semester</option>
+          <option value="all" selected>All Semesters</option>
+          <option value="5th Sem">5th Semester</option>
           <option value="1st Sem">1st Semester</option>
           <option value="2nd Sem">2nd Semester</option>
           <option value="3rd Sem">3rd Semester</option>
@@ -446,9 +582,10 @@
         </select>
 
         <select id="subFilter" class="filter-select" onchange="applyFilters()">
-          <option value="all">All Subjects</option>
-          <option value="Core Subjects" selected>Core Subjects</option>
+          <option value="all" selected>All Subjects</option>
+          <option value="Core Subjects">Core Subjects</option>
           <option value="Information Security">Information Security</option>
+          <option value="Mobile App Development">Mobile App Development</option>
           <option value="Programming">Programming / Lab</option>
           <option value="General">General / Electives</option>
         </select>
@@ -532,7 +669,7 @@
         </div>
         <div class="form-group">
           <label>Subject</label>
-          <input type="text" id="newItemSub" class="form-control" placeholder="e.g. Core Subjects, Java, DBMS">
+          <input type="text" id="newItemSub" class="form-control" placeholder="e.g. Information Security, Java, DBMS">
         </div>
         <div class="form-group">
           <label>Unit / Tag</label>
@@ -619,101 +756,132 @@
         <button class="action-btn" onclick="saveEditedItem()">Update Notes</button>
         <button class="action-btn cancel-btn" onclick="cancelEdit()">Cancel</button>
       </div>
-
     </div>
   </div>
 
   <script>
+    // =========================================
+    // LOADER ORCHESTRATION SCRIPT
+    // =========================================
+    window.addEventListener('DOMContentLoaded', () => {
+      const dotsBox = document.getElementById('dotsBox');
+      const loaderLogo = document.getElementById('loaderLogo');
+      const preloader = document.getElementById('preloader');
+
+      // Step 1: Dots bounce for 1.6s
+      setTimeout(() => {
+        // Step 2: Dots morph into (. -)
+        dotsBox.classList.add('morphing');
+      }, 1600);
+
+      // Step 3: Morph fades out, Logo glows in
+      setTimeout(() => {
+        dotsBox.style.opacity = '0';
+        setTimeout(() => {
+          dotsBox.style.display = 'none';
+          loaderLogo.classList.add('active');
+        }, 300);
+      }, 2700);
+
+      // Step 4: Preloader lifts, website reveals
+      setTimeout(() => {
+        preloader.classList.add('hide');
+      }, 4200);
+    });
+
+    // =========================================
+    // PORTAL DATA & ENGINE
+    // =========================================
     const ADMIN_PASS_HASH = "cc91356c406719b8c7ad1411e419ed65b44abd1eb0d8568b7cae963b3b403a1d";
 
     const DEFAULT_DATA = [
-  {
-    "id": 1,
-    "branch": "CSE",
-    "sem": "5th Sem",
-    "sub": "Informatiom Security",
-    "tag": "Unit 01",
-    "title": "Unit 1 Notes",
-    "file": "unit1.html",
-    "desc": "Complete theoretical concepts, definitions, and core fundamentals.",
-    "type": "theory",
-    "visible": true
-  },
-  {
-    "id": 2,
-    "branch": "CSE",
-    "sem": "5th Sem",
-    "sub": "Information Security",
-    "tag": "Unit 02",
-    "title": "Unit 2 Notes",
-    "file": "unit2.html",
-    "desc": "Detailed explanations, architecture diagrams, and essential exam topics.",
-    "type": "theory",
-    "visible": true
-  },
-  {
-    "id": 3,
-    "branch": "CSE",
-    "sem": "5th Sem",
-    "sub": "Information Security",
-    "tag": "Unit 03",
-    "title": "Unit 3 Notes",
-    "file": "unit3.html",
-    "desc": "Core models, operations, step-by-step methodologies, and examples.",
-    "type": "theory",
-    "visible": true
-  },
-  {
-    "id": 4,
-    "branch": "CSE",
-    "sem": "5th Sem",
-    "sub": "Information Security",
-    "tag": "Unit 04",
-    "title": "Unit 4 Notes",
-    "file": "unit4.html",
-    "desc": "Advanced modules, practical implications, and previous year questions.",
-    "type": "theory",
-    "visible": true
-  },
-  {
-    "id": 5,
-    "branch": "CSE",
-    "sem": "5th Sem",
-    "sub": "Information Security",
-    "tag": "Unit 05",
-    "title": "Unit 5 Notes",
-    "file": "unit5.html",
-    "desc": "Final unit topics, security aspects, modern trends, and revision points.",
-    "type": "theory",
-    "visible": true
-  },
-  {
-    "id": 6,
-    "branch": "CSE",
-    "sem": "5th Sem",
-    "sub": "Programming",
-    "tag": "Lab File",
-    "title": "Lab Practical File",
-    "file": "practical.html",
-    "desc": "Step-by-step experiment outputs, code scripts, and viva questions.",
-    "type": "practical",
-    "visible": true
-  },
-  {
-    "id": 1794317532739,
-    "branch": "CSE",
-    "sem": "5th Sem",
-    "sub": "Information Security",
-    "tag": "PDF",
-    "title": "Unit 1 PDF Notes",
-    "file": "unit1English.pdf",
-    "desc": "Complete theoretical concepts, definitions, and core fundamentals.",
-    "type": "theory",
-    "visible": true
-  }
-];
+      {
+        "id": 1,
+        "branch": "CSE",
+        "sem": "5th Sem",
+        "sub": "Core Subjects",
+        "tag": "Unit 01",
+        "title": "Unit 1 Notes",
+        "file": "unit1.html",
+        "desc": "Complete theoretical concepts, definitions, and core fundamentals.",
+        "type": "theory",
+        "visible": true
+      },
+      {
+        "id": 2,
+        "branch": "CSE",
+        "sem": "5th Sem",
+        "sub": "Core Subjects",
+        "tag": "Unit 02",
+        "title": "Unit 2 Notes",
+        "file": "unit2.html",
+        "desc": "Detailed explanations, architecture diagrams, and essential exam topics.",
+        "type": "theory",
+        "visible": true
+      },
+      {
+        "id": 3,
+        "branch": "CSE",
+        "sem": "5th Sem",
+        "sub": "Core Subjects",
+        "tag": "Unit 03",
+        "title": "Unit 3 Notes",
+        "file": "unit3.html",
+        "desc": "Core models, operations, step-by-step methodologies, and examples.",
+        "type": "theory",
+        "visible": true
+      },
+      {
+        "id": 4,
+        "branch": "CSE",
+        "sem": "5th Sem",
+        "sub": "Core Subjects",
+        "tag": "Unit 04",
+        "title": "Unit 4 Notes",
+        "file": "unit4.html",
+        "desc": "Advanced modules, practical implications, and previous year questions.",
+        "type": "theory",
+        "visible": true
+      },
+      {
+        "id": 5,
+        "branch": "CSE",
+        "sem": "5th Sem",
+        "sub": "Core Subjects",
+        "tag": "Unit 05",
+        "title": "Unit 5 Notes",
+        "file": "unit5.html",
+        "desc": "Final unit topics, security aspects, modern trends, and revision points.",
+        "type": "theory",
+        "visible": true
+      },
+      {
+        "id": 6,
+        "branch": "CSE",
+        "sem": "5th Sem",
+        "sub": "Programming",
+        "tag": "Lab File",
+        "title": "Lab Practical File",
+        "file": "practical.html",
+        "desc": "Step-by-step experiment outputs, code scripts, and viva questions.",
+        "type": "practical",
+        "visible": true
+      },
+      {
+        "id": 1794317532739,
+        "branch": "CSE",
+        "sem": "5th Sem",
+        "sub": "Information Security",
+        "tag": "PDF",
+        "title": "Unit 1",
+        "file": "unit1English.pdf",
+        "desc": "Complete theoretical concepts, definitions, and core fundamentals.",
+        "type": "theory",
+        "visible": true
+      }
+    ];
 
-    let portalData = JSON.parse(localStorage.getItem('portal_notes_data_v4')) || DEFAULT_DATA;
+    let portalData = JSON.parse(localStorage.getItem('portal_notes_data_v5')) || DEFAULT_DATA;
 
     async function sha256(message) {
       const msgBuffer = new TextEncoder().encode(message);
@@ -912,7 +1080,7 @@
     }
 
     function saveData() {
-      localStorage.setItem('portal_notes_data_v4', JSON.stringify(portalData));
+      localStorage.setItem('portal_notes_data_v5', JSON.stringify(portalData));
       applyFilters();
     }
 
