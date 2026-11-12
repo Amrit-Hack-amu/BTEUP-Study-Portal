@@ -46,6 +46,7 @@ BTEUP-Study-Portal/
 ├── IS_Unit*_Notes_*.pdf              # Information Security English & Hinglish PDFs
 ├── MAD_Unit*_Notes_*.pdf             # Mobile Application Development PDFs
 └── README.md                         # Project documentation
+```
 
 ## 🛠️ Tech Stack
 
@@ -60,14 +61,15 @@ BTEUP-Study-Portal/
 1. Open the live portal and click **⚙ Portal Admin** in the top-right corner.
 2. Authenticate using your admin key to toggle visibility, edit categories, or register newly uploaded files.
 3. Click **📋 Copy Config for VS Code**, replace the `DEFAULT_DATA` array inside `index.html`, place the corresponding `.html` or `.pdf` files in the root folder, and push to `main`:
-   ```bash
    git add .
    git commit -m "Update study materials"
    git push origin main
 
-👨‍💻 Author
-Amrit Kumar Singh
+---
 
-- GitHub: @Amrit-Hack-amu
+## 👨‍💻 Author
 
-- LinkedIn: Amrit Kumar Singh
+### Amrit Kumar Singh
+
+[![GitHub](https://img.shields.io/badge/GitHub-@Amrit--Hack--amu-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Amrit-Hack-amu)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Amrit_Kumar_Singh-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amrit-kumar-singh-)
