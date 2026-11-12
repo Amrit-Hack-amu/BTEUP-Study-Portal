@@ -608,6 +608,12 @@
 
     <footer>
       <p>Prepared for BTEUP Technical Examinations</p>
+      
+      <!-- Automatic Live Visitor Counter -->
+      <div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 6px 16px; border-radius: 9999px; font-size: 0.88rem; color: var(--primary); font-weight: 500;">
+        <span>👁️ Total Portal Views:</span>
+        <strong id="visitorCount" style="color: #f8fafc; font-size: 0.95rem;">Loading...</strong>
+      </div>
     </footer>
   </div>
 
@@ -1314,6 +1320,33 @@
     }
 
     applyFilters();
+
+    // =========================================
+    // AUTOMATIC REAL-TIME VISITOR COUNTER
+    // =========================================
+    async function updateVisitorCount() {
+      const countElement = document.getElementById('visitorCount');
+      try {
+        // Unique namespace for Amrit's BTEUP Portal
+        const response = await fetch('https://api.counterapi.dev/v1/amrit-bteup-study-portal/visits/up');
+        const data = await response.json();
+        
+        if (data && data.count) {
+          // Format number with commas (e.g. 1,245)
+          countElement.innerText = data.count.toLocaleString('en-IN');
+        } else {
+          countElement.innerText = '1';
+        }
+      } catch (error) {
+        // Fallback agar offline ya ad-blocker active ho
+        let localViews = parseInt(localStorage.getItem('fallback_views') || '100') + 1;
+        localStorage.setItem('fallback_views', localViews);
+        countElement.innerText = localViews.toLocaleString('en-IN');
+      }
+    }
+
+    // Page load hote hi counter call karein
+    updateVisitorCount();
   </script>
 </body>
 </html>
