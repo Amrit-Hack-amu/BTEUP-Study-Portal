@@ -69,10 +69,10 @@ BTEUP-Study-Portal/
 
 ## 👨‍💻 Author
 
-### Amrit Kumar Singh
+### Amuiyu
 <!-- 
 [![GitHub](https://img.shields.io/badge/GitHub-@Amrit--Hack--amu-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Amrit-Hack-amu)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Amrit_Kumar_Singh-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amrit-kumar-singh-) -->
-
+<!-- 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Amrit-Hack-amu)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amrit-kumar-singh-)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amrit-kumar-singh-) -->
