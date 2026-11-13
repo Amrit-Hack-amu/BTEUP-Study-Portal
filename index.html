@@ -531,6 +531,50 @@
       width: 100%;
       margin-top: auto;
     }
+    /* Like Button Widget */
+    .like-box {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .like-prompt {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      color: #fb7185;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .like-btn:hover:not(:disabled) {
+      background: rgba(244, 63, 94, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+    }
+
+    .like-btn.liked,
+    .like-btn:disabled {
+      background: #f43f5e;
+      border-color: #f43f5e;
+      color: #ffffff;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 0 18px rgba(244, 63, 94, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -608,9 +652,20 @@
 
     <footer>
       <p>Prepared for BTEUP Technical Examinations</p>
-      
-      <!-- 100% Working Real-Time Visitor Counter -->
-      <div style="margin-top: 14px; display: flex; justify-content: center;">
+
+      <!-- Permanent Like Button Section -->
+      <div class="like-box">
+        <span class="like-prompt">If you like this portal, please press the like button ❤️</span>
+        <button id="likeBtn" class="like-btn" onclick="handleLike()">
+          <span id="likeIcon">🤍</span>
+          <span id="likeText">Like</span>
+          <span>&bull;</span>
+          <strong id="likeCount">...</strong>
+        </button>
+      </div>
+
+      <!-- Real-Time Visitor Counter -->
+      <div style="margin-top: 16px; display: flex; justify-content: center;">
         <img 
           src="https://hits.sh/amrit-hack-amu.github.io/BTEUP-Study-Portal.svg?view=today-total&style=for-the-badge&label=Total%20Views&extraCount=1&color=38bdf8&labelColor=1e293b" 
           alt="Total Portal Views"
@@ -1323,6 +1378,73 @@
     }
 
     applyFilters();
+
+    // =========================================
+    // PERMANENT LIKE BUTTON LOGIC
+    // =========================================
+    const LIKE_API_BASE = 'https://api.counterapi.dev/v1/amrit-bteup-portal-likes/likes';
+    const LIKE_STORAGE_KEY = 'bteup_portal_user_liked_v1';
+
+    async function initLikes() {
+      const btn = document.getElementById('likeBtn');
+      const countEl = document.getElementById('likeCount');
+      const iconEl = document.getElementById('likeIcon');
+      const textEl = document.getElementById('likeText');
+
+      // Check agar user pehle hi like kar chuka hai
+      if (localStorage.getItem(LIKE_STORAGE_KEY) === 'true') {
+        btn.classList.add('liked');
+        btn.disabled = true;
+        iconEl.innerText = '❤️';
+        textEl.innerText = 'Liked';
+      }
+
+      // Current total likes fetch karein (bina increment kiye)
+      try {
+        const res = await fetch(LIKE_API_BASE);
+        const data = await res.json();
+        const total = data.count || 0;
+        localStorage.setItem('cached_like_count', total);
+        countEl.innerText = total.toLocaleString('en-IN');
+      } catch (e) {
+        countEl.innerText = localStorage.getItem('cached_like_count') || '1';
+      }
+    }
+
+    async function handleLike() {
+      // Double check: agar pehle liked hai toh kuch na karein
+      if (localStorage.getItem(LIKE_STORAGE_KEY) === 'true') return;
+
+      const btn = document.getElementById('likeBtn');
+      const countEl = document.getElementById('likeCount');
+      const iconEl = document.getElementById('likeIcon');
+      const textEl = document.getElementById('likeText');
+
+      // Turant lock aur UI update karein taaki double-click na ho
+      localStorage.setItem(LIKE_STORAGE_KEY, 'true');
+      btn.classList.add('liked');
+      btn.disabled = true;
+      iconEl.innerText = '❤️';
+      textEl.innerText = 'Liked';
+
+      const currentVal = parseInt(countEl.innerText.replace(/,/g, '')) || 0;
+      countEl.innerText = (currentVal + 1).toLocaleString('en-IN');
+
+      // Server par +1 increment bhejein
+      try {
+        const res = await fetch(`${LIKE_API_BASE}/up`);
+        const data = await res.json();
+        if (data && typeof data.count === 'number') {
+          localStorage.setItem('cached_like_count', data.count);
+          countEl.innerText = data.count.toLocaleString('en-IN');
+        }
+      } catch (e) {
+        localStorage.setItem('cached_like_count', currentVal + 1);
+      }
+    }
+
+    // Page load par likes initialize karein
+    initLikes();
   </script>
 </body>
 </html>
