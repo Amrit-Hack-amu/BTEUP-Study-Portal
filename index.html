@@ -531,50 +531,6 @@
       width: 100%;
       margin-top: auto;
     }
-    /* Like Button Widget */
-    .like-box {
-      margin-top: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .like-prompt {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .like-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(244, 63, 94, 0.12);
-      border: 1px solid rgba(244, 63, 94, 0.4);
-      color: #fb7185;
-      padding: 8px 18px;
-      border-radius: 9999px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .like-btn:hover:not(:disabled) {
-      background: rgba(244, 63, 94, 0.25);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
-    }
-
-    .like-btn.liked,
-    .like-btn:disabled {
-      background: #f43f5e;
-      border-color: #f43f5e;
-      color: #ffffff;
-      cursor: default;
-      transform: none;
-      box-shadow: 0 0 18px rgba(244, 63, 94, 0.5);
-    }
   </style>
 </head>
 <body>
@@ -652,22 +608,11 @@
 
     <footer>
       <p>Prepared for BTEUP Technical Examinations</p>
-
-      <!-- Footer me Like Box -->
-      <div class="like-box">
-        <span class="like-prompt">If you like this portal, please press the like button ❤️</span>
-        <button id="likeBtn" class="like-btn" onclick="handleLike()">
-          <span id="likeIcon">🤍</span>
-          <span id="likeText">Like</span>
-          <span>&bull;</span>
-          <strong id="likeCount">0</strong>
-        </button>
-      </div>
-
-      <!-- Real-Time Visitor Counter -->
-      <div style="margin-top: 16px; display: flex; justify-content: center;">
+      
+      <!-- 100% Working Real-Time Visitor Counter -->
+      <div style="margin-top: 14px; display: flex; justify-content: center;">
         <img 
-          src="https://hits.sh/amuiyu-hack-amu.github.io/BTEUP-Study-Portal.svg?view=today-total&style=for-the-badge&label=Total%20Views&extraCount=1&color=38bdf8&labelColor=1e293b" 
+          src="https://hits.sh/amrit-hack-amu.github.io/BTEUP-Study-Portal.svg?view=today-total&style=for-the-badge&label=Total%20Views&extraCount=1&color=38bdf8&labelColor=1e293b" 
           alt="Total Portal Views"
           style="border-radius: 8px; height: 28px;"
         />
@@ -1378,56 +1323,6 @@
     }
 
     applyFilters();
-
-    const LIKE_API = 'https://api.counterapi.dev/v1/amuiyu-bteup-portal/likes';
-    const LIKE_KEY = 'amuiyu_user_liked_exact';
-
-    async function loadLikes() {
-      const btn = document.getElementById('likeBtn');
-      const countEl = document.getElementById('likeCount');
-
-      if (localStorage.getItem(LIKE_KEY) === 'true') {
-        btn.classList.add('liked');
-        btn.disabled = true;
-        document.getElementById('likeIcon').innerText = '❤️';
-        document.getElementById('likeText').innerText = 'Liked';
-      }
-
-      try {
-        const res = await fetch(LIKE_API);
-        const data = await res.json();
-        if (data && typeof data.count === 'number') {
-          countEl.innerText = data.count;
-        }
-      } catch (e) {
-        console.log('Waiting for first like');
-      }
-    }
-
-    async function handleLike() {
-      if (localStorage.getItem(LIKE_KEY) === 'true') return;
-
-      const btn = document.getElementById('likeBtn');
-      const countEl = document.getElementById('likeCount');
-
-      localStorage.setItem(LIKE_KEY, 'true');
-      btn.classList.add('liked');
-      btn.disabled = true;
-      document.getElementById('likeIcon').innerText = '❤️';
-      document.getElementById('likeText').innerText = 'Liked';
-
-      try {
-        const res = await fetch(`${LIKE_API}/up`);
-        const data = await res.json();
-        if (data && typeof data.count === 'number') {
-          countEl.innerText = data.count; // Exact server count (e.g. 5 -> 6)
-        }
-      } catch (e) {
-        countEl.innerText = (parseInt(countEl.innerText) || 0) + 1;
-      }
-    }
-
-    loadLikes();
   </script>
 </body>
 </html>
