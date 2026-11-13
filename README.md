@@ -3,7 +3,6 @@
 [![Live Demo](https://img.shields.io/badge/Live_Portal-Visit_Site-38bdf8?style=for-the-badge&logo=githubpages&logoColor=white)](https://amuiyu-hack-amu.github.io/BTEUP-Study-Portal/)
 [![Repo Size](https://img.shields.io/github/repo-size/Amuiyu-Hack-amu/BTEUP-Study-Portal?style=for-the-badge&color=818cf8)](https://github.com/Amuiyu-Hack-amu/BTEUP-Study-Portal)
 [![Total Views](https://hits.sh/amuiyu-hack-amu.github.io/BTEUP-Study-Portal.svg?view=today-total&style=for-the-badge&label=Views&color=34d399&labelColor=1e293b)](https://amuiyu-hack-amu.github.io/BTEUP-Study-Portal/)
-
 A fast, responsive, and interactive static web portal built for **BTEUP (Board of Technical Education, Uttar Pradesh)** diploma students to access unit-wise theory notes, bilingual PDFs (English & Hinglish), and lab practical files directly in the browser.
 
 ---
@@ -73,6 +72,6 @@ BTEUP-Study-Portal/
 <!-- 
 [![GitHub](https://img.shields.io/badge/GitHub-@Amuiyu--Hack--amu-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Amuiyu-Hack-amu)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Amrit_Kumar_Singh-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amrit-kumar-singh-) -->
-
+<!-- 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Amuiyu-Hack-amu)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amrit-kumar-singh-)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/amrit-kumar-singh-) -->
