@@ -653,14 +653,14 @@
     <footer>
       <p>Prepared for BTEUP Technical Examinations</p>
 
-      <!-- Permanent Global Like Button Section -->
+      <!-- Footer me Like Box -->
       <div class="like-box">
         <span class="like-prompt">If you like this portal, please press the like button ❤️</span>
         <button id="likeBtn" class="like-btn" onclick="handleLike()">
           <span id="likeIcon">🤍</span>
           <span id="likeText">Like</span>
           <span>&bull;</span>
-          <strong id="likeCount">1</strong>
+          <strong id="likeCount">0</strong>
         </button>
       </div>
 
@@ -1379,96 +1379,55 @@
 
     applyFilters();
 
-    // =========================================
-    // GLOBAL PERMANENT LIKE COUNTER (NO RESET)
-    // =========================================
-    const LIKE_NAMESPACE = 'amuiyu-bteup-portal-likes-v2';
-    const LIKE_KEY = 'total_likes';
-    const LIKE_API_URL = `https://api.counterapi.dev/v1/${LIKE_NAMESPACE}/${LIKE_KEY}`;
-    const LIKE_STORAGE_KEY = 'bteup_portal_user_liked_v2';
+    const LIKE_API = 'https://api.counterapi.dev/v1/amuiyu-bteup-portal/likes';
+    const LIKE_KEY = 'amuiyu_user_liked_exact';
 
-    async function initLikes() {
+    async function loadLikes() {
       const btn = document.getElementById('likeBtn');
       const countEl = document.getElementById('likeCount');
-      const iconEl = document.getElementById('likeIcon');
-      const textEl = document.getElementById('likeText');
 
-      // Check local state: agar user pehle like kar chuka hai toh button lock rakhein
-      const alreadyLiked = localStorage.getItem(LIKE_STORAGE_KEY) === 'true';
-      if (alreadyLiked) {
+      if (localStorage.getItem(LIKE_KEY) === 'true') {
         btn.classList.add('liked');
         btn.disabled = true;
-        iconEl.innerText = '❤️';
-        textEl.innerText = 'Liked';
+        document.getElementById('likeIcon').innerText = '❤️';
+        document.getElementById('likeText').innerText = 'Liked';
       }
 
-      // Pehle local cached value dikhayein taaki kabhi 0 na dikhe
-      let savedCount = parseInt(localStorage.getItem('cached_global_likes') || '0');
-      if (alreadyLiked && savedCount < 1) savedCount = 1;
-      if (savedCount > 0) {
-        countEl.innerText = savedCount.toLocaleString('en-IN');
-      }
-
-      // Server se latest global count fetch karein
       try {
-        const res = await fetch(`${LIKE_API_URL}?t=${Date.now()}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && typeof data.count === 'number') {
-            // Agar user ne locally like kiya hai par server abhi sync nahi hua, toh higher value rakhein
-            const finalCount = Math.max(data.count, savedCount);
-            localStorage.setItem('cached_global_likes', finalCount);
-            countEl.innerText = finalCount.toLocaleString('en-IN');
-          }
+        const res = await fetch(LIKE_API);
+        const data = await res.json();
+        if (data && typeof data.count === 'number') {
+          countEl.innerText = data.count;
         }
-      } catch (err) {
-        // Offline ya network block hone par cached value hi bani rahegi
+      } catch (e) {
+        console.log('Waiting for first like');
       }
     }
 
     async function handleLike() {
-      if (localStorage.getItem(LIKE_STORAGE_KEY) === 'true') return;
+      if (localStorage.getItem(LIKE_KEY) === 'true') return;
 
       const btn = document.getElementById('likeBtn');
       const countEl = document.getElementById('likeCount');
-      const iconEl = document.getElementById('likeIcon');
-      const textEl = document.getElementById('likeText');
 
-      // 1. Turant button lock karein (User dobara remove/unlike nahi kar sakta)
-      localStorage.setItem(LIKE_STORAGE_KEY, 'true');
+      localStorage.setItem(LIKE_KEY, 'true');
       btn.classList.add('liked');
       btn.disabled = true;
-      iconEl.innerText = '❤️';
-      textEl.innerText = 'Liked';
+      document.getElementById('likeIcon').innerText = '❤️';
+      document.getElementById('likeText').innerText = 'Liked';
 
-      // 2. Screen aur cache me +1 badhayein
-      const currentVal = parseInt(countEl.innerText.replace(/,/g, '')) || 0;
-      const nextVal = currentVal + 1;
-      localStorage.setItem('cached_global_likes', nextVal);
-      countEl.innerText = nextVal.toLocaleString('en-IN');
-
-      // 3. Server par permanent +1 increment bhejein (Dual-ping for 100% reliability)
       try {
-        // Backup ping via hits.sh (Never blocked by CORS)
-        const pingImg = new Image();
-        pingImg.src = `https://hits.sh/amuiyu-hack-amu.github.io/BTEUP-Study-Portal-Likes.svg?t=${Date.now()}`;
-
-        // Primary API increment
-        const res = await fetch(`${LIKE_API_URL}/up?t=${Date.now()}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && typeof data.count === 'number') {
-            const finalCount = Math.max(data.count, nextVal);
-            localStorage.setItem('cached_global_likes', finalCount);
-            countEl.innerText = finalCount.toLocaleString('en-IN');
-          }
+        const res = await fetch(`${LIKE_API}/up`);
+        const data = await res.json();
+        if (data && typeof data.count === 'number') {
+          countEl.innerText = data.count; // Exact server count (e.g. 5 -> 6)
         }
       } catch (e) {
-        // Local cache already saved
+        countEl.innerText = (parseInt(countEl.innerText) || 0) + 1;
       }
     }
 
-    initLikes();
+    loadLikes();
   </script>
 </body>
 </html>
